@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">db_bandara</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="catatan_mutu" view="colnames">
+<left>259</left>
+<top>0</top>
+<width>127</width>
+<height>248</height>
+<sql_create_table>CREATE TABLE `catatan_mutu` (
+  `id_catatan` int(3) NOT NULL AUTO_INCREMENT,
+  `judul` varchar(50) DEFAULT NULL,
+  `id_status_cm` int(3) DEFAULT NULL,
+  `masa_berlaku` date DEFAULT NULL,
+  `lokasi_simpan` varchar(50) DEFAULT NULL,
+  `file` varchar(255) DEFAULT NULL,
+  `keterangan` text,
+  `entry_date` datetime DEFAULT NULL,
+  `id_metode` int(3) DEFAULT NULL,
+  `id_admin` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id_catatan`),
+  KEY `id_metode` (`id_metode`),
+  KEY `status_cm` (`id_status_cm`),
+  KEY `id_admin` (`id_admin`),
+  CONSTRAINT `catatan_mutu_ibfk_2` FOREIGN KEY (`id_metode`) REFERENCES `metode` (`id_metode`),
+  CONSTRAINT `catatan_mutu_ibfk_3` FOREIGN KEY (`id_status_cm`) REFERENCES `status_cm` (`id_status_cm`),
+  CONSTRAINT `catatan_mutu_ibfk_4` FOREIGN KEY (`id_admin`) REFERENCES `tb_admin` (`id_admin`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="metode" view="colnames">
+<left>10</left>
+<top>108</top>
+<width>106</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `metode` (
+  `id_metode` int(3) NOT NULL,
+  `metode` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_metode`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="regulator" view="colnames">
+<left>45</left>
+<top>435</top>
+<width>115</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `regulator` (
+  `id_regulator` int(3) NOT NULL AUTO_INCREMENT,
+  `regulator` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_regulator`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="revisi" view="colnames">
+<left>627</left>
+<top>-20</top>
+<width>94</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `revisi` (
+  `id_revisi` int(3) NOT NULL AUTO_INCREMENT,
+  `revisi` varchar(2) DEFAULT NULL,
+  PRIMARY KEY (`id_revisi`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="status_cm" view="colnames">
+<left>70</left>
+<top>9</top>
+<width>121</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `status_cm` (
+  `id_status_cm` int(3) NOT NULL,
+  `status_cm` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id_status_cm`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="status_dokumen" view="colnames">
+<left>408</left>
+<top>38</top>
+<width>157</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `status_dokumen` (
+  `id_status_dokumen` int(3) NOT NULL,
+  `status_dokumen` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_status_dokumen`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tb_admin" view="colnames">
+<left>450</left>
+<top>239</top>
+<width>103</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `tb_admin` (
+  `id_admin` int(10) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(50) DEFAULT NULL,
+  `id_unit` int(3) DEFAULT NULL,
+  `username` varchar(50) DEFAULT NULL,
+  `password` varchar(10) DEFAULT NULL,
+  `date_user` datetime DEFAULT NULL,
+  `tipe` tinyint(1) DEFAULT NULL,
+  KEY `tipe` (`tipe`),
+  KEY `id_admin` (`id_admin`),
+  KEY `id_unit` (`id_unit`),
+  CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id_unit`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tb_dokumen_baru" view="colnames">
+<left>738</left>
+<top>181</top>
+<width>157</width>
+<height>265</height>
+<sql_create_table>CREATE TABLE `tb_dokumen_baru` (
+  `id_dokumen` int(3) NOT NULL AUTO_INCREMENT,
+  `id_catatan` int(3) DEFAULT NULL,
+  `kode` varchar(255) DEFAULT NULL,
+  `nama_dokumen` varchar(50) DEFAULT NULL,
+  `id_jenis_dokumen` int(10) DEFAULT NULL,
+  `keterangan` varchar(255) DEFAULT NULL,
+  `id_revisi` int(3) DEFAULT NULL,
+  `file` varchar(255) DEFAULT NULL,
+  `id_status_dokumen` int(3) DEFAULT NULL,
+  `entry_date` date DEFAULT NULL,
+  `id_admin` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id_dokumen`),
+  KEY `jenis_dokumen` (`id_jenis_dokumen`),
+  KEY `id_keterangan` (`keterangan`),
+  KEY `status` (`id_status_dokumen`),
+  KEY `revisi` (`id_revisi`),
+  KEY `id_admin` (`id_admin`),
+  KEY `id_catatan` (`id_catatan`),
+  CONSTRAINT `tb_dokumen_baru_ibfk_5` FOREIGN KEY (`id_jenis_dokumen`) REFERENCES `tb_jenis_dokumen` (`id_jenis_dokumen`),
+  CONSTRAINT `tb_dokumen_baru_ibfk_7` FOREIGN KEY (`id_status_dokumen`) REFERENCES `status_dokumen` (`id_status_dokumen`),
+  CONSTRAINT `tb_dokumen_baru_ibfk_8` FOREIGN KEY (`id_revisi`) REFERENCES `revisi` (`id_revisi`),
+  CONSTRAINT `tb_dokumen_baru_ibfk_9` FOREIGN KEY (`id_admin`) REFERENCES `tb_admin` (`id_admin`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tb_instansi" view="colnames">
+<left>47</left>
+<top>284</top>
+<width>106</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `tb_instansi` (
+  `id_instansi` int(3) NOT NULL AUTO_INCREMENT,
+  `instansi` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id_instansi`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tb_jenis_dokumen" view="colnames">
+<left>917</left>
+<top>48</top>
+<width>150</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `tb_jenis_dokumen` (
+  `id_jenis_dokumen` int(10) NOT NULL AUTO_INCREMENT,
+  `jenis_dokumen` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_jenis_dokumen`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="tb_peraturan" view="colnames">
+<left>266</left>
+<top>275</top>
+<width>127</width>
+<height>231</height>
+<sql_create_table>CREATE TABLE `tb_peraturan` (
+  `id_peraturan` int(3) NOT NULL AUTO_INCREMENT,
+  `id_instansi` int(3) DEFAULT NULL,
+  `judul` varchar(50) DEFAULT NULL,
+  `tahun` int(10) DEFAULT NULL,
+  `id_regulator` int(3) DEFAULT NULL,
+  `file` varchar(255) DEFAULT NULL,
+  `entry_date` date DEFAULT NULL,
+  `masa_berlaku` date DEFAULT NULL,
+  `id_admin` int(10) DEFAULT NULL,
+  PRIMARY KEY (`id_peraturan`),
+  KEY `regulator` (`id_regulator`),
+  KEY `nomer` (`id_instansi`),
+  KEY `id_admin` (`id_admin`),
+  CONSTRAINT `tb_peraturan_ibfk_3` FOREIGN KEY (`id_instansi`) REFERENCES `tb_instansi` (`id_instansi`),
+  CONSTRAINT `tb_peraturan_ibfk_5` FOREIGN KEY (`id_regulator`) REFERENCES `regulator` (`id_regulator`),
+  CONSTRAINT `tb_peraturan_ibfk_6` FOREIGN KEY (`id_admin`) REFERENCES `tb_admin` (`id_admin`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="unit" view="colnames">
+<left>593</left>
+<top>334</top>
+<width>84</width>
+<height>112</height>
+<sql_create_table>CREATE TABLE `unit` (
+  `id_unit` int(3) NOT NULL AUTO_INCREMENT,
+  `unit` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_unit`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>

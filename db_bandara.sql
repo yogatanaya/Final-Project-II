@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `catatan_mutu`;
 CREATE TABLE `catatan_mutu` (
   `id_catatan` int(3) NOT NULL AUTO_INCREMENT,
   `judul` varchar(50) DEFAULT NULL,
-  `status_cm` int(3) DEFAULT NULL,
+  `id_status_cm` int(3) DEFAULT NULL,
   `masa_berlaku` date DEFAULT NULL,
   `lokasi_simpan` varchar(50) DEFAULT NULL,
   `file` varchar(255) DEFAULT NULL,
@@ -33,10 +33,10 @@ CREATE TABLE `catatan_mutu` (
   `id_admin` int(10) DEFAULT NULL,
   PRIMARY KEY (`id_catatan`),
   KEY `id_metode` (`id_metode`),
-  KEY `status_cm` (`status_cm`),
+  KEY `status_cm` (`id_status_cm`),
   KEY `id_admin` (`id_admin`),
   CONSTRAINT `catatan_mutu_ibfk_2` FOREIGN KEY (`id_metode`) REFERENCES `metode` (`id_metode`),
-  CONSTRAINT `catatan_mutu_ibfk_3` FOREIGN KEY (`status_cm`) REFERENCES `status_cm` (`id_status_cm`),
+  CONSTRAINT `catatan_mutu_ibfk_3` FOREIGN KEY (`id_status_cm`) REFERENCES `status_cm` (`id_status_cm`),
   CONSTRAINT `catatan_mutu_ibfk_4` FOREIGN KEY (`id_admin`) REFERENCES `tb_admin` (`id_admin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -76,13 +76,13 @@ DROP TABLE IF EXISTS `revisi`;
 
 CREATE TABLE `revisi` (
   `id_revisi` int(3) NOT NULL AUTO_INCREMENT,
-  `revisi` int(2) DEFAULT NULL,
+  `revisi` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`id_revisi`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 /*Data for the table `revisi` */
 
-insert  into `revisi`(`id_revisi`,`revisi`) values (0,0),(1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10);
+insert  into `revisi`(`id_revisi`,`revisi`) values (0,'00'),(1,'01'),(2,'02'),(3,'03'),(4,'04'),(5,'05'),(6,'06'),(7,'07'),(8,'08'),(9,'09'),(10,'10');
 
 /*Table structure for table `status_cm` */
 
@@ -119,20 +119,20 @@ DROP TABLE IF EXISTS `tb_admin`;
 CREATE TABLE `tb_admin` (
   `id_admin` int(10) NOT NULL AUTO_INCREMENT,
   `nama` varchar(50) DEFAULT NULL,
-  `unit` int(3) DEFAULT NULL,
+  `id_unit` int(3) DEFAULT NULL,
   `username` varchar(50) DEFAULT NULL,
   `password` varchar(10) DEFAULT NULL,
   `date_user` datetime DEFAULT NULL,
   `tipe` tinyint(1) DEFAULT NULL,
   KEY `tipe` (`tipe`),
-  KEY `unit` (`unit`),
   KEY `id_admin` (`id_admin`),
-  CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`unit`) REFERENCES `unit` (`id_unit`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+  KEY `id_unit` (`id_unit`),
+  CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id_unit`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_admin` */
 
-insert  into `tb_admin`(`id_admin`,`nama`,`unit`,`username`,`password`,`date_user`,`tipe`) values (1,'yoga',2,'yoga','yoga','2018-02-10 20:10:23',1),(2,'eirene',1,'eirene','eirene','2018-02-10 20:20:38',0);
+insert  into `tb_admin`(`id_admin`,`nama`,`id_unit`,`username`,`password`,`date_user`,`tipe`) values (1,'yoga',2,'yoga','yoga','2018-02-10 20:10:23',1),(2,'eirene',1,'eirene','eirene','2018-02-10 20:20:38',0),(3,'Joko',2,'joko','joko','2018-02-20 13:05:46',1);
 
 /*Table structure for table `tb_dokumen_baru` */
 
@@ -140,29 +140,44 @@ DROP TABLE IF EXISTS `tb_dokumen_baru`;
 
 CREATE TABLE `tb_dokumen_baru` (
   `id_dokumen` int(3) NOT NULL AUTO_INCREMENT,
-  `kode` varchar(50) DEFAULT NULL,
+  `id_catatan` int(3) DEFAULT NULL,
+  `kode` varchar(255) DEFAULT NULL,
   `nama_dokumen` varchar(50) DEFAULT NULL,
-  `jenis_dokumen` int(10) DEFAULT NULL,
+  `id_jenis_dokumen` int(10) DEFAULT NULL,
   `keterangan` varchar(255) DEFAULT NULL,
-  `revisi` int(3) DEFAULT NULL,
+  `id_revisi` int(3) DEFAULT NULL,
   `file` varchar(255) DEFAULT NULL,
-  `status` int(3) DEFAULT NULL,
-  `catatan` varchar(255) DEFAULT NULL,
-  `entry_date` datetime DEFAULT NULL,
+  `id_status_dokumen` int(3) DEFAULT NULL,
+  `entry_date` date DEFAULT NULL,
   `id_admin` int(10) DEFAULT NULL,
   PRIMARY KEY (`id_dokumen`),
-  KEY `id_admin` (`id_admin`),
-  KEY `jenis_dokumen` (`jenis_dokumen`),
+  KEY `jenis_dokumen` (`id_jenis_dokumen`),
   KEY `id_keterangan` (`keterangan`),
-  KEY `status` (`status`),
-  KEY `revisi` (`revisi`),
-  CONSTRAINT `tb_dokumen_baru_ibfk_5` FOREIGN KEY (`jenis_dokumen`) REFERENCES `tb_jenis_dokumen` (`id_jenis_dokumen`),
-  CONSTRAINT `tb_dokumen_baru_ibfk_7` FOREIGN KEY (`status`) REFERENCES `status_dokumen` (`id_status_dokumen`),
-  CONSTRAINT `tb_dokumen_baru_ibfk_8` FOREIGN KEY (`revisi`) REFERENCES `revisi` (`id_revisi`),
+  KEY `status` (`id_status_dokumen`),
+  KEY `revisi` (`id_revisi`),
+  KEY `id_admin` (`id_admin`),
+  KEY `id_catatan` (`id_catatan`),
+  CONSTRAINT `tb_dokumen_baru_ibfk_5` FOREIGN KEY (`id_jenis_dokumen`) REFERENCES `tb_jenis_dokumen` (`id_jenis_dokumen`),
+  CONSTRAINT `tb_dokumen_baru_ibfk_7` FOREIGN KEY (`id_status_dokumen`) REFERENCES `status_dokumen` (`id_status_dokumen`),
+  CONSTRAINT `tb_dokumen_baru_ibfk_8` FOREIGN KEY (`id_revisi`) REFERENCES `revisi` (`id_revisi`),
   CONSTRAINT `tb_dokumen_baru_ibfk_9` FOREIGN KEY (`id_admin`) REFERENCES `tb_admin` (`id_admin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_dokumen_baru` */
+
+/*Table structure for table `tb_instansi` */
+
+DROP TABLE IF EXISTS `tb_instansi`;
+
+CREATE TABLE `tb_instansi` (
+  `id_instansi` int(3) NOT NULL AUTO_INCREMENT,
+  `instansi` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`id_instansi`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+/*Data for the table `tb_instansi` */
+
+insert  into `tb_instansi`(`id_instansi`,`instansi`) values (1,'UU'),(2,'PP'),(3,'PM'),(4,'SKEP DJU'),(5,'SKEP AP'),(6,'SKEP-AP2');
 
 /*Table structure for table `tb_jenis_dokumen` */
 
@@ -178,40 +193,26 @@ CREATE TABLE `tb_jenis_dokumen` (
 
 insert  into `tb_jenis_dokumen`(`id_jenis_dokumen`,`jenis_dokumen`) values (1,'Intruksi Kerja'),(3,'pedoman'),(4,'prosedur'),(5,'Manual'),(6,'Loca');
 
-/*Table structure for table `tb_nomer` */
-
-DROP TABLE IF EXISTS `tb_nomer`;
-
-CREATE TABLE `tb_nomer` (
-  `id_nomer` int(3) NOT NULL AUTO_INCREMENT,
-  `nomer` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id_nomer`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-
-/*Data for the table `tb_nomer` */
-
-insert  into `tb_nomer`(`id_nomer`,`nomer`) values (1,'UU'),(2,'PP'),(3,'PM'),(4,'SKEP DJU'),(5,'SKEP AP'),(6,'SKEP-AP2');
-
 /*Table structure for table `tb_peraturan` */
 
 DROP TABLE IF EXISTS `tb_peraturan`;
 
 CREATE TABLE `tb_peraturan` (
   `id_peraturan` int(3) NOT NULL AUTO_INCREMENT,
-  `nomer` int(3) DEFAULT NULL,
+  `id_instansi` int(3) DEFAULT NULL,
   `judul` varchar(50) DEFAULT NULL,
   `tahun` int(10) DEFAULT NULL,
-  `regulator` int(3) DEFAULT NULL,
+  `id_regulator` int(3) DEFAULT NULL,
   `file` varchar(255) DEFAULT NULL,
-  `entry_date` datetime DEFAULT NULL,
+  `entry_date` date DEFAULT NULL,
   `masa_berlaku` date DEFAULT NULL,
   `id_admin` int(10) DEFAULT NULL,
   PRIMARY KEY (`id_peraturan`),
+  KEY `regulator` (`id_regulator`),
+  KEY `nomer` (`id_instansi`),
   KEY `id_admin` (`id_admin`),
-  KEY `regulator` (`regulator`),
-  KEY `nomer` (`nomer`),
-  CONSTRAINT `tb_peraturan_ibfk_3` FOREIGN KEY (`nomer`) REFERENCES `tb_nomer` (`id_nomer`),
-  CONSTRAINT `tb_peraturan_ibfk_5` FOREIGN KEY (`regulator`) REFERENCES `regulator` (`id_regulator`),
+  CONSTRAINT `tb_peraturan_ibfk_3` FOREIGN KEY (`id_instansi`) REFERENCES `tb_instansi` (`id_instansi`),
+  CONSTRAINT `tb_peraturan_ibfk_5` FOREIGN KEY (`id_regulator`) REFERENCES `regulator` (`id_regulator`),
   CONSTRAINT `tb_peraturan_ibfk_6` FOREIGN KEY (`id_admin`) REFERENCES `tb_admin` (`id_admin`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
