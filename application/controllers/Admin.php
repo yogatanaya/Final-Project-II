@@ -178,12 +178,6 @@ class Admin extends CI_Controller{
 	}
 
 
-	//hitung baru 
-	function count_baru(){
-		 $query = $this->db->query("SELECT COUNT(*) as jumlah_baru FROM tb_dokumen_baru Where id_status_dokumen=3");
-    	return $query->row_array();
-	}
-
 
 
 
