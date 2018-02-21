@@ -25,8 +25,12 @@ class Auth extends CI_Controller{
               $sess_data['logged_in'] = 'Sudah Login';
               $sess_data['nama'] = $sess->nama;
               $sess_data['username'] = $sess->username;
+<<<<<<< HEAD
               $sess_data['unit']=$sess->unit;
               $sess_data['id_admin']=$sess->id_admin; 
+=======
+              $sess_data['unit']=$sess->unit; 
+>>>>>>> 0564dba32447842f978876f6fc56a796630a0169
               $sess_data['tipe'] = $sess->tipe;
               $this->session->set_userdata($sess_data);
             }

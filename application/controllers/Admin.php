@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -419,4 +420,20 @@ class Admin extends CI_Controller{
 
 }
 
+=======
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Admin extends CI_Controller{
+ 
+	
+	function index(){
+		$data['title']='Admin Dashboard';
+		$this->load->view('admin/dashboard', $data);
+	}
+
+	
+	
+}
+>>>>>>> 0564dba32447842f978876f6fc56a796630a0169
 ?>
