@@ -95,22 +95,22 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="<?php echo base_url('staff');?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo base_url('admin');?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Dokumen Unit<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo base_url('staff/buatDokumenBaru');?>">Utama</a>
+                                    <a href="<?php echo base_url('admin/buatDokumenBaru');?>">Utama</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('staff/buatCatatanMutu');?>">Catatan Mutu</a>
+                                    <a href="<?php echo base_url('admin/buatCatatanMutu');?>">Catatan Mutu</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="<?php echo base_url('staff/buatPeraturan');?>"><i class="fa fa-table fa-fw"></i> Peraturan Eksternal</a>
+                            <a href="<?php echo base_url('admin/buatPeraturan');?>"><i class="fa fa-table fa-fw"></i> Peraturan Eksternal</a>
                         </li>
                        
                       
@@ -138,4 +138,3 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-

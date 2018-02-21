@@ -1,0 +1,71 @@
+     <div align="center"><h4>GENERAL AVIATION TERMINAL MONTHLY REPORT<br/>BANDAR UDARA INTERNASIONAL I GUSTI NGURAH RAI BALI</h4></div>
+    <div>
+	<br>
+	<br>
+	<table>	
+
+	<tr>
+		<th></th><th align="left" style="font-weight: normal;">Laporan </th>
+		<th align="left" style="font-weight: normal;">: Charter Flight</th>
+	</tr>
+	<tr>
+		<th></th><th align="left" style="font-weight: normal;">Bulan</th>
+		<th align="left" style="font-weight: normal;">: October 2017</th>
+	</tr>
+	<tr></tr>
+	</table>
+	</div>
+<tr></tr>
+<table border="1">            
+	<thead>
+            <tr>
+                <th align="center" width="5">No</th>
+                <th align="center" width="15">Tanggal</th> 
+                <th align="center" width="30">Invoice</th>
+                <th align="center" width="130">Category</th>
+                <th align="center" width="130">Operator</th>
+                <th align="center" width="130">Aircraft Type</th> 
+                 <th align="center" width="130">Registrasi</th> 
+                <th align="center" width="130">Ground Handling</th> 
+                <th align="center" width="130">Parking</th>
+                <th align="center" width="130">Crew</th>  
+                <!-- <th align="center" width="130">Arrival</th>
+                <th align="center" width="130">Departure</th>
+                <th align="center" width="130">Plane Type</th>
+                <th align="center" width="130">Flight Type</th> -->
+                <th align="center" width="130">MTOW</th>
+                <th align="center" width="130">Block on</th>
+                <th align="center" width="130">Block off</th>
+                <th align="center" width="130">Duration</th>
+                <th align="center" width="130">Kurs</th>
+                <th align="center" width="130">Landing Charge</th>
+                <th align="center" width="130">GA Charge </th>
+                <th align="center" width="130">GA Surcharge</th>
+                <th align="center" width="130">Total</th>                      
+            </tr>
+	</thead>
+	<tbody>
+    			</tbody>
+</table>
+<br/>
+<br/>
+<table border="0">
+	<tr>
+		<td></td>
+		<td align="center" colspan="4">Mengetahui,<br/>Aviation Aero Sales Section<br/>Bandar Udara Internasional I Gusti Ngurah Rai Bali
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<u>Agni Indradi</u>
+		</td>
+        <td></td><td></td>
+		<td align="center" colspan="4">Badung, 05 October 2017<br/>Pembuat Laporan,Aviation Officer<br/>Bandar Udara Internasional I Gusti Ngurah Rai Bali
+		<br/>
+		<br/>
+		<br/>
+		<br/>
+		<u>Erfan Agil Putranto</u>
+		</td>
+	</tr>
+</table>

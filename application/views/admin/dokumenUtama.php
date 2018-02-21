@@ -17,9 +17,22 @@
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                         <h4 class="modal-title">Tambah Baru</h4>
                     </div>
-                        <form class="form-horizontal" action="<?php echo base_url('staff/submitDokumen')?>" method="post" enctype="multipart/form-data" role="form" id="tambahDokumen" name="tambahDokumen">
+                        <form class="form-horizontal" action="<?php echo base_url('admin/submitDokumen')?>" method="post" enctype="multipart/form-data" role="form" id="tambahDokumen" name="tambahDokumen">
                         <div class="modal-body">
 
+                              
+                                <!--UNIT>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="id_unit">Unit/Department</label>
+                                    <div class="col-md-8">
+                                    <select class="form-control" name="id_unit">
+                                            <option value="">Pilih Unit</option>
+                                            <?php foreach($unit as $u){ ?>
+                                            <option value="<?php echo $u['id_unit']; ?>"><?php echo $u['unit']; ?>   </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div-->
 
                                 <!-- Jenis Dokumen-->
                                 <div class="form-group">
@@ -34,12 +47,12 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
+                                <!--div class="form-group">
                                     <label class="col-md-3 control-label" for="kode">Kode</label>
                                     <div class="col-md-3">
-                                    <input id="kode" name="kode" type="text" placeholder="kode" class="form-control" readonly value="0">
+                                    <input id="kode" name="kode" type="text" placeholder="kode" class="form-control" disabled>
                                     </div>
-                                </div>
+                                </div-->
     
                                 <!-- Judul Dokumen-->
                                 <div class="form-group">
@@ -63,6 +76,13 @@
                                 </div>
 
 
+                                <!-- Isi Dokumen-->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="file">File</label>
+                                    <div class="col-md-6">
+                                    <input id="file" name="file" type="file" placeholder="file" class="form-control">
+                                    </div>
+                                </div>
 
                                 <!--Revisi-->
                                 <div class="form-group"-->
@@ -77,6 +97,12 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group"-->
+                                    <label class="col-md-3 control-label" for="entry_date">Tanggal</label>
+                                    <div class="col-md-6">
+                                    <input id="entry_date" name="entry_date" type="date"  class="form-control">
+                                    </div>
+                                </div>
 
                                 <!--keterangan-->
                                 <div class="form-group">
@@ -87,26 +113,6 @@
                                 </div>
 
 
-                                <!-- Isi Dokumen-->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="file">Isi</label>
-                                    <div class="col-md-6">
-                                    <input id="file" name="file" type="file" placeholder="file" class="form-control">
-                                    </div>
-                                </div>
-
-                                <hr>
-                                <!--Catatan Mutu-->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="id_catatan">Catatan Mutu</label>
-                                    <div class="col-md-6">
-                                    <select class="form-control" name="id_catatan[]" multiple="multiple" id="id_catatan">
-                                            <?php foreach($catatan_mutu as $judul){ ?>
-                                            <option value="<?php echo $judul['id_catatan']; ?>"><?php echo $judul['judul']; ?>   </option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div>
                           
 
                         </div>
@@ -151,8 +157,9 @@
                         <td>
                             <ul style="list-style-type: none;">
                                 <li>
-                                    <li><a href="<?php echo base_url('staff/download/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-download"></a></li>
-                                    <li><a href="<?php echo base_url('staff/editDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-edit"></a></li>
+                                    <li><a href="<?php echo base_url('admin/download/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-download"></a></li>
+                                    <li><a href="<?php echo base_url('admin/editDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-edit"></a></li>
+                                     <li><a href="<?php echo base_url('admin/hapusDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-trash" onclick="return confirm('Anda akan menghapus dokumen ini?');"></a></li>
                                 </li>
                             </ul>            
                                     
@@ -195,19 +202,8 @@
         $('#dataTables-example').DataTable({
             responsive: true
         });
-
-        $('#id_catatan').multiselect({
-            nonSelectedText: 'Pilih Catatan Mutu',
-            enableFiltering: true,
-            enableCaseInsensitiveFiltering: true,
-            buttonWidth:'400px'
-        });
-        
     });
     </script>
-
-    
-
 </body>
 
 </html>

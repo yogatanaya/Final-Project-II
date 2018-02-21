@@ -135,9 +135,12 @@
                         <td>
                             <ul style="list-style-type: none;">
                                 <li>
-                                    <li><a href="<?php echo base_url('staff/downloadCM/'.$c['id_catatan']);?>" class="glyphicon glyphicon-download"></a></li>
-                                    <li><a href="<?php echo base_url('staff/editCatatan/'.$c['id_catatan']);?>" class="glyphicon glyphicon-edit"></a></li>
-                                </li>
+                                    <li><a href="<?php echo base_url('admin/downloadCM/'.$c['id_catatan']);?>" class="glyphicon glyphicon-download"></a></li>
+                                    <li><a href="<?php echo base_url('admin/editCatatan/'.$c['id_catatan']);?>" class="glyphicon glyphicon-edit"></a></li>
+                                    </li>
+                                    <li><a href="<?php echo base_url('admin/hapusCatatan/'.$c['id_catatan']);?>" class="glyphicon glyphicon-trash"
+                                        onclick="return confirm('Anda akan menghapus catatan ini?');"></a></li>
+                                    </li>
                         </td>
                     </tr>
                     <?php } ?>

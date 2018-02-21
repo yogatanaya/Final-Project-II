@@ -19,24 +19,10 @@
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                         <h4 class="modal-title">Tambah Baru</h4>
                     </div>
-                        <form class="form-horizontal" action="<?php echo base_url('staff/submitPeraturan')?>" method="post" enctype="multipart/form-data" role="form" id="tambahPeraturan" name="tambahPeraturan">
+                        <form class="form-horizontal" action="<?php echo base_url('admin/submitPeraturan')?>" method="post" enctype="multipart/form-data" role="form" id="tambahPeraturan" name="tambahPeraturan">
                         <div class="modal-body">
 
-                              
-
-                                <!--UNIT>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="id_unit">Unit/Department</label>
-                                    <div class="col-md-8">
-                                    <select class="form-control" name="id_unit">
-                                            <option value="">Pilih Unit</option>
-                                            <?php foreach($unit as $u){ ?>
-                                            <option value="<?php echo $u['id_unit']; ?>"><?php echo $u['unit']; ?>   </option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div-->
-
+                            
                                 <!-- Jenis Dokumen-->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_instansi">Instansi</label>
@@ -105,7 +91,7 @@
                                     <input id="masa_berlaku" name="masa_berlaku" type="date"  class="form-control">
                                     </div>
                                 </div>
-
+                                
 
                           
 
@@ -152,8 +138,10 @@
                         <td>
                              <ul style="list-style-type: none;">
                                 <li>
-                                    <li><a href="<?php echo base_url('staff/downloadPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-download"></a></li>
-                                    <li><a href="<?php echo base_url('staff/editPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-edit"></a></li>
+                                    <li><a href="<?php echo base_url('admin/downloadPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-download"></a></li>
+                                    <li><a href="<?php echo base_url('admin/editPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-edit"></a></li>
+                                     <li><a href="<?php echo base_url('admin/hapusPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-trash"  onclick="return confirm('Anda akan menghapus dokumen ini?');"></a></li>
+
                                 </li>
                             </ul>        
                         </td>
