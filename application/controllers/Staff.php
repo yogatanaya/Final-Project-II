@@ -15,6 +15,10 @@ class Staff extends CI_Controller {
 	public function index()
 	{
 		$data['title']='Staff Dashboard';
+		$data['count_baru']=$this->model_dokumen_baru->count_baru();
+		$data['count_revisi']=$this->model_dokumen_baru->count_revisi();
+		$data['count_setuju']=$this->model_dokumen_baru->count_setuju();
+		$data['count_unit']=$this->model_dokumen_baru->count_unit();
 		$this->load->view('staff/header',$data);
 		$this->load->view('staff/dashboard', $data);
 	}
@@ -34,6 +38,18 @@ class Staff extends CI_Controller {
 		$this->load->view('staff/dokumenUtama',$data);
 	}
 
+	public function detailUtama(){
+		$data['title']='Detail Dokumen';
+		$data['tb_jenis_dokumen']=$this->model_dokumen_baru->get_jenis_dokumen();
+		$data['revisi']=$this->model_dokumen_baru->get_revisi();
+		//$data['unit']=$this->model_dokumen_baru->get_unit_user();
+		$data['catatan_mutu']=$this->model_catatan_mutu->get_judul();
+		$data['status_dokumen']=$this->model_dokumen_baru->get_status();
+		$data['tb_dokumen_baru']=$this->model_dokumen_baru->get_dokumen();
+
+		$this->load->view('staff/header',$data);
+		$this->load->view('staff/detailUtama',$data);
+	}
 	//Submit Dokumen
 
 	public function submitDokumen(){
@@ -49,7 +65,8 @@ class Staff extends CI_Controller {
 		$keterangan=$this->input->post('keterangan');
 		$entry_date=$this->input->post('entry_date');
 		$id_admin=$_SESSION['id_admin'];
-
+		$id_catatan=$this->input->post('id_catatan');
+		$kode=$this->input->post('kode');
 
 		$file = $_FILES['file']['name'];
     	$file_loc = $_FILES['file']['tmp_name'];
@@ -57,9 +74,23 @@ class Staff extends CI_Controller {
 		$file_type = $_FILES['file']['type'];
 		$folder="./files/";
 
-		$data=array(
+		$this->form_validation->set_rules('id_jenis_dokumen','id_jenis_dokumen','required');
+		$this->form_validation->set_rules('nama_dokumen','nama_dokumen','required');
+		$this->form_validation->set_rules('id_status_dokumen','id_status_dokumen','required');
+		$this->form_validation->set_rules('id_revisi','id_revisi','required');
+		$this->form_validation->set_rules('keterangan','keterangan','required');
+
+		if($this->form_validation->run()==FALSE){
+			echo "<script>
+			alert('salah satu form ada yang kosong atau salah pengisian form');
+			document.location='".base_url()."staff/buatDokumenBaru';
+			</script>";
+		}else {
+			$data=array(
 			'id_jenis_dokumen'=>$id_jenis_dokumen,
 			'nama_dokumen'=>$nama_dokumen,
+			'kode'=>$kode,
+			'id_catatan'=>$id_catatan,
 			'id_revisi'=>$id_revisi,
 			'keterangan'=>$keterangan,
 			'file'=>$file,
@@ -76,6 +107,8 @@ class Staff extends CI_Controller {
 		 move_uploaded_file($file_loc,$folder.$file);
 		$this->model_dokumen_baru->insert_dokumen($data, 'tb_dokumen_baru');
 		//Save the file name into the db
+		}
+		
 	}
 
 	//download dokumen
@@ -144,7 +177,7 @@ class Staff extends CI_Controller {
 			'id_status_dokumen'=>$id_status_dokumen,
 			'id_revisi'=>$id_revisi,
 			'keterangan'=>$keterangan,
-			'entry_date'=>$entry_date,
+			'entry_date'=>date('Y-m-d'),
 			'file'=>$image_name
 		);
 		$where=array('id_dokumen'=>$id_dokumen);
@@ -198,7 +231,19 @@ class Staff extends CI_Controller {
 		$file_type = $_FILES['file']['type'];
 		$folder="./files/catatan/";
 
-		$data=array(
+		$this->form_validation->set_rules('judul','judul','required');
+		$this->form_validation->set_rules('id_status_cm','id_status_cm','required');
+		$this->form_validation->set_rules('masa_berlaku','masa_berlaku','required');
+		$this->form_validation->set_rules('lokasi_simpan','lokasi_simpan','required');
+		$this->form_validation->set_rules('id_metode','id_metode','required');
+
+		if($this->form_validation->run()==FALSE){
+			echo "<script>
+			alert('salah satu form ada yang kosong atau salah pengisian form');
+			document.location='".base_url()."staff/buatCatatanMutu';
+			</script>";
+		}else{
+			$data=array(
 			'judul'=>$judul,
 			'id_status_cm'=>$id_status_cm,
 			'masa_berlaku'=>$masa_berlaku,
@@ -216,6 +261,8 @@ class Staff extends CI_Controller {
 			</script>";
 		 move_uploaded_file($file_loc,$folder.$file);
 		$this->model_catatan_mutu->insert_catatan($data, 'catatan_mutu');
+		}
+		
 
 	}
 	public function editCatatan($id){
@@ -295,22 +342,6 @@ class Staff extends CI_Controller {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//////////////////////////////////////Peraturan external/////////////////////////////////////
 	public function buatPeraturan(){
 		$data['title']='Peraturan Baru';
@@ -341,12 +372,23 @@ class Staff extends CI_Controller {
 		$file_type = $_FILES['file']['type'];
 		$folder="./files/";
 
-		$data=array(
+		$this->form_validation->set_rules('id_instansi','id_instansi','required');
+		$this->form_validation->set_rules('judul','judul','required');
+		$this->form_validation->set_rules('id_regulator','id_regulator','required');
+		$this->form_validation->set_rules('masa_berlaku','masa_berlaku','required');
+
+		if($this->form_validation->run()==false){
+			echo "<script>
+			alert('salah satu form ada yang kosong atau salah pengisian form');
+			document.location='".base_url()."staff/buatPeraturan';
+			</script>";
+		}else{
+			$data=array(
 			'id_instansi'=>$id_instansi,
 			'judul'=>$judul,
 			'tahun'=>$tahun,
 			'id_regulator'=>$id_regulator,
-			'entry_date'=>$entry_datse,
+			'entry_date'=>date('Y-m-d'),
 			'masa_berlaku'=>$masa_berlaku,
 			'file'=>$file,
 			'id_admin'=>$id_admin
@@ -358,8 +400,65 @@ class Staff extends CI_Controller {
 			</script>";
 		move_uploaded_file($file_loc,$folder.$file);
 		$this->model_peraturan->insert_peraturan($data, 'tb_peraturan');
+		}
+	}
 
+	
 
+	//edit peraturan 
+	public function editPeraturan($id){
+		$data['title']='Edit Peraturan';
+		$where = array('id_peraturan' => $id
+					);
+		$data['tb_peraturan']=$this->model_peraturan->edit_peraturan($where,'tb_peraturan')->result();
+		$data['tb_instansi']=$this->model_peraturan->get_instansi();
+		//$data['unit']=$this->model_peraturan->get_unit_user();
+		$data['regulator']=$this->model_peraturan->get_regulator();
+
+		$this->load->view('staff/header',$data);
+		$this->load->view('staff/editPeraturan',$data);
+	}
+
+	//update peraturan
+	public function updatePeraturan(){
+		$id_peraturan=$this->input->post('id_peraturan');
+		$judul=$this->input->post('judul');
+		$id_instansi=$this->input->post('id_instansi');
+		$tahun=$this->input->post('tahun');
+		$id_regulator=$this->input->post('id_regulator');
+		$masa_berlaku=$this->input->post('masa_berlaku');
+		$entry_date=$this->input->post('entry_date');
+		
+		IF($_FILES['file']['name']!=''){
+			$file='./files/';
+			@unlink($file);
+           	$tmp_name = $_FILES["file"]["tmp_name"];
+           	$namefile = $_FILES["file"]["name"];
+			$ext = end(explode(".", $namefile));
+			$image_name=time().".".$ext;
+            $fileUpload = move_uploaded_file($tmp_name,"./files/".$image_name);
+		}else{
+			$image_name=$edit['file'];
+		}
+
+		$data=array(
+			'id_peraturan'=>$id_peraturan,
+			'judul'=>$judul,
+			'id_instansi'=>$id_instansi,
+			'tahun'=>$tahun,
+			'id_regulator'=>$id_regulator,
+			'masa_berlaku'=>$masa_berlaku,
+			'entry_date'=>date('Y-m-d'),
+			'file'=>$image_name
+		);
+		$where=array('id_peraturan'=>$id_peraturan);
+		//die($data);
+
+		echo "<script>alert('Peraturan Tersimpan');
+			document.location='".base_url()."staff/buatPeraturan';
+			</script>";
+		
+		$this->model_dokumen_baru->update_peraturan($where, $data, 'tb_peraturan');
 	}
 
 	public function downloadPeraturan($id){
@@ -372,13 +471,9 @@ class Staff extends CI_Controller {
             
             //file path
             $file = 'files/'.$fileInfo['file'];
-            
+         	  
             //download file from directory
             force_download($file, NULL);
-        }else{
-        	echo "<script>alert('File tidak ditemukan!');
-			document.location='".base_url()."staff/buatPeraturan';
-			</script>";
         }
 	}
 

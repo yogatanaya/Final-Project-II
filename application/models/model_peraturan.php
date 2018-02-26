@@ -126,5 +126,15 @@ class model_peraturan extends CI_Model{
         //return fetched data
         return $result;
     }
+
+     function edit_peraturan($where,$table){      
+        return $this->db->get_where($table,$where);
+    }
+
+    function update_dokumen($where,$data,$table){
+        $this->db->where($where);
+        $this->db->update($table,$data);
+    }   
+
 }
 ?>

@@ -36,7 +36,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="kode">Kode</label>
                                     <div class="col-md-3">
-                                    <input id="kode" name="kode" type="text" placeholder="kode" class="form-control" readonly value="0">
+                                    <input id="kode" name="kode" type="text" placeholder="kode" class="form-control" value="0" readonly>
                                     </div>
                                 </div>
     
@@ -99,11 +99,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_catatan">Catatan Mutu</label>
                                     <div class="col-md-6">
-                                    <select class="form-control" name="id_catatan[]" multiple="multiple" id="id_catatan">
-                                            <?php foreach($catatan_mutu as $judul){ ?>
-                                            <option value="<?php echo $judul['id_catatan']; ?>"><?php echo $judul['judul']; ?>   </option>
-                                            <?php } ?>
-                                        </select>
+                                    <input id="example" type="text" name="id_catatan" class="form-control">
                                     </div>
                                 </div>
                           
@@ -131,8 +127,7 @@
                         <th data-field="unit">Unit</th>
                         <th data-field="Revisi">Revisi Ke-</th>
                         <th data-field="entry_date">Waktu</th>
-                        <th data-field="keterangan">Keterangan</th>
-                        <th colspan="1">Opsi</th>                           
+                        <th data-field="keterangan">Keterangan</th>                         
                     </tr>
                 </thead>
                 <tbody>
@@ -147,15 +142,7 @@
                         <td><?php echo $baru['revisi'];?></td>
                         <td><?php echo $baru['entry_date'];?></td>
                         <td><?php echo $baru['keterangan'];?></td>
-                        <td>
-                            <ul style="list-style-type: none;">
-                                <li>
-                                    <li><a href="<?php echo base_url('staff/download/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-download"></a></li>
-                                    <li><a href="<?php echo base_url('staff/editDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-edit"></a></li>
-                                </li>
-                            </ul>            
-                                    
-                        </td>
+                      
                     </tr>
                     <?php } ?>
                 </tbody>
@@ -189,18 +176,38 @@
     <script src="<?php echo base_url('assets/vendor/datatables-plugins/dataTables.bootstrap.min.js');?>"></script>
     <script src="<?php echo base_url('assets/vendor/datatables-responsive/dataTables.responsive.js');?>"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
     <script>
+
+
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
             responsive: true
         });
+        $("#example").mSelectDBox({
 
-        $('#id_catatan').multiselect({
-            nonSelectedText: 'Pilih Catatan Mutu',
-            enableFiltering: true,
-            enableCaseInsensitiveFiltering: true,
-            buttonWidth:'400px'
+          // Array of list items
+          // ["Apple", "Orange", "Banana"];
+          // [{"label": "Apple", "value": "0"}, {"label": "Orange", "value": "1"}, {"label": "banana", "value": "2"}]
+          "list": [],
+
+          // enable multiple select
+          "multiple": true,
+
+          // enable autocomplete
+          "autoComplete": true,
+          
+          // Name of instance. 
+          "name": "a",
+
+          // autocomplete filters.
+          optionFilters: $.prototype.mSelectDBox.prototype.defaultOptionFilters.default,
+
+          // enable live search
+          embeddedInput: true
+
         });
+
         
     });
     </script>

@@ -5,6 +5,8 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+           
+            
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-3 col-md-6">
@@ -15,7 +17,7 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">26</div>
+                                    <div class="huge"><?php echo $count_baru; ?></div>
                                     <div>Baru</div>
                                 </div>
                             </div>
@@ -31,7 +33,7 @@
                                     <i class="fa fa-tasks fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
+                                    <div class="huge"><?php echo $count_revisi; ?></div>
                                     <div>Revisi</div>
                                 </div>
                             </div>
@@ -47,7 +49,7 @@
                                     <i class="fa fa-shopping-cart fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">124</div>
+                                    <div class="huge"><?php echo $count_setuju; ?></div>
                                     <div>Setuju</div>
                                 </div>
                             </div>
@@ -63,7 +65,7 @@
                                     <i class="fa fa-support fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">13</div>
+                                    <div class="huge"><?php echo $count_unit; ?></div>
                                     <div>Unit Terkait</div>
                                 </div>
                             </div>

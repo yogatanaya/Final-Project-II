@@ -17,6 +17,10 @@ class Admin extends CI_Controller{
 
 	function index(){
 		$data['title']='Admin Dashboard';
+		$data['count_baru']=$this->model_dokumen_baru->count_baru();
+		$data['count_revisi']=$this->model_dokumen_baru->count_revisi();
+		$data['count_setuju']=$this->model_dokumen_baru->count_setuju();
+		$data['count_unit']=$this->model_dokumen_baru->count_unit();
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/dashboard', $data);
 	}
@@ -268,6 +272,61 @@ class Admin extends CI_Controller{
 			</script>";
         }
 	}
+	//edit peraturan 
+	public function editPeraturan($id){
+		$data['title']='Edit Peraturan';
+		$where = array('id_peraturan' => $id
+					);
+		$data['tb_peraturan']=$this->model_peraturan->edit_peraturan($where,'tb_peraturan')->result();
+		$data['tb_instansi']=$this->model_peraturan->get_instansi();
+		//$data['unit']=$this->model_peraturan->get_unit_user();
+		$data['regulator']=$this->model_peraturan->get_regulator();
+
+		$this->load->view('admin/header',$data);
+		$this->load->view('admin/editPeraturan',$data);
+	}
+
+	//update peraturan
+	public function updatePeraturan(){
+		$id_peraturan=$this->input->post('id_peraturan');
+		$judul=$this->input->post('judul');
+		$id_instansi=$this->input->post('id_instansi');
+		$tahun=$this->input->post('tahun');
+		$id_regulator=$this->input->post('id_regulator');
+		$masa_berlaku=$this->input->post('masa_berlaku');
+		$entry_date=$this->input->post('entry_date');
+		
+		IF($_FILES['file']['name']!=''){
+			$file='./files/';
+			@unlink($file);
+           	$tmp_name = $_FILES["file"]["tmp_name"];
+           	$namefile = $_FILES["file"]["name"];
+			$ext = end(explode(".", $namefile));
+			$image_name=time().".".$ext;
+            $fileUpload = move_uploaded_file($tmp_name,"./files/".$image_name);
+		}else{
+			$image_name=$edit['file'];
+		}
+
+		$data=array(
+			'id_peraturan'=>$id_peraturan,
+			'judul'=>$judul,
+			'id_instansi'=>$id_instansi,
+			'tahun'=>$tahun,
+			'id_regulator'=>$id_regulator,
+			'masa_berlaku'=>$masa_berlaku,
+			'entry_date'=>date('Y-m-d'),
+			'file'=>$image_name
+		);
+		$where=array('id_peraturan'=>$id_peraturan);
+		//die($data);
+
+		echo "<script>alert('Peraturan Tersimpan');
+			document.location='".base_url()."admin/buatPeraturan';
+			</script>";
+		
+		$this->model_dokumen_baru->update_peraturan($where, $data, 'tb_peraturan');
+	}
 
 
 	/////////////////////////////////CATATAN MUTU//////////////////////////////////////////
@@ -409,6 +468,8 @@ class Admin extends CI_Controller{
 		$this->db->delete('catatan_mutu', array('id_catatan' => $id));
 
 	}
+
+	
 
 
 }

@@ -79,12 +79,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="entry_date">Tanggal</label>
-                                    <div class="col-md-6">
-                                    <input id="entry_date" name="entry_date" type="date"  class="form-control" value="<?php echo $data->entry_date; ?>">
-                                    </div>
-                                </div>
 
                                 <!--keterangan-->
                                 <div class="form-group">

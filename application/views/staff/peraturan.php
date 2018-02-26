@@ -23,19 +23,6 @@
 
                               
 
-                                <!--UNIT>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="id_unit">Unit/Department</label>
-                                    <div class="col-md-8">
-                                    <select class="form-control" name="id_unit">
-                                            <option value="">Pilih Unit</option>
-                                            <?php foreach($unit as $u){ ?>
-                                            <option value="<?php echo $u['id_unit']; ?>"><?php echo $u['unit']; ?>   </option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div-->
-
                                 <!-- Jenis Dokumen-->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_instansi">Instansi</label>
@@ -89,13 +76,6 @@
                                     </div>
                                 </div>
 
-                                <!--Tanggal Terbit-->
-                                <div class="form-group"-->
-                                    <label class="col-md-3 control-label" for="entry_date">Tanggal Terbit</label>
-                                    <div class="col-md-6">
-                                    <input id="entry_date" name="entry_date" type="date"  class="form-control">
-                                    </div>
-                                </div>
 
                                 <!--Masa Berlaku-->
                                 <div class="form-group"-->

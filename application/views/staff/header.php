@@ -106,6 +106,9 @@
                                 <li>
                                     <a href="<?php echo base_url('staff/buatCatatanMutu');?>">Catatan Mutu</a>
                                 </li>
+                                <li>
+                                    <a href="<?php echo base_url('staff/detailUtama');?>">Detail</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
