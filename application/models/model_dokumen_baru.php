@@ -10,7 +10,6 @@ class model_dokumen_baru extends CI_Model{
         tb_dokumen_baru.id_dokumen,
         tb_dokumen_baru.kode,
         tb_dokumen_baru.nama_dokumen,
-        catatan_mutu.judul,
         tb_jenis_dokumen.jenis_dokumen,
         tb_dokumen_baru.keterangan,
         revisi.revisi,
@@ -21,7 +20,6 @@ class model_dokumen_baru extends CI_Model{
         FROM
         tb_dokumen_baru
         Inner Join tb_admin On tb_dokumen_baru.id_admin=tb_admin.id_admin
-        Inner Join catatan_mutu ON tb_dokumen_baru.id_catatan=catatan_mutu.id_catatan
         Inner Join unit On tb_admin.id_unit=unit.id_unit
         Inner Join tb_jenis_dokumen ON tb_dokumen_baru.id_jenis_dokumen = tb_jenis_dokumen.id_jenis_dokumen
         Inner Join status_dokumen ON tb_dokumen_baru.id_status_dokumen = status_dokumen.id_status_dokumen
@@ -32,10 +30,91 @@ class model_dokumen_baru extends CI_Model{
 		return $query->result_array();
 	}
 
+    function get_detail(){
+        $query=$this->db->query('
+        SELECT
+        internal.id,
+        tb_dokumen_baru.nama_dokumen,
+        catatan_mutu.judul,
+        tb_jenis_dokumen.jenis_dokumen,
+        tb_dokumen_baru.kode,
+        status_dokumen.status_dokumen,
+        tb_dokumen_baru.entry_date,
+        unit.unit,
+        tb_admin.nama
+        FROM
+        catatan_mutu
+        Inner Join internal ON catatan_mutu.id_catatan = internal.id_catatan
+        Inner Join tb_dokumen_baru ON internal.id_dokumen = tb_dokumen_baru.id_dokumen
+        Inner Join tb_jenis_dokumen ON tb_dokumen_baru.id_jenis_dokumen = tb_jenis_dokumen.id_jenis_dokumen
+        Inner Join status_dokumen ON tb_dokumen_baru.id_status_dokumen = status_dokumen.id_status_dokumen
+        Inner Join tb_admin ON catatan_mutu.id_admin = tb_admin.id_admin AND tb_dokumen_baru.id_admin = tb_admin.id_admin
+        Inner Join unit ON tb_admin.id_unit = unit.id_unit
+        order by id desc 
+        ');
+
+        return $query->result_array();
+    }
+
+    /*
+    function get_detail(){
+        $query=$this->db->query('
+        SELECT
+        tb_dokumen_baru.nama_dokumen,
+        catatan_mutu.judul
+        FROM
+        internal
+        Inner Join tb_dokumen_baru On tb_dokumen_baru.id_dokumen=internal.id_dokumen
+        Inner Join catatan_mutu On catatan_mutu.id_catatan=internal.id_catatan
+        ');
+
+        return $query->result_array();
+    }
+    */
+
+    function get_dokumen_setuju(){
+        $query=$this->db->query('
+        SELECT
+        tb_dokumen_baru.id_dokumen,
+        tb_dokumen_baru.kode,
+        tb_dokumen_baru.nama_dokumen,
+        tb_jenis_dokumen.jenis_dokumen,
+        tb_dokumen_baru.keterangan,
+        revisi.revisi,
+        status_dokumen.status_dokumen,
+        tb_dokumen_baru.`file`,
+        tb_dokumen_baru.entry_date,
+        unit.unit
+        FROM
+        tb_dokumen_baru
+        Inner Join tb_admin On tb_dokumen_baru.id_admin=tb_admin.id_admin
+        Inner Join unit On tb_admin.id_unit=unit.id_unit
+        Inner Join tb_jenis_dokumen ON tb_dokumen_baru.id_jenis_dokumen = tb_jenis_dokumen.id_jenis_dokumen
+        Inner Join status_dokumen ON tb_dokumen_baru.id_status_dokumen = status_dokumen.id_status_dokumen
+        Inner Join revisi ON tb_dokumen_baru.id_revisi = revisi.id_revisi
+        WHERE
+        status_dokumen.id_status_dokumen =  "2"
+        order by id_dokumen desc
+         
+        ');
+
+        return $query->result_array();
+    }
 
 
+    function insert_detail($data, $table){
+
+    $this->db->insert($table, $data);
+   
+  }
 
   function insert_dokumen($data, $table){
+
+    $this->db->insert($table, $data);
+   
+  }
+
+  function insert_jenis($data, $table){
 
     $this->db->insert($table, $data);
    
@@ -82,6 +161,28 @@ class model_dokumen_baru extends CI_Model{
     	$query->free_result();
     	return $data;
 	}
+
+    function get_status_user(){
+        $data=array();
+        $query = $this->db->query('
+        SELECT
+        status_dokumen.id_status_dokumen,
+        status_dokumen.status_dokumen
+        FROM
+        status_dokumen
+        WHERE
+        status_dokumen.id_status_dokumen <>  2
+
+         ');
+        if($query->num_rows()>0){
+            foreach ($query->result_array() as $row) {
+                $data[]=$row;
+            }
+        }
+        $query->free_result();
+        return $data;
+    }
+
 
 	function get_unit_user(){
 		$data=array();

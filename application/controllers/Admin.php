@@ -17,6 +17,7 @@ class Admin extends CI_Controller{
 
 	function index(){
 		$data['title']='Admin Dashboard';
+		$data['tb_dokumen_baru']=$this->model_dokumen_baru->get_dokumen_setuju();
 		$data['count_baru']=$this->model_dokumen_baru->count_baru();
 		$data['count_revisi']=$this->model_dokumen_baru->count_revisi();
 		$data['count_setuju']=$this->model_dokumen_baru->count_setuju();
@@ -47,40 +48,52 @@ class Admin extends CI_Controller{
 		//set library
 		$this->load->library('upload');
 		$this->load->library('session');
-		
 		//retrieve value from form
 		$id_jenis_dokumen=$this->input->post('id_jenis_dokumen');
+		$id_dokumen=$this->input->post('id_dokumen');
 		$nama_dokumen=$this->input->post('nama_dokumen');
 		$id_status_dokumen=$this->input->post('id_status_dokumen');
 		$id_revisi=$this->input->post('id_revisi');
 		$keterangan=$this->input->post('keterangan');
 		$entry_date=$this->input->post('entry_date');
-		//$id_unit=$this->input->post('id_unit');
+		$id_admin=$_SESSION['id_admin'];
+		//$kode=$this->input->post('kode');
 
-
-		$file = $_FILES['file']['name'];
-    	$file_loc = $_FILES['file']['tmp_name'];
-		$file_size = $_FILES['file']['size'];
-		$file_type = $_FILES['file']['type'];
-		$folder="./files/";
+		$config['upload_path']          = 'files';
+        $config['allowed_types']        = '*';
+        $config['max_size']             = 0;
+  
+	    $this->load->library('upload', $config);
+	    $this->upload->initialize($config);
+	    if (!$this->upload->do_upload('file')) {
+	        $error = ['error' => $this->upload->display_errors()];
+	        //var_dump($error);
+	        echo "<script>alert('Upload Gagal!');
+				document.location='".base_url()."admin/buatDokumenBaru';
+				</script>";
+	        redirect(base_url('admin/buatDokumenBaru'));
+	    } else {
+	    	$dokumen=$this->upload->data();
+	        $data = array(
+	        	'id_dokumen'=>$id_dokumen,
+	          	'file' => $dokumen['file_name'],
+	          	'id_status_dokumen'=>$id_status_dokumen,
+	          	'id_jenis_dokumen'=>$id_jenis_dokumen,
+				'nama_dokumen'=>$nama_dokumen,
+				'judul'=>implode(',',$this->input->post('judul')),
+				'id_revisi'=>$id_revisi,
+				'keterangan'=>$keterangan,
+				'entry_date'=>date('Y-m-d'),
+				'id_admin'=>$id_admin
+	      		);
+	      	
+	          $this->model_dokumen_baru->insert_dokumen($data, 'tb_dokumen_baru');
+	          echo "<script>alert('Dokumen Unit Tersimpan');
+				</script>";
+	          redirect(base_url('admin/buatDokumenBaru'));
+	          
+	    }
 		
-		$data=array(
-			'id_jenis_dokumen'=>$id_jenis_dokumen,
-			'nama_dokumen'=>$nama_dokumen,
-			'id_revisi'=>$id_revisi,
-			'keterangan'=>$keterangan,
-			'file'=>$file,
-			'keterangan'=>$keterangan,
-			'id_status_dokumen'=>$id_status_dokumen,
-			'entry_date'=>$entry_date
-		);
-		$this->session->set_userdata('nama',$data);
-		echo "<script>alert('Dokumen Tersimpan');
-			document.location='".base_url()."admin/buatDokumenBaru';
-			</script>";
-		 move_uploaded_file($file_loc,$folder.$file);
-		$this->model_dokumen_baru->insert_dokumen($data, 'tb_dokumen_baru');
-		//Save the file name into the db
 	}
 
 	//download dokumen
@@ -129,40 +142,43 @@ class Admin extends CI_Controller{
 		$id_jenis_dokumen=$this->input->post('id_jenis_dokumen');
 		$id_status_dokumen=$this->input->post('id_status_dokumen');
 		$id_revisi=$this->input->post('id_revisi');
+		$kode=$this->input->post('kode');
 		$keterangan=$this->input->post('keterangan');
 		$entry_date=$this->input->post('entry_date');
 		
-		IF($_FILES['file']['name']!=''){
-			$file='./files/';
-			@unlink($file);
-           	$tmp_name = $_FILES["file"]["tmp_name"];
-           	$namefile = $_FILES["file"]["name"];
-			$ext = end(explode(".", $namefile));
-			$image_name=time().".".$ext;
-            $fileUpload = move_uploaded_file($tmp_name,"./files/".$image_name);
-		}else{
-			$image_name=$edit['file'];
-		}
+		$config['upload_path']          = 'files/catatan';
+        $config['allowed_types']        = '*';
+        $config['max_size']             = 0;
+  		$config['overwrite'] = TRUE;
 
-		$data=array(
-			'id_dokumen'=>$id_dokumen,
-			'nama_dokumen'=>$nama_dokumen,
-			'id_jenis_dokumen'=>$id_jenis_dokumen,
-			'id_status_dokumen'=>$id_status_dokumen,
-			'id_revisi'=>$id_revisi,
-			'keterangan'=>$keterangan,
-			'entry_date'=>$entry_date,
-			'file'=>$image_name
-		);
-		$where=array('id_dokumen'=>$id_dokumen);
-		//die($data);
-		$this->session->set_userdata('nama',$data);
-		echo "<script>alert('Dokumen Tersimpan');
-			document.location='".base_url()."admin/buatDokumenBaru';
-			</script>";
-		$this->model_dokumen_baru->update_dokumen($where, $data, 'tb_dokumen_baru');
+	    $this->load->library('upload', $config);
+	    $this->upload->initialize($config);
 
-
+	    if (!$this->upload->do_upload('file')) {
+	        $error = ['error' => $this->upload->display_errors()];
+	        //var_dump($error);
+	        echo "<script>alert('Upload Gagal!');
+				document.location='".base_url()."admin/buatCatatanMutu';
+				</script>";
+	        redirect(base_url('admin/buatPeraturan'));
+	    } else {
+	    	$dokumenUnit=$this->upload->data();
+	         $data = array(
+	        	'kode'=>$kode,
+	          	'file' => $dokumen['file_name'],
+	          	'id_status_dokumen'=>$id_status_dokumen,
+	          	'id_jenis_dokumen'=>$id_jenis_dokumen,
+				'nama_dokumen'=>$nama_dokumen,
+				'id_revisi'=>$id_revisi,
+				'keterangan'=>$keterangan,
+				'entry_date'=>date('Y-m-d')
+	      		);
+	        $where=array('id_dokumen'=>$id_dokumen);
+	        $this->model_dokumen_baru->update_dokumen($where, $data, 'tb_dokumen_baru');
+	          redirect(base_url('admin/buatDokumenBaru'));
+	    }
+		
+		
 	}
 
 	//hapus dokumen
@@ -171,14 +187,14 @@ class Admin extends CI_Controller{
     	 $query = $this->db->get('tb_dokumen_baru');
      	$row = $query->row();
 
-     	unlink("./files/$row->file");
+     	unlink("files/$row->file");
 
      	
      	echo "<script>alert('Dokumen Terhapus');
 			document.location='".base_url()."admin/buatDokumenBaru';
 			</script>";
 		$this->db->delete('tb_dokumen_baru', array('id_dokumen' => $id));
-
+		
 	}
 
 
@@ -198,7 +214,9 @@ class Admin extends CI_Controller{
 	}
 
 	//submit peraturan 
+	//submit peraturan 
 	public function submitPeraturan(){
+		
 		$id_instansi=$this->input->post('id_instansi');
 		$judul=$this->input->post('judul');
 		$tahun=$this->input->post('tahun');
@@ -206,35 +224,50 @@ class Admin extends CI_Controller{
 		$entry_date=$this->input->post('entry_date');
 		$masa_berlaku=$this->input->post('masa_berlaku');
 		$id_admin=$_SESSION['id_admin'];
-
-		$this->load->library('upload');
-		$this->load->library('session');
 		
-		$file = $_FILES['file']['name'];
-    	$file_loc = $_FILES['file']['tmp_name'];
-		$file_size = $_FILES['file']['size'];
-		$file_type = $_FILES['file']['type'];
-		$folder="./files/";
+		$this->form_validation->set_rules('id_instansi','id_instansi','required');
+		$this->form_validation->set_rules('judul','judul','required');
+		$this->form_validation->set_rules('id_regulator','id_regulator','required');
+		$this->form_validation->set_rules('masa_berlaku','masa_berlaku','required');
 
-		$data=array(
-			'id_instansi'=>$id_instansi,
-			'judul'=>$judul,
-			'tahun'=>$tahun,
-			'id_regulator'=>$id_regulator,
-			'entry_date'=>$entry_date,
-			'masa_berlaku'=>$masa_berlaku,
-			'file'=>$file,
-			'id_admin'=>$id_admin
-		);
-		
-
-		echo "<script>alert('Peraturan Tersimpan');
+		if($this->form_validation->run()==false){
+			echo "<script>
+			alert('Mohon Lengkapi Form');
 			document.location='".base_url()."admin/buatPeraturan';
 			</script>";
-		move_uploaded_file($file_loc,$folder.$file);
-		$this->model_peraturan->insert_peraturan($data, 'tb_peraturan');
-
-
+		}
+		
+		$config['upload_path']          = 'files';
+        $config['allowed_types']        = '*';
+        $config['max_size']             = 0;
+  
+	    $this->load->library('upload', $config);
+	    $this->upload->initialize($config);
+	    if (!$this->upload->do_upload('file')) {
+	        $error = ['error' => $this->upload->display_errors()];
+	        //var_dump($error);
+	        echo "<script>alert('Upload Gagal!');
+				document.location='".base_url()."admin/buatPeraturan';
+				</script>";
+	        redirect(base_url('staff/buatPeraturan'));
+	    } else {
+	    	$file=$this->upload->data();
+	        $data = array(
+	          	'file' => $file['file_name'],
+	          	'id_instansi'=>$id_instansi,
+				'judul'=>$judul,
+				'tahun'=>$tahun,
+				'id_regulator'=>$id_regulator,
+				'entry_date'=>date('Y-m-d'),
+				'masa_berlaku'=>$masa_berlaku,
+				'id_admin'=>$id_admin
+	      		);
+	          $this->model_peraturan->insert_peraturan($data, 'tb_peraturan');
+	          echo "<script>alert('Peraturan Tersimpan');
+				document.location='".base_url()."admin/buatPeraturan';
+				</script>";
+	          redirect(base_url('admin/buatPeraturan'));
+	    }
 	}
 
 	function hapusPeraturan($id){
@@ -287,6 +320,7 @@ class Admin extends CI_Controller{
 	}
 
 	//update peraturan
+	//update peraturan
 	public function updatePeraturan(){
 		$id_peraturan=$this->input->post('id_peraturan');
 		$judul=$this->input->post('judul');
@@ -296,36 +330,40 @@ class Admin extends CI_Controller{
 		$masa_berlaku=$this->input->post('masa_berlaku');
 		$entry_date=$this->input->post('entry_date');
 		
-		IF($_FILES['file']['name']!=''){
-			$file='./files/';
-			@unlink($file);
-           	$tmp_name = $_FILES["file"]["tmp_name"];
-           	$namefile = $_FILES["file"]["name"];
-			$ext = end(explode(".", $namefile));
-			$image_name=time().".".$ext;
-            $fileUpload = move_uploaded_file($tmp_name,"./files/".$image_name);
-		}else{
-			$image_name=$edit['file'];
-		}
+		$config['upload_path']          = 'files';
+        $config['allowed_types']        = '*';
+        $config['max_size']             = 0;
+  		$config['overwrite'] = TRUE;
 
-		$data=array(
-			'id_peraturan'=>$id_peraturan,
-			'judul'=>$judul,
-			'id_instansi'=>$id_instansi,
-			'tahun'=>$tahun,
-			'id_regulator'=>$id_regulator,
-			'masa_berlaku'=>$masa_berlaku,
-			'entry_date'=>date('Y-m-d'),
-			'file'=>$image_name
-		);
-		$where=array('id_peraturan'=>$id_peraturan);
-		//die($data);
+	    $this->load->library('upload', $config);
+	    $this->upload->initialize($config);
 
-		echo "<script>alert('Peraturan Tersimpan');
-			document.location='".base_url()."admin/buatPeraturan';
-			</script>";
+	    if (!$this->upload->do_upload('file')) {
+	        $error = ['error' => $this->upload->display_errors()];
+	        //var_dump($error);
+	        echo "<script>alert('Upload Gagal!');
+				document.location='".base_url()."staff/buatPeraturan';
+				</script>";
+	        redirect(base_url('staff/buatPeraturan'));
+	    } else {
+	    	$file=$this->upload->data();
+	        $data = array(
+	          	'file' => $file['file_name'],
+	          	'id_instansi'=>$id_instansi,
+				'judul'=>$judul,
+				'tahun'=>$tahun,
+				'id_regulator'=>$id_regulator,
+				'entry_date'=>date('Y-m-d'),
+				'masa_berlaku'=>$masa_berlaku
+	      		);
+	        $where=array('id_peraturan'=>$id_peraturan);
+	          $this->model_peraturan->update_peraturan($where, $data, 'tb_peraturan');
+	          echo "<script>alert('Peraturan Tersimpan');
+				document.location='".base_url()."staff/buatPeraturan';
+				</script>";
+	          redirect(base_url('staff/buatPeraturan'));
+	    }
 		
-		$this->model_dokumen_baru->update_peraturan($where, $data, 'tb_peraturan');
 	}
 
 
@@ -344,6 +382,7 @@ class Admin extends CI_Controller{
 
 	public function submitCatatan(){
 		$judul=$this->input->post('judul');
+		//$id_catatan=$this->input->post('id_catatan');
 		$id_status_cm=$this->input->post('id_status_cm');
 		$masa_berlaku=$this->input->post('masa_berlaku');
 		$lokasi_simpan=$this->input->post('lokasi_simpan');
@@ -352,32 +391,57 @@ class Admin extends CI_Controller{
 		$entry_date=$this->input->post('entry_date');
 		$id_admin=$_SESSION['id_admin'];
 
-		$file = $_FILES['file']['name'];
-    	$file_loc = $_FILES['file']['tmp_name'];
-		$file_size = $_FILES['file']['size'];
-		$file_type = $_FILES['file']['type'];
-		$folder="./files/catatan/";
+		$this->form_validation->set_rules('judul','judul','required');
+		$this->form_validation->set_rules('id_catatan','id_catatan','required');
+		$this->form_validation->set_rules('id_status_cm','id_status_cm','required');
+		$this->form_validation->set_rules('masa_berlaku','masa_berlaku','required');
+		$this->form_validation->set_rules('lokasi_simpan','lokasi_simpan','required');
+		$this->form_validation->set_rules('id_metode','id_metode','required');
 
-		$data=array(
-			'judul'=>$judul,
-			'id_status_cm'=>$id_status_cm,
-			'masa_berlaku'=>$masa_berlaku,
-			'lokasi_simpan'=>$lokasi_simpan,
-			'file'=>$file,
-			'keterangan'=>$keterangan,
-			'id_metode'=>$id_metode,
-			'entry_date'=>date('Y-m-d'),
-			'id_admin'=>$id_admin
-		);
-		
-
-		echo "<script>alert('Catatan Baru Tersimpan');
+		if($this->form_validation->run()==FALSE){
+			echo "<script>
+			alert('salah satu form ada yang kosong atau salah pengisian form');
 			document.location='".base_url()."admin/buatCatatanMutu';
 			</script>";
-		 move_uploaded_file($file_loc,$folder.$file);
-		$this->model_catatan_mutu->insert_catatan($data, 'catatan_mutu');
+		}
+		$config['upload_path']          = 'files/catatan';
+        $config['allowed_types']        = '*';
+        $config['max_size']             = 0;
+  
+	    $this->load->library('upload', $config);
+	    $this->upload->initialize($config);
+	    if (!$this->upload->do_upload('file')) {
+	        $error = ['error' => $this->upload->display_errors()];
+	        //var_dump($error);
+	        echo "<script>alert('Upload Gagal!');
+				document.location='".base_url()."admin/buatCatatanMutu';
+				</script>";
+	        redirect(base_url('admin/buatCatatanMutu'));
+	    } else {
+	    	$catatan=$this->upload->data();
+	        $data = array(
+	          	'file' => $catatan['file_name'],
+	          	'id_status_cm'=>$id_status_cm,
+				'judul'=>$judul,
+				//'id_catatan'=>$id_catatan,
+				'masa_berlaku'=>$masa_berlaku,
+				'lokasi_simpan'=>$lokasi_simpan,
+				'entry_date'=>date('Y-m-d'),
+				'id_metode'=>$id_metode,
+				'id_admin'=>$id_admin
+	      		);
+	          $this->model_catatan_mutu->insert_catatan($data, 'catatan_mutu');
+	          echo "<script>alert('Catatan Tersimpan');
+				document.location='".base_url()."admin/buatCatatanMutu';
+				</script>";
+	          redirect(base_url('admin/buatCatatanMutu'));
+	          $this->model_catatan_mutu->insert_catatan($data, 'catatan_mutu');
+	    }
 
+		
 	}
+
+
 	public function editCatatan($id){
 		$data['title']='Edit Catatan';
 		$where = array('id_catatan' => $id
@@ -400,37 +464,42 @@ class Admin extends CI_Controller{
 		$entry_date=$this->input->post('entry_date');
 		$id_catatan=$this->input->post('id_catatan');
 		
-		IF($_FILES['file']['name']!=''){
-			$file='./files/catatan/';
-			@unlink($file);
-           	$tmp_name = $_FILES["file"]["tmp_name"];
-           	$namefile = $_FILES["file"]["name"];
-			$ext = end(explode(".", $namefile));
-			$image_name=time().".".$ext;
-            $fileUpload = move_uploaded_file($tmp_name,"./files/".$image_name);
-		}else{
-			$image_name=$edit['file'];
-		}
+		$config['upload_path']          = 'files/catatan';
+        $config['allowed_types']        = '*';
+        $config['max_size']             = 0;
+  		$config['overwrite'] = TRUE;
 
-		$data=array(
-			'id_catatan'=>$id_catatan,
-			'judul'=>$judul,
-			'id_status_cm'=>$id_status_cm,
-			'masa_berlaku'=>$masa_berlaku,
-			'lokasi_simpan'=>$lokasi_simpan,
-			'keterangan'=>$keterangan,
-			'entry_date'=>date('Y-m-d'),
-			'file'=>$image_name,
-			'id_metode'=>$id_metode
-		);
-		$where=array('id_catatan'=>$id_catatan);
-		//die($data);
+	    $this->load->library('upload', $config);
+	    $this->upload->initialize($config);
 
-		echo "<script>alert('Catatan Tersimpan');
-			document.location='".base_url()."admin/buatCatatanMutu';
-			</script>";
+	    if (!$this->upload->do_upload('file')) {
+	        $error = ['error' => $this->upload->display_errors()];
+	        //var_dump($error);
+	        echo "<script>alert('Upload Gagal!');
+				document.location='".base_url()."admin/buatCatatanMutu';
+				</script>";
+	        redirect(base_url('admin/buatPeraturan'));
+	    } else {
+	    	$catatan=$this->upload->data();
+	        $data = array(
+	          	'file' => $catatan['file_name'],
+	          	'id_status_cm'=>$id_status_cm,
+				'judul'=>$judul,
+				'masa_berlaku'=>$masa_berlaku,
+				'lokasi_simpan'=>$lokasi_simpan,
+				'entry_date'=>date('Y-m-d'),
+				'keterangan'=>$keterangan,
+				'id_metode'=>$id_metode
+	      	);
+	        $where=array('id_catatan'=>$id_catatan);
+	        $this->model_catatan_mutu->update_catatan($where, $data, 'catatan_mutu');
+	        echo "<script>alert('Peraturan Tersimpan');
+				document.location='".base_url()."admin/buatCatatanMutu';
+				</script>";
+	          redirect(base_url('admin/buatCatatanMutu'));
+	    }
 		
-		$this->model_catatan_mutu->update_catatan($where, $data, 'catatan_mutu');
+		
 	}
 
 	public function downloadCM($id){

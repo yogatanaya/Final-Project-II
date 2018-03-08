@@ -20,7 +20,12 @@
                         <form class="form-horizontal" action="<?php echo base_url('staff/submitCatatan')?>" method="post" enctype="multipart/form-data" role="form" id="modalCatatan" name="formCatatanMutu">
                         <div class="modal-body">
 
-                
+                         <!--div class="form-group">
+                            <label class="col-md-3 control-label" for="judul">ID Catatan Mutu</label>
+                                <div class="col-md-6">
+                                    <input  name="id_catatan" type="text" placeholder="Nomor Unik" class="form-control">
+                                </div>
+                        </div-->
 
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="judul">Judul</label>
@@ -88,6 +93,19 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="name">Keterangan</label><div class="col-md-6">
                             <textarea class="form-control" rows="5" name="keterangan"></textarea>
+                        </div>
+                    </div>
+
+                    <hr>
+                       <div class="form-group">
+                        <label class="col-md-3 control-label" for="id_dokumen">Dokumen Terkait</label>
+                        <div class="col-md-6">
+                            <select class="form-control" name="id_dokumen">
+                                <option value="">Pilih Dokumen Terkait</option>
+                                    <?php foreach($tb_dokumen_baru as $terkait){ ?>
+                                <option value="<?php echo $terkait['id_dokumen']; ?>"><?php echo $terkait['nama_dokumen']; ?>   </option>
+                                        <?php } ?>
+                            </select>
                         </div>
                     </div>
                   

@@ -14,6 +14,13 @@
                             <div class="form-group">
                                 <input type="hidden" name="id_dokumen" value="<?php echo $data->id_dokumen;?>">
                             </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="kode">Kode</label>
+                                    <div class="col-md-3">
+                                    <input id="kode" name="kode" type="text" class="form-control" value="Belum Disertai" readonly>
+                                    </div>
+                                </div>
                             
                             
                                 <!-- Jenis Dokumen-->

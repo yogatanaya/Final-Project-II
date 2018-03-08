@@ -3,9 +3,10 @@
             <div class="col-lg-12">
                 <h1 class="page-header">Catatan Mutu</h1>
                 <div class="page-body">
-                    <a href="#" class="btn btn-md btn-primary" data-toggle="modal" data-target="#modalCatatan">Buat Catatan Mutu</a>
+                     <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#modalCatatan"></a>
                 </div> 
                 <hr>
+              
             </div>
 
              <!-- Modal Tambah -->
@@ -19,7 +20,12 @@
                         <form class="form-horizontal" action="<?php echo base_url('staff/submitCatatan')?>" method="post" enctype="multipart/form-data" role="form" id="modalCatatan" name="formCatatanMutu">
                         <div class="modal-body">
 
-                
+                        <!--div class="form-group">
+                            <label class="col-md-3 control-label" for="judul">ID Catatan Mutu</label>
+                                <div class="col-md-6">
+                                    <input  name="id_catatan" type="text" placeholder="Nomor Unik" class="form-control">
+                                </div>
+                        </div-->
 
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="judul">Judul</label>
@@ -89,7 +95,8 @@
                             <textarea class="form-control" rows="5" name="keterangan"></textarea>
                         </div>
                     </div>
-                  
+                    
+
                           
 
                     </div>
@@ -115,7 +122,7 @@
                         <th data-field="entry_date">Waktu</th>
                         <th data-field="keterangan">Keterangan</th>
                         <th data-field="nama_admin">Penanggung Jawab</th>
-                        <th colspan="1">Opsi</th>                        
+                        <th colspan="1">Aksi</th>                        
                     </tr>
                 </thead>
                 <tbody>

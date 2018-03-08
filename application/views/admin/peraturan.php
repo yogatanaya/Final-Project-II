@@ -75,13 +75,13 @@
                                     </div>
                                 </div>
 
-                                <!--Tanggal Terbit-->
-                                <div class="form-group"-->
+                                <!--Tanggal Terbit>
+                                <div class="form-group">
                                     <label class="col-md-3 control-label" for="entry_date">Tanggal Terbit</label>
                                     <div class="col-md-6">
                                     <input id="entry_date" name="entry_date" type="date"  class="form-control">
                                     </div>
-                                </div>
+                                </div-->
 
                                 <!--Masa Berlaku-->
                                 <div class="form-group"-->

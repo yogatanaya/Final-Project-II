@@ -30,10 +30,13 @@ class model_peraturan extends CI_Model{
 	}
 
 	function insert_peraturan($data, $table){
-
     	$this->db->insert($table, $data);
    
   	}
+    function insert_instansi($data, $table){
+        $this->db->insert($table, $data);
+   
+    }
 
 	function get_instansi(){
 		$data=array();
@@ -131,10 +134,15 @@ class model_peraturan extends CI_Model{
         return $this->db->get_where($table,$where);
     }
 
-    function update_dokumen($where,$data,$table){
+    function update_peraturan($where,$data,$table){
         $this->db->where($where);
         $this->db->update($table,$data);
-    }   
+    } 
+
+    function insert_regulator($data, $table){
+        $this->db->insert($table, $data);
+   
+    }  
 
 }
 ?>

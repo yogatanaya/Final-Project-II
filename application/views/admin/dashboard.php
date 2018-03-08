@@ -90,6 +90,21 @@
                         <th colspan="1">Opsi</th>                           
                     </tr>
                 </thead>
+                <tbody>
+                    <?php 
+                    $no=1;
+                    foreach($tb_dokumen_baru as $setuju) { ?>
+                    <tr>
+                        <td><?php echo $no++; ?></td>
+                        <td><?php echo $setuju['jenis_dokumen'];?></td>
+                        <td><?php echo $setuju['nama_dokumen']; ?></td>
+                        <td><?php echo $setuju['unit']; ?></td>
+                        <td><?php echo $setuju['status_dokumen']; ?></td>
+                         <td><?php echo $setuju['keterangan']; ?></td>
+                          <td><?php echo $setuju['catatan']; ?></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
             </table>
             </div>
         </div>

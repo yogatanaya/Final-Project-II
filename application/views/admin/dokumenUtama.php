@@ -21,18 +21,7 @@
                         <div class="modal-body">
 
                               
-                                <!--UNIT>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="id_unit">Unit/Department</label>
-                                    <div class="col-md-8">
-                                    <select class="form-control" name="id_unit">
-                                            <option value="">Pilih Unit</option>
-                                            <?php foreach($unit as $u){ ?>
-                                            <option value="<?php echo $u['id_unit']; ?>"><?php echo $u['unit']; ?>   </option>
-                                            <?php } ?>
-                                        </select>
-                                    </div>
-                                </div-->
+                
 
                                 <!-- Jenis Dokumen-->
                                 <div class="form-group">
@@ -47,12 +36,12 @@
                                     </div>
                                 </div>
 
-                                <!--div class="form-group">
-                                    <label class="col-md-3 control-label" for="kode">Kode</label>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="id_dokumen">Kode</label>
                                     <div class="col-md-3">
-                                    <input id="kode" name="kode" type="text" placeholder="kode" class="form-control" disabled>
+                                    <input id="id_dokumen" name="id_dokumen" type="text" placeholder="kode" class="form-control">
                                     </div>
-                                </div-->
+                                </div>
     
                                 <!-- Judul Dokumen-->
                                 <div class="form-group">
@@ -97,20 +86,15 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group"-->
-                                    <label class="col-md-3 control-label" for="entry_date">Tanggal</label>
-                                    <div class="col-md-6">
-                                    <input id="entry_date" name="entry_date" type="date"  class="form-control">
-                                    </div>
-                                </div>
+                              
 
-                                <!--keterangan-->
+                                <!--keterangan>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="keterangan">Keterangan</label>
                                     <div class="col-md-6">
                                     <textarea class="form-control" id="keterangan" name="keterangan" rows="5"></textarea>
                                     </div>
-                                </div>
+                                </div-->
 
 
                           

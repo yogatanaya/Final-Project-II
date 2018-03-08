@@ -54,6 +54,7 @@ class model_catatan_mutu extends CI_Model{
         tb_admin.nama
         FROM
         catatan_mutu
+        Inner Join tb_dokumen_baru On tb_dokumen_baru.id_admin=catatan_mutu.id_admin
         Inner Join tb_admin On tb_admin.id_admin=catatan_mutu.id_admin
         Inner Join status_cm ON status_cm.id_status_cm = catatan_mutu.id_status_cm
         Inner Join metode ON metode.id_metode = catatan_mutu.id_metode
@@ -68,6 +69,21 @@ class model_catatan_mutu extends CI_Model{
     $this->db->insert($table, $data);
    
   }
+
+
+  function get_dokumen_terkait(){
+    $data=array();
+        $query = $this->db->get('tb_dokumen_baru');
+        if($query->num_rows()>0){
+            foreach ($query->result_array() as $row) {
+                $data[]=$row;
+            }
+        }
+        $query->free_result();
+        return $data;
+
+  }
+
 
     function edit_catatan($where,$table){       
         return $this->db->get_where($table,$where);

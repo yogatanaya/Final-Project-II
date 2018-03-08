@@ -3,7 +3,7 @@
             <div class="col-lg-12">
                 <h1 class="page-header">Dokumen Unit</h1>
                 <div class="page-body">
-                    <a href="#" class="btn btn-md btn-primary" data-toggle="modal" data-target="#dokumenBaru">Buat Baru</a>
+                    <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#dokumenBaru"></a>
                 </div> 
                 <hr> 
             </div>
@@ -36,7 +36,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="kode">Kode</label>
                                     <div class="col-md-3">
-                                    <input id="kode" name="kode" type="text" placeholder="kode" class="form-control" value="0" readonly>
+                                    <input id="kode" name="kode" type="text" placeholder="kode" class="form-control" value="Belum Disertai" readonly>
                                     </div>
                                 </div>
     
@@ -94,15 +94,9 @@
                                     </div>
                                 </div>
 
-                                <hr>
-                                <!--Catatan Mutu-->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="id_catatan">Catatan Mutu</label>
-                                    <div class="col-md-6">
-                                    <input id="example" type="text" name="id_catatan" class="form-control">
-                                    </div>
-                                </div>
-                          
+                         
+
+                                                          
 
                         </div>
                         <div class="modal-footer">
@@ -121,13 +115,15 @@
                 <thead>
                     <tr>
                         <th align="center">No.</th>
+                        <th data-field="kode">Kode</th>
                         <th data-field="nama_dokumen">Judul</th>
                         <th data-field="jenis_dokumen">Jenis</th>
                         <th data-field="status_dokumen">Status</th>
                         <th data-field="unit">Unit</th>
                         <th data-field="Revisi">Revisi Ke-</th>
                         <th data-field="entry_date">Waktu</th>
-                        <th data-field="keterangan">Keterangan</th>                         
+                        <th data-field="keterangan">Keterangan</th>
+                        <th colspan="1">Aksi</th>                         
                     </tr>
                 </thead>
                 <tbody>
@@ -135,6 +131,7 @@
                     foreach ($tb_dokumen_baru as $baru) { ?>
                     <tr>
                         <td><?php echo $no++; ?></td>
+                        <td><?php echo $baru['kode'];?></td>
                         <td><?php echo $baru['nama_dokumen'];?></td>
                         <td><?php echo $baru['jenis_dokumen'];?></td>
                         <td><?php echo $baru['status_dokumen'];?></td>
@@ -142,7 +139,16 @@
                         <td><?php echo $baru['revisi'];?></td>
                         <td><?php echo $baru['entry_date'];?></td>
                         <td><?php echo $baru['keterangan'];?></td>
-                      
+                        <td>
+                            <ul style="list-style-type: none;">
+                                <li>
+                                    <li><a href="<?php echo base_url('staff/download/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-download"></a></li>
+                                    <li><a href="<?php echo base_url('staff/editDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-edit"></a></li>
+                                   
+                                </li>
+                            </ul>            
+                                    
+                        </td>
                     </tr>
                     <?php } ?>
                 </tbody>
@@ -176,7 +182,6 @@
     <script src="<?php echo base_url('assets/vendor/datatables-plugins/dataTables.bootstrap.min.js');?>"></script>
     <script src="<?php echo base_url('assets/vendor/datatables-responsive/dataTables.responsive.js');?>"></script>
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-
     <script>
 
 
@@ -184,31 +189,10 @@
         $('#dataTables-example').DataTable({
             responsive: true
         });
-        $("#example").mSelectDBox({
+       
+       
 
-          // Array of list items
-          // ["Apple", "Orange", "Banana"];
-          // [{"label": "Apple", "value": "0"}, {"label": "Orange", "value": "1"}, {"label": "banana", "value": "2"}]
-          "list": [],
 
-          // enable multiple select
-          "multiple": true,
-
-          // enable autocomplete
-          "autoComplete": true,
-          
-          // Name of instance. 
-          "name": "a",
-
-          // autocomplete filters.
-          optionFilters: $.prototype.mSelectDBox.prototype.defaultOptionFilters.default,
-
-          // enable live search
-          embeddedInput: true
-
-        });
-
-        
     });
     </script>
 

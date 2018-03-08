@@ -3,7 +3,7 @@
             <div class="col-lg-12">
                 <h1 class="page-header">Peraturan Eksternal</h1>
                 <div class="page-body">
-                <a href="#" class="btn btn-md btn-primary" data-toggle="modal" data-target="#peraturanBaru">Buat Baru</a>
+                <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#peraturanBaru"></a>
                 </div>
                 <hr>
             </div>
@@ -72,7 +72,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="file">File</label>
                                     <div class="col-md-6">
-                                    <input id="file" name="file" type="file" placeholder="file" class="form-control">
+                                    <input name="file"  type="file" placeholder="file" class="form-control">
                                     </div>
                                 </div>
 
@@ -111,7 +111,7 @@
                         <th data-field="nama_admin"  data-sortable="true">Penanggung Jawab</th>
                         <th data-field="entry_date"  data-sortable="true">Tanggal Terbit</th>
                         <th data-field="masa_berlaku"  data-sortable="true">Masa Berlaku</th>
-                        <th colspan="1">Opsi</th>                       
+                        <th colspan="1">Aksi</th>                       
                     </tr>
                 </thead>
                 <tbody>
