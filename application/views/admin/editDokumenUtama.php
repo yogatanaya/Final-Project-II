@@ -14,6 +14,13 @@
                             <div class="form-group">
                                 <input type="hidden" name="id_dokumen" value="<?php echo $data->id_dokumen;?>">
                             </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="kode">Kode</label>
+                                    <div class="col-md-3">
+                                    <input id="kode" name="kode" type="text" class="form-control" value="<?php echo $data->kode;?>">
+                                    </div>
+                                </div>
                             
                             
                                 <!-- Jenis Dokumen-->
@@ -79,12 +86,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="entry_date">Tanggal</label>
-                                    <div class="col-md-6">
-                                    <input id="entry_date" name="entry_date" type="date"  class="form-control" value="<?php echo $data->entry_date; ?>">
-                                    </div>
-                                </div>
 
                                 <!--keterangan-->
                                 <div class="form-group">

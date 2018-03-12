@@ -6,7 +6,7 @@
             <div class="row">
                  <?php foreach($catatan_mutu as $edit) { ?>
 
-                <form class="form-horizontal" action="<?php echo base_url('staff/updateCatatan')?>" method="post" enctype="multipart/form-data" role="form" name="formEditCatatan" id="formEditCatatan">
+                <form class="form-horizontal" action="<?php echo base_url('admin/updateCatatan')?>" method="post" enctype="multipart/form-data" role="form" name="formEditCatatan" id="formEditCatatan">
 
                             <div class="form-group">
                                 <input type="hidden" name="id_catatan" value="<?php echo $edit->id_catatan;?>">

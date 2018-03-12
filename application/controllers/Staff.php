@@ -43,9 +43,19 @@ class Staff extends CI_Controller {
 		$data['tb_jenis_dokumen']=$this->model_dokumen_baru->get_jenis_dokumen();
 		$data['revisi']=$this->model_dokumen_baru->get_revisi();
 		//$data['unit']=$this->model_dokumen_baru->get_unit_user();
-		$data['catatan_mutu']=$this->model_catatan_mutu->get_judul();
+		//$data['catatan_mutu']=$this->model_catatan_mutu->get_judul();
 		$data['status_dokumen']=$this->model_dokumen_baru->get_status();
 		$data['tb_dokumen_baru']=$this->model_dokumen_baru->get_dokumen();
+
+		//filter search...
+		$filter=$this->input->post('filter');
+		$field=$this->input->post('field');
+		$search=$this->input->post('search');
+		if (isset($filter) && !empty($search)) {
+           $data['tb_dokumen_baru'] = $this->model_dokumen_baru->getDokumenWhereLike($field, $search);
+        } else {
+            $data['tb_dokumen_baru'] = $this->model_dokumen_baru->get_dokumen();
+        }
 
 		$this->load->view('staff/header',$data);
 		$this->load->view('staff/dokumenUtama',$data);
@@ -110,8 +120,6 @@ class Staff extends CI_Controller {
 	      		);
 	      	
 	          $this->model_dokumen_baru->insert_dokumen($data, 'tb_dokumen_baru');
-	          echo "<script>alert('Dokumen Unit Tersimpan');
-				</script>";
 	          redirect(base_url('staff/buatDokumenBaru'));
 	    }
 		
@@ -176,10 +184,7 @@ class Staff extends CI_Controller {
 	    if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
 	        //var_dump($error);
-	        echo "<script>alert('Upload Gagal!');
-				document.location='".base_url()."staff/buatCatatanMutu';
-				</script>";
-	        redirect(base_url('staff/buatPeraturan'));
+	        redirect(base_url('staff/buatDokumenBaru'));
 	    } else {
 	    	$dokumen=$this->upload->data();
 	         $data = array(
@@ -241,6 +246,17 @@ class Staff extends CI_Controller {
 		$data['metode']=$this->model_catatan_mutu->get_metode();
 		$data['catatan_mutu']=$this->model_catatan_mutu->get_catatan();
 		$data['tb_dokumen_baru']=$this->model_catatan_mutu->get_dokumen_terkait();
+
+		//filter search...
+		$filter=$this->input->post('filter');
+		$field=$this->input->post('field');
+		$search=$this->input->post('search');
+		if (isset($filter) && !empty($search)) {
+           $data['catatan_mutu'] = $this->model_catatan_mutu->getCatatanWhereLike($field, $search);
+        } else {
+            $data['catatan_mutu'] = $this->model_catatan_mutu->get_catatan();
+        }
+
 		$this->load->view('staff/header',$data);
 		$this->load->view('staff/catatanMutu',$data);
 	}
@@ -391,6 +407,17 @@ class Staff extends CI_Controller {
 		//$data['unit']=$this->model_peraturan->get_unit_user();
 		$data['regulator']=$this->model_peraturan->get_regulator();
 		$data['tb_peraturan']=$this->model_peraturan->get_peraturan();
+
+		//filter search...
+		$filter=$this->input->post('filter');
+		$field=$this->input->post('field');
+		$search=$this->input->post('search');
+		if (isset($filter) && !empty($search)) {
+           $data['tb_peraturan'] = $this->model_peraturan->getPeraturanWhereLike($field, $search);
+        } else {
+            $data['tb_peraturan'] = $this->model_peraturan->get_peraturan();
+        }
+		
 		$this->load->view('staff/header',$data);
 		$this->load->view('staff/peraturan',$data);
 	}
@@ -598,6 +625,14 @@ class Staff extends CI_Controller {
 		redirect(base_url('staff/formTambahInstansi'));
 	}
 	//INSTANSI
+
+
+	//Ubah Password 
+	public function formUbahPassword(){
+		$data['title']='My Profile';
+		$this->load->view('staff/header',$data);
+		$this->load->view('staff/formUbahPassword',$data);
+	}
 
 
 }

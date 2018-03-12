@@ -51,18 +51,51 @@ class model_catatan_mutu extends CI_Model{
         catatan_mutu.keterangan,
         catatan_mutu.entry_date,
         metode.metode,
-        tb_admin.nama
+        tb_admin.nama,
+        unit.unit
         FROM
         catatan_mutu
-        Inner Join tb_dokumen_baru On tb_dokumen_baru.id_admin=catatan_mutu.id_admin
-        Inner Join tb_admin On tb_admin.id_admin=catatan_mutu.id_admin
+        Inner Join tb_admin ON catatan_mutu.id_admin = tb_admin.id_admin
+        Inner Join unit ON tb_admin.id_unit = unit.id_unit
         Inner Join status_cm ON status_cm.id_status_cm = catatan_mutu.id_status_cm
         Inner Join metode ON metode.id_metode = catatan_mutu.id_metode
         order by id_catatan desc 
         ');
-
+        
         return $query->result_array();
     }
+
+     //FILTER 
+    public function getCatatanWhereLike($field, $search)
+    {
+
+        $query =$this->db->query("
+             SELECT
+            catatan_mutu.id_catatan,
+            catatan_mutu.judul,
+            status_cm.status_cm,
+            catatan_mutu.masa_berlaku,
+            catatan_mutu.lokasi_simpan,
+            catatan_mutu.`file`,
+            catatan_mutu.keterangan,
+            catatan_mutu.entry_date,
+            metode.metode,
+            tb_admin.nama,
+            unit.unit
+            FROM
+            catatan_mutu
+            Inner Join tb_admin ON catatan_mutu.id_admin = tb_admin.id_admin
+            Inner Join unit ON tb_admin.id_unit = unit.id_unit
+            Inner Join status_cm ON status_cm.id_status_cm = catatan_mutu.id_status_cm
+            Inner Join metode ON metode.id_metode = catatan_mutu.id_metode
+            WHERE $field LIKE '%$search%'
+            ORDER BY id_catatan desc 
+        ");
+        return $query->result_array();
+    }
+
+
+
 
      function insert_catatan($data, $table){
 

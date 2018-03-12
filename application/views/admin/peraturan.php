@@ -3,11 +3,54 @@
             <div class="col-lg-12">
                 <h1 class="page-header">Peraturan Eksternal</h1>
                 <div class="page-body">
-                <a href="#" class="btn btn-md btn-primary" data-toggle="modal" data-target="#peraturanBaru">Buat Baru</a>
+                <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#peraturanBaru"></a>
+                <a href="#" class="btn btn-md btn-success glyphicon glyphicon-list-alt" data-toggle="modal" data-target="#exportPeraturan"></a>
+                
                 </div>
+                <hr>
+                <form class="form-inline" action="<?php echo base_url('admin/buatPeraturan');?>" method="post">
+                    <select class="form-control" name="field">
+                        <option selected="selected" disabled="disabled" value="">Filter By</option>
+                        <option value="unit">Unit</option>
+                        <option value="instansi">Instansi</option>
+                        <option value="tahun">Tahun</option>
+                        <option value="regulator">Regulator</option>
+                    </select>
+                    <input class="form-control" type="text" name="search" value="" placeholder="Search...">
+                    <input class="btn btn-default" type="submit" name="filter" value="Go">
+                </form>
                 <hr>
             </div>
 
+
+            <!--Modal Export -->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="exportPeraturan" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">Export Peraturan</h4>
+                    </div>
+                        <form class="form-horizontal" action="<?php echo base_url('admin/export')?>" method="post" enctype="multipart/form-data" role="form" id="exportDokumenUnit" name="tambahDokumen">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                    <label class="col-md-3 control-label">Bulan</label>
+                                    <div class="col-md-6">
+                                    <input id="bulan" name="bulan" type="month"  class="form-control">
+                                    </div>
+                            </div>
+
+                                                          
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-info" type="submit"> Export&nbsp;</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
             <!--MODAL TAMBAH-->
 
@@ -21,7 +64,8 @@
                         <form class="form-horizontal" action="<?php echo base_url('admin/submitPeraturan')?>" method="post" enctype="multipart/form-data" role="form" id="tambahPeraturan" name="tambahPeraturan">
                         <div class="modal-body">
 
-                            
+                              
+
                                 <!-- Jenis Dokumen-->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_instansi">Instansi</label>
@@ -71,17 +115,10 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="file">File</label>
                                     <div class="col-md-6">
-                                    <input id="file" name="file" type="file" placeholder="file" class="form-control">
+                                    <input name="file"  type="file" placeholder="file" class="form-control">
                                     </div>
                                 </div>
 
-                                <!--Tanggal Terbit>
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="entry_date">Tanggal Terbit</label>
-                                    <div class="col-md-6">
-                                    <input id="entry_date" name="entry_date" type="date"  class="form-control">
-                                    </div>
-                                </div-->
 
                                 <!--Masa Berlaku-->
                                 <div class="form-group"-->
@@ -90,7 +127,7 @@
                                     <input id="masa_berlaku" name="masa_berlaku" type="date"  class="form-control">
                                     </div>
                                 </div>
-                                
+
 
                           
 
@@ -117,7 +154,7 @@
                         <th data-field="nama_admin"  data-sortable="true">Penanggung Jawab</th>
                         <th data-field="entry_date"  data-sortable="true">Tanggal Terbit</th>
                         <th data-field="masa_berlaku"  data-sortable="true">Masa Berlaku</th>
-                        <th colspan="1">Opsi</th>                       
+                        <th colspan="1">Aksi</th>                       
                     </tr>
                 </thead>
                 <tbody>
@@ -139,8 +176,9 @@
                                 <li>
                                     <li><a href="<?php echo base_url('admin/downloadPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-download"></a></li>
                                     <li><a href="<?php echo base_url('admin/editPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-edit"></a></li>
-                                     <li><a href="<?php echo base_url('admin/hapusPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-trash"  onclick="return confirm('Anda akan menghapus dokumen ini?');"></a></li>
-
+                                     <li><a href="<?php echo base_url('admin/hapusPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-trash"
+                                         onclick="return confirm('Anda akan menghapus peraturan ini?')"></a></li>
+                                    
                                 </li>
                             </ul>        
                         </td>
@@ -185,5 +223,3 @@
     });
     </script>
 </body>
-
-</html>

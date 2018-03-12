@@ -37,6 +37,16 @@ class Admin extends CI_Controller{
 		$data['status_dokumen']=$this->model_dokumen_baru->get_status();
 		$data['tb_dokumen_baru']=$this->model_dokumen_baru->get_dokumen();
 
+		//filter search...
+		$filter=$this->input->post('filter');
+		$field=$this->input->post('field');
+		$search=$this->input->post('search');
+		if (isset($filter) && !empty($search)) {
+           $data['tb_dokumen_baru'] = $this->model_dokumen_baru->getDokumenWhereLike($field, $search);
+        } else {
+            $data['tb_dokumen_baru'] = $this->model_dokumen_baru->get_dokumen();
+        }
+
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/dokumenUtama',$data);
 	}
@@ -50,7 +60,7 @@ class Admin extends CI_Controller{
 		$this->load->library('session');
 		//retrieve value from form
 		$id_jenis_dokumen=$this->input->post('id_jenis_dokumen');
-		$id_dokumen=$this->input->post('id_dokumen');
+		$kode=$this->input->post('kode');
 		$nama_dokumen=$this->input->post('nama_dokumen');
 		$id_status_dokumen=$this->input->post('id_status_dokumen');
 		$id_revisi=$this->input->post('id_revisi');
@@ -75,12 +85,11 @@ class Admin extends CI_Controller{
 	    } else {
 	    	$dokumen=$this->upload->data();
 	        $data = array(
-	        	'id_dokumen'=>$id_dokumen,
 	          	'file' => $dokumen['file_name'],
+	          	'kode'=>$kode,
 	          	'id_status_dokumen'=>$id_status_dokumen,
 	          	'id_jenis_dokumen'=>$id_jenis_dokumen,
 				'nama_dokumen'=>$nama_dokumen,
-				'judul'=>implode(',',$this->input->post('judul')),
 				'id_revisi'=>$id_revisi,
 				'keterangan'=>$keterangan,
 				'entry_date'=>date('Y-m-d'),
@@ -156,13 +165,9 @@ class Admin extends CI_Controller{
 
 	    if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
-	        //var_dump($error);
-	        echo "<script>alert('Upload Gagal!');
-				document.location='".base_url()."admin/buatCatatanMutu';
-				</script>";
 	        redirect(base_url('admin/buatPeraturan'));
 	    } else {
-	    	$dokumenUnit=$this->upload->data();
+	    	$dokumen=$this->upload->data();
 	         $data = array(
 	        	'kode'=>$kode,
 	          	'file' => $dokumen['file_name'],
@@ -188,14 +193,47 @@ class Admin extends CI_Controller{
      	$row = $query->row();
 
      	unlink("files/$row->file");
-
-     	
-     	echo "<script>alert('Dokumen Terhapus');
-			document.location='".base_url()."admin/buatDokumenBaru';
-			</script>";
 		$this->db->delete('tb_dokumen_baru', array('id_dokumen' => $id));
+		redirect(base_url('admin/buatDokumenBaru'));
 		
 	}
+	public function detailUtama(){
+		$data['title']='Detail Dokumen';
+		
+		$data['tb_jenis_dokumen']=$this->model_dokumen_baru->get_jenis_dokumen();
+		$data['revisi']=$this->model_dokumen_baru->get_revisi();
+		//$data['unit']=$this->model_dokumen_baru->get_unit_user();
+		$data['catatan_mutu']=$this->model_catatan_mutu->get_judul();
+		$data['status_dokumen']=$this->model_dokumen_baru->get_status();
+		$data['tb_dokumen_baru']=$this->model_dokumen_baru->get_dokumen();
+		$data['internal']=$this->model_dokumen_baru->get_detail();
+		$this->load->view('admin/header',$data);
+		$this->load->view('admin/detailUtama',$data);
+	}
+
+	public function hapusTautan($id){
+		$this->db->where('id',$id);
+    	 $query = $this->db->get('internal');
+     	$row = $query->row();
+
+		$this->db->delete('internal', array('id' => $id));
+		redirect(base_url('staff/detailUtama'));
+	}
+
+	public function addDetail(){
+		$id_dokumen=$this->input->post('id_dokumen');
+		$id_catatan=$this->input->post('id_catatan');
+		$data=array(
+			'id_dokumen'=>$id_dokumen,
+			'id_catatan'=>$id_catatan
+		);
+		
+		$this->model_dokumen_baru->insert_detail($data, 'internal');
+		redirect(base_url('admin/detailUtama'));
+	}
+
+
+
 
 
 
@@ -209,6 +247,17 @@ class Admin extends CI_Controller{
 		$data['regulator']=$this->model_peraturan->get_regulator();
 		$data['tb_peraturan']=$this->model_peraturan->get_peraturan();
 		//$data['unit']=$this->model_peraturan->get_unit_admin();
+
+		//filter search...
+		$filter=$this->input->post('filter');
+		$field=$this->input->post('field');
+		$search=$this->input->post('search');
+		if (isset($filter) && !empty($search)) {
+           $data['tb_peraturan'] = $this->model_peraturan->getPeraturanWhereLike($field, $search);
+        } else {
+            $data['tb_peraturan'] = $this->model_peraturan->get_peraturan();
+        }
+
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/peraturan',$data);
 	}
@@ -277,11 +326,8 @@ class Admin extends CI_Controller{
 
      	unlink("./files/$row->file");
 
-     	
-     	echo "<script>alert('Peraturan Terhapus');
-			document.location='".base_url()."admin/buatPeraturan';
-			</script>";
 		$this->db->delete('tb_peraturan', array('id_peraturan' => $id));
+		redirect(base_url('admin/buatPeraturan'));
 	}
 	//hapus peraturan
 
@@ -342,9 +388,9 @@ class Admin extends CI_Controller{
 	        $error = ['error' => $this->upload->display_errors()];
 	        //var_dump($error);
 	        echo "<script>alert('Upload Gagal!');
-				document.location='".base_url()."staff/buatPeraturan';
+				document.location='".base_url()."admin/buatPeraturan';
 				</script>";
-	        redirect(base_url('staff/buatPeraturan'));
+	        redirect(base_url('admin/buatPeraturan'));
 	    } else {
 	    	$file=$this->upload->data();
 	        $data = array(
@@ -361,7 +407,7 @@ class Admin extends CI_Controller{
 	          echo "<script>alert('Peraturan Tersimpan');
 				document.location='".base_url()."staff/buatPeraturan';
 				</script>";
-	          redirect(base_url('staff/buatPeraturan'));
+	          redirect(base_url('admin/buatPeraturan'));
 	    }
 		
 	}
@@ -375,6 +421,17 @@ class Admin extends CI_Controller{
 		$data['status_cm']=$this->model_catatan_mutu->get_status_cm();
 		$data['metode']=$this->model_catatan_mutu->get_metode();
 		$data['catatan_mutu']=$this->model_catatan_mutu->get_catatan();
+
+		//filter search...
+		$filter=$this->input->post('filter');
+		$field=$this->input->post('field');
+		$search=$this->input->post('search');
+		if (isset($filter) && !empty($search)) {
+           $data['catatan_mutu'] = $this->model_catatan_mutu->getCatatanWhereLike($field, $search);
+        } else {
+            $data['catatan_mutu'] = $this->model_catatan_mutu->get_catatan();
+        }
+
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/catatanMutu',$data);
 	}
@@ -530,13 +587,92 @@ class Admin extends CI_Controller{
 
      	unlink("./files/catatan/$row->file");
 
-     	
-     	echo "<script>alert('Catatan Terhapus');
-			document.location='".base_url()."admin/buatCatatanMutu';
-			</script>";
 		$this->db->delete('catatan_mutu', array('id_catatan' => $id));
-
+		redirect(base_url('admin/buatCatatanMutu'));
 	}
+
+
+
+
+
+
+
+
+//////////////////////////////OTHER SETTINGS////////////////////////////////////////////////
+
+
+
+	public function formTambahRegulator(){
+		$data['title']='Settings Regulator';
+		$data['regulator']=$this->model_peraturan->get_regulator();
+		$this->load->view('admin/header',$data);
+		$this->load->view('admin/formTambahRegulator',$data);
+	}
+
+	public function addRegulator(){
+		$regulator=$this->input->post('regulator');
+		$data=array(
+			'regulator'=>$regulator
+		);
+		$this->model_peraturan->insert_regulator($data, 'regulator');
+		redirect(base_url('admin/formTambahRegulator'));
+	}
+	public function hapusRegulator($id){
+		$this->db->where('id_regulator',$id);
+    	 $query = $this->db->get('regulator');
+     	$row = $query->row();
+		$this->db->delete('regulator', array('id_regulator' => $id));
+		redirect(base_url('admin/formTambahRegulator'));
+	}
+	//REGULATOR 
+	
+	public function formTambahJenis(){
+		$data['title']='Settings Jenis';
+		$data['tb_jenis_dokumen']=$this->model_dokumen_baru->get_jenis_dokumen();
+		$this->load->view('admin/header',$data);
+		$this->load->view('admin/formTambahJenis',$data);
+	}
+
+	public function addJenis(){
+		$jenis_dokumen=$this->input->post('jenis_dokumen');
+		$data=array(
+			'jenis_dokumen'=>$jenis_dokumen
+		);
+		$this->model_dokumen_baru->insert_jenis($data, 'tb_jenis_dokumen');
+		redirect(base_url('admin/formTambahJenis'));
+	}
+	public function hapusJenis($id){
+		$this->db->where('id_jenis_dokumen',$id);
+    	 $query = $this->db->get('tb_jenis_dokumen');
+     	$row = $query->row();
+		$this->db->delete('tb_jenis_dokumen', array('id_jenis_dokumen' => $id));
+		redirect(base_url('admin/formTambahJenis'));
+	}
+	//JENIS
+
+	public function formTambahInstansi(){
+		$data['title']='Settings Instansi';
+		$data['tb_instansi']=$this->model_peraturan->get_instansi();
+		$this->load->view('admin/header',$data);
+		$this->load->view('admin/formTambahInstansi',$data);
+	}
+
+	public function addInstansi(){
+		$instansi=$this->input->post('instansi');
+		$data=array(
+			'instansi'=>$instansi
+		);
+		$this->model_peraturan->insert_instansi($data, 'tb_instansi');
+		redirect(base_url('admin/formTambahInstansi'));
+	}
+	public function hapusInstansi($id){
+		$this->db->where('id_instansi',$id);
+    	 $query = $this->db->get('tb_instansi');
+     	$row = $query->row();
+		$this->db->delete('tb_instansi', array('id_instansi' => $id));
+		redirect(base_url('admin/formTambahInstansi'));
+	}
+	//INSTANSI
 
 	
 

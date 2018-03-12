@@ -30,6 +30,37 @@ class model_dokumen_baru extends CI_Model{
 		return $query->result_array();
 	}
 
+    //FILTER 
+    public function getDokumenWhereLike($field, $search)
+    {
+
+        $query =$this->db->query("
+            SELECT
+            tb_dokumen_baru.id_dokumen,
+            tb_dokumen_baru.kode,
+            tb_dokumen_baru.nama_dokumen,
+            tb_jenis_dokumen.jenis_dokumen,
+            tb_dokumen_baru.keterangan,
+            revisi.revisi,
+            status_dokumen.status_dokumen,
+            tb_dokumen_baru.`file`,
+            tb_dokumen_baru.entry_date,
+            unit.unit
+            FROM tb_dokumen_baru
+            Inner Join tb_admin On tb_dokumen_baru.id_admin=tb_admin.id_admin
+            Inner Join unit On tb_admin.id_unit=unit.id_unit
+            Inner Join tb_jenis_dokumen ON tb_dokumen_baru.id_jenis_dokumen = tb_jenis_dokumen.id_jenis_dokumen
+            Inner Join status_dokumen ON tb_dokumen_baru.id_status_dokumen = status_dokumen.id_status_dokumen
+            Inner Join revisi ON tb_dokumen_baru.id_revisi = revisi.id_revisi
+            WHERE $field LIKE '%$search%'
+            ORDER BY id_dokumen desc 
+        ");
+        return $query->result_array();
+    }
+
+   
+
+
     function get_detail(){
         $query=$this->db->query('
         SELECT
@@ -56,22 +87,7 @@ class model_dokumen_baru extends CI_Model{
         return $query->result_array();
     }
 
-    /*
-    function get_detail(){
-        $query=$this->db->query('
-        SELECT
-        tb_dokumen_baru.nama_dokumen,
-        catatan_mutu.judul
-        FROM
-        internal
-        Inner Join tb_dokumen_baru On tb_dokumen_baru.id_dokumen=internal.id_dokumen
-        Inner Join catatan_mutu On catatan_mutu.id_catatan=internal.id_catatan
-        ');
-
-        return $query->result_array();
-    }
-    */
-
+    
     function get_dokumen_setuju(){
         $query=$this->db->query('
         SELECT
@@ -100,6 +116,8 @@ class model_dokumen_baru extends CI_Model{
 
         return $query->result_array();
     }
+
+     
 
 
     function insert_detail($data, $table){

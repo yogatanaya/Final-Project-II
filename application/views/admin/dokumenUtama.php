@@ -1,13 +1,55 @@
-
-        <div id="page-wrapper">
+<div id="page-wrapper">
     
             <div class="col-lg-12">
                 <h1 class="page-header">Dokumen Unit</h1>
                 <div class="page-body">
-                    <a href="#" class="btn btn-md btn-primary" data-toggle="modal" data-target="#dokumenBaru">Buat Baru</a>
+                    <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#dokumenBaru"></a>
+                    <a href="#" class="btn btn-md btn-success glyphicon glyphicon-list-alt" data-toggle="modal" data-target="#exportDokumenUnit"></a>
+                
                 </div> 
-                <hr> 
+                <hr>
+                <form class="form-inline" action="<?php echo base_url('admin/buatDokumenBaru');?>" method="post">
+                    <select class="form-control" name="field">
+                        <option selected="selected" disabled="disabled" value="">Filter By</option>
+                        <option value="unit">Unit</option>
+                        <option value="jenis_dokumen">Jenis Dokumen</option>
+                        <option value="status_dokumen">Status Dokumen</option>
+                    </select>
+                    <input class="form-control" type="text" name="search" value="" placeholder="Search...">
+                    <input class="btn btn-default" type="submit" name="filter" value="Go">
+                </form>
+                <hr>
             </div>
+
+
+            <!--Modal Export -->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="exportDokumenUnit" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">Export Dokumen</h4>
+                    </div>
+                        <form class="form-horizontal" action="<?php echo base_url('admin/export')?>" method="post" enctype="multipart/form-data" role="form" id="exportDokumenUnit" name="tambahDokumen">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                    <label class="col-md-3 control-label">Bulan</label>
+                                    <div class="col-md-6">
+                                    <input id="bulan" name="bulan" type="month"  class="form-control">
+                                    </div>
+                            </div>
+
+                                                          
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-info" type="submit"> Export&nbsp;</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
              <!-- Modal Tambah -->
             <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="dokumenBaru" class="modal fade">
@@ -20,8 +62,6 @@
                         <form class="form-horizontal" action="<?php echo base_url('admin/submitDokumen')?>" method="post" enctype="multipart/form-data" role="form" id="tambahDokumen" name="tambahDokumen">
                         <div class="modal-body">
 
-                              
-                
 
                                 <!-- Jenis Dokumen-->
                                 <div class="form-group">
@@ -37,9 +77,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="id_dokumen">Kode</label>
+                                    <label class="col-md-3 control-label" for="kode">Kode</label>
                                     <div class="col-md-3">
-                                    <input id="id_dokumen" name="id_dokumen" type="text" placeholder="kode" class="form-control">
+                                    <input id="kode" name="kode" type="text" placeholder="kode" class="form-control">
                                     </div>
                                 </div>
     
@@ -65,13 +105,6 @@
                                 </div>
 
 
-                                <!-- Isi Dokumen-->
-                                <div class="form-group">
-                                    <label class="col-md-3 control-label" for="file">File</label>
-                                    <div class="col-md-6">
-                                    <input id="file" name="file" type="file" placeholder="file" class="form-control">
-                                    </div>
-                                </div>
 
                                 <!--Revisi-->
                                 <div class="form-group"-->
@@ -86,18 +119,27 @@
                                     </div>
                                 </div>
 
-                              
 
-                                <!--keterangan>
+                                <!--keterangan-->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="keterangan">Keterangan</label>
                                     <div class="col-md-6">
                                     <textarea class="form-control" id="keterangan" name="keterangan" rows="5"></textarea>
                                     </div>
-                                </div-->
+                                </div>
 
 
-                          
+                                <!-- Isi Dokumen-->
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label" for="file">Isi</label>
+                                    <div class="col-md-6">
+                                    <input id="file" name="file" type="file" placeholder="file" class="form-control">
+                                    </div>
+                                </div>
+
+                         
+
+                                                          
 
                         </div>
                         <div class="modal-footer">
@@ -116,6 +158,7 @@
                 <thead>
                     <tr>
                         <th align="center">No.</th>
+                        <th data-field="kode">Kode</th>
                         <th data-field="nama_dokumen">Judul</th>
                         <th data-field="jenis_dokumen">Jenis</th>
                         <th data-field="status_dokumen">Status</th>
@@ -123,7 +166,7 @@
                         <th data-field="Revisi">Revisi Ke-</th>
                         <th data-field="entry_date">Waktu</th>
                         <th data-field="keterangan">Keterangan</th>
-                        <th colspan="1">Opsi</th>                           
+                        <th colspan="1">Aksi</th>                         
                     </tr>
                 </thead>
                 <tbody>
@@ -131,6 +174,7 @@
                     foreach ($tb_dokumen_baru as $baru) { ?>
                     <tr>
                         <td><?php echo $no++; ?></td>
+                        <td><?php echo $baru['kode'];?></td>
                         <td><?php echo $baru['nama_dokumen'];?></td>
                         <td><?php echo $baru['jenis_dokumen'];?></td>
                         <td><?php echo $baru['status_dokumen'];?></td>
@@ -143,7 +187,8 @@
                                 <li>
                                     <li><a href="<?php echo base_url('admin/download/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-download"></a></li>
                                     <li><a href="<?php echo base_url('admin/editDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-edit"></a></li>
-                                     <li><a href="<?php echo base_url('admin/hapusDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-trash" onclick="return confirm('Anda akan menghapus dokumen ini?');"></a></li>
+                                     <li><a href="<?php echo base_url('admin/hapusDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-trash"
+                                         onclick="return confirm('Anda akan menghapus dokumen ini?')"></a></li>
                                 </li>
                             </ul>            
                                     
@@ -180,15 +225,21 @@
     <script src="<?php echo base_url('assets/vendor/datatables/js/jquery.dataTables.min.js');?>"></script>
     <script src="<?php echo base_url('assets/vendor/datatables-plugins/dataTables.bootstrap.min.js');?>"></script>
     <script src="<?php echo base_url('assets/vendor/datatables-responsive/dataTables.responsive.js');?>"></script>
-    
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
+
+
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
             responsive: true
         });
+       
+       
+
+
     });
     </script>
-</body>
 
-</html>
+    
+
+</body>

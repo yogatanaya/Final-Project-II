@@ -5,6 +5,8 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+           
+            
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-3 col-md-6">
@@ -77,35 +79,49 @@
                     <h1 class="page-header">Approved Documents</h1>
             </div>
 
-                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+               <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
                     <tr>
                         <th align="center">No.</th>
-                        <th data-field="jenis_dokumen">Jenis</th>
+                        <th data-field="kode">Kode</th>
                         <th data-field="nama_dokumen">Judul</th>
-                        <th data-field="unit">Unit Terkait</th>
+                        <th data-field="jenis_dokumen">Jenis</th>
                         <th data-field="status_dokumen">Status</th>
+                        <th data-field="unit">Unit</th>
+                        <th data-field="Revisi">Revisi Ke-</th>
+                        <th data-field="entry_date">Waktu</th>
                         <th data-field="keterangan">Keterangan</th>
-                        <th data-field="catatan">Catatan</th>  
-                        <th colspan="1">Opsi</th>                           
+                        <th colspan="1">Aksi</th>                         
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                    $no=1;
-                    foreach($tb_dokumen_baru as $setuju) { ?>
+                    <?php $no=1;
+                    foreach ($tb_dokumen_baru as $setuju) { ?>
                     <tr>
                         <td><?php echo $no++; ?></td>
+                        <td><?php echo $setuju['kode'];?></td>
+                        <td><?php echo $setuju['nama_dokumen'];?></td>
                         <td><?php echo $setuju['jenis_dokumen'];?></td>
-                        <td><?php echo $setuju['nama_dokumen']; ?></td>
+                        <td><?php echo $setuju['status_dokumen'];?></td>
                         <td><?php echo $setuju['unit']; ?></td>
-                        <td><?php echo $setuju['status_dokumen']; ?></td>
-                         <td><?php echo $setuju['keterangan']; ?></td>
-                          <td><?php echo $setuju['catatan']; ?></td>
+                        <td><?php echo $setuju['revisi'];?></td>
+                        <td><?php echo $setuju['entry_date'];?></td>
+                        <td><?php echo $setuju['keterangan'];?></td>
+                        <td>
+                            <ul style="list-style-type: none;">
+                                <li>
+                                    <li><a href="<?php echo base_url('admin/download/'.$setuju['id_dokumen']);?>" class="glyphicon glyphicon-download"></a></li>
+                                    <li><a href="<?php echo base_url('admin/hapusDokumen/'.$setuju['id_dokumen']);?>" class="glyphicon glyphicon-trash"
+                                         onclick="return confirm('Anda akan menghapus dokumen ini?')"></a></li>
+                                </li>
+                            </ul>            
+                                    
+                        </td>
                     </tr>
                     <?php } ?>
                 </tbody>
             </table>
+            
             </div>
         </div>
         <!-- /#page-wrapper -->

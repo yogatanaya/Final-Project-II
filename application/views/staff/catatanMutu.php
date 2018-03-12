@@ -6,7 +6,19 @@
                      <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#modalCatatan"></a>
                 </div> 
                 <hr>
-              
+                <form class="form-inline" action="<?php echo base_url('staff/buatCatatanMutu');?>" method="post">
+                    <select class="form-control" name="field">
+                        <option selected="selected" disabled="disabled" value="">Filter By</option>
+                        <option value="judul">Judul</option>
+                        <option value="status_cm">Status</option>
+                        <option value="masa_berlaku">Masa Berlaku</option>
+                        <option value="lokasi_simpan">Lokasi</option>
+                        <option value="metode">metode</option>
+                    </select>
+                    <input class="form-control" type="text" name="search" value="" placeholder="Search...">
+                    <input class="btn btn-default" type="submit" name="filter" value="Go">
+                </form>
+                <hr>
             </div>
 
              <!-- Modal Tambah -->

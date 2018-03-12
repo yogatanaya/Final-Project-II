@@ -29,6 +29,36 @@ class model_peraturan extends CI_Model{
 		return $query->result_array();
 	}
 
+    //FILTER 
+    public function getPeraturanWhereLike($field, $search)
+    {
+
+        $query =$this->db->query("
+            SELECT
+            tb_peraturan.id_peraturan,
+            tb_instansi.instansi,
+            tb_peraturan.judul,
+            tb_peraturan.tahun,
+            regulator.regulator,
+            tb_peraturan.`file`,
+            tb_peraturan.entry_date,
+            tb_peraturan.masa_berlaku,
+            unit.unit,
+            tb_admin.nama
+            FROM
+            tb_peraturan
+            Inner Join tb_admin ON tb_peraturan.id_admin=tb_admin.id_admin
+            Inner Join unit ON tb_admin.id_unit=unit.id_unit
+            Inner Join tb_instansi ON tb_instansi.id_instansi = tb_peraturan.id_instansi
+            Inner Join regulator ON regulator.id_regulator = tb_peraturan.id_regulator
+            WHERE $field LIKE '%$search%'
+            order by id_peraturan desc 
+        ");
+        return $query->result_array();
+    }
+
+    
+
 	function insert_peraturan($data, $table){
     	$this->db->insert($table, $data);
    

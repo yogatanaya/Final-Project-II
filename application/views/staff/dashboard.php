@@ -14,7 +14,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
+                                    <i class="fa fa-archive fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge"><?php echo $count_baru; ?></div>
@@ -30,7 +30,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-pencil-square-o fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge"><?php echo $count_revisi; ?></div>
@@ -46,7 +46,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <i class="fa fa-check fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge"><?php echo $count_setuju; ?></div>
@@ -62,7 +62,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
+                                    <i class="fa fa-folder-open fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge"><?php echo $count_unit; ?></div>
@@ -79,35 +79,47 @@
                     <h1 class="page-header">Approved Documents</h1>
             </div>
 
-                <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+               <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
                     <tr>
                         <th align="center">No.</th>
-                        <th data-field="jenis_dokumen">Jenis</th>
+                        <th data-field="kode">Kode</th>
                         <th data-field="nama_dokumen">Judul</th>
-                        <th data-field="unit">Unit Terkait</th>
+                        <th data-field="jenis_dokumen">Jenis</th>
                         <th data-field="status_dokumen">Status</th>
+                        <th data-field="unit">Unit</th>
+                        <th data-field="Revisi">Revisi Ke-</th>
+                        <th data-field="entry_date">Waktu</th>
                         <th data-field="keterangan">Keterangan</th>
-                        <th data-field="catatan">Catatan</th>  
-                        <th colspan="1">Aksi</th>                           
+                        <th colspan="1">Aksi</th>                         
                     </tr>
                 </thead>
                 <tbody>
-                    <?php 
-                    $no=1;
-                    foreach($tb_dokumen_baru as $setuju) { ?>
+                    <?php $no=1;
+                    foreach ($tb_dokumen_baru as $setuju) { ?>
                     <tr>
                         <td><?php echo $no++; ?></td>
+                        <td><?php echo $setuju['kode'];?></td>
+                        <td><?php echo $setuju['nama_dokumen'];?></td>
                         <td><?php echo $setuju['jenis_dokumen'];?></td>
-                        <td><?php echo $setuju['nama_dokumen']; ?></td>
+                        <td><?php echo $setuju['status_dokumen'];?></td>
                         <td><?php echo $setuju['unit']; ?></td>
-                        <td><?php echo $setuju['status_dokumen']; ?></td>
-                         <td><?php echo $setuju['keterangan']; ?></td>
-                          <td><?php echo $setuju['catatan']; ?></td>
+                        <td><?php echo $setuju['revisi'];?></td>
+                        <td><?php echo $setuju['entry_date'];?></td>
+                        <td><?php echo $setuju['keterangan'];?></td>
+                        <td>
+                            <ul style="list-style-type: none;">
+                                <li>
+                                    <li><a href="<?php echo base_url('staff/download/'.$setuju['id_dokumen']);?>" class="glyphicon glyphicon-download"></a></li>
+                                </li>
+                            </ul>            
+                                    
+                        </td>
                     </tr>
                     <?php } ?>
                 </tbody>
             </table>
+            
             </div>
         </div>
         <!-- /#page-wrapper -->

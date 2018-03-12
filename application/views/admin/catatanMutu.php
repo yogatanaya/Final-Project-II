@@ -1,11 +1,23 @@
-
         <div id="page-wrapper">
     
             <div class="col-lg-12">
                 <h1 class="page-header">Catatan Mutu</h1>
                 <div class="page-body">
-                    <a href="#" class="btn btn-md btn-primary" data-toggle="modal" data-target="#modalCatatan">Buat Catatan Mutu</a>
+                     <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#modalCatatan"></a>
                 </div> 
+                <hr>
+                <form class="form-inline" action="<?php echo base_url('admin/buatCatatanMutu');?>" method="post">
+                    <select class="form-control" name="field">
+                        <option selected="selected" disabled="disabled" value="">Filter By</option>
+                        <option value="judul">Judul</option>
+                        <option value="status_cm">Status</option>
+                        <option value="masa_berlaku">Masa Berlaku</option>
+                        <option value="lokasi_simpan">Lokasi</option>
+                        <option value="metode">metode</option>
+                    </select>
+                    <input class="form-control" type="text" name="search" value="" placeholder="Search...">
+                    <input class="btn btn-default" type="submit" name="filter" value="Go">
+                </form>
                 <hr>
             </div>
 
@@ -17,10 +29,10 @@
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                         <h4 class="modal-title">Tambah Baru</h4>
                     </div>
-                        <form class="form-horizontal" action="<?php echo base_url('staff/submitCatatan')?>" method="post" enctype="multipart/form-data" role="form" id="modalCatatan" name="formCatatanMutu">
+                        <form class="form-horizontal" action="<?php echo base_url('admin/submitCatatan')?>" method="post" enctype="multipart/form-data" role="form" id="modalCatatan" name="formCatatanMutu">
                         <div class="modal-body">
 
-                         <!--div class="form-group">
+                        <!--div class="form-group">
                             <label class="col-md-3 control-label" for="judul">ID Catatan Mutu</label>
                                 <div class="col-md-6">
                                     <input  name="id_catatan" type="text" placeholder="Nomor Unik" class="form-control">
@@ -95,20 +107,8 @@
                             <textarea class="form-control" rows="5" name="keterangan"></textarea>
                         </div>
                     </div>
+                    
 
-                    <hr>
-                       <div class="form-group">
-                        <label class="col-md-3 control-label" for="id_dokumen">Dokumen Terkait</label>
-                        <div class="col-md-6">
-                            <select class="form-control" name="id_dokumen">
-                                <option value="">Pilih Dokumen Terkait</option>
-                                    <?php foreach($tb_dokumen_baru as $terkait){ ?>
-                                <option value="<?php echo $terkait['id_dokumen']; ?>"><?php echo $terkait['nama_dokumen']; ?>   </option>
-                                        <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                  
                           
 
                     </div>
@@ -134,7 +134,7 @@
                         <th data-field="entry_date">Waktu</th>
                         <th data-field="keterangan">Keterangan</th>
                         <th data-field="nama_admin">Penanggung Jawab</th>
-                        <th colspan="1">Opsi</th>                        
+                        <th colspan="1">Aksi</th>                        
                     </tr>
                 </thead>
                 <tbody>
@@ -155,10 +155,9 @@
                                 <li>
                                     <li><a href="<?php echo base_url('admin/downloadCM/'.$c['id_catatan']);?>" class="glyphicon glyphicon-download"></a></li>
                                     <li><a href="<?php echo base_url('admin/editCatatan/'.$c['id_catatan']);?>" class="glyphicon glyphicon-edit"></a></li>
-                                    </li>
                                     <li><a href="<?php echo base_url('admin/hapusCatatan/'.$c['id_catatan']);?>" class="glyphicon glyphicon-trash"
-                                        onclick="return confirm('Anda akan menghapus catatan ini?');"></a></li>
-                                    </li>
+                                         onclick="return confirm('Anda akan menghapus catatan mutu ini?')"></a></li>
+                                </li>
                         </td>
                     </tr>
                     <?php } ?>
@@ -201,5 +200,3 @@
     });
     </script>
 </body>
-
-</html>

@@ -38,7 +38,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <!--UI Dropdown-->
+    
 </head>
 
 <body>
@@ -83,7 +84,7 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
+                        <!--li class="sidebar-search">
                             <div class="input-group custom-search-form">
                                 <input type="text" class="form-control" placeholder="Search...">
                                 <span class="input-group-btn">
@@ -106,6 +107,9 @@
                                 <li>
                                     <a href="<?php echo base_url('admin/buatCatatanMutu');?>">Catatan Mutu</a>
                                 </li>
+                                <li>
+                                    <a href="<?php echo base_url('admin/detailUtama');?>">Detail</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -118,16 +122,13 @@
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Lainnya<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Unit Baru</a>
+                                    <a href="<?php echo base_url('admin/formTambahRegulator');?>">Regulator Baru</a>
                                 </li>
                                 <li>
-                                    <a href="#">Regulator Baru</a>
+                                    <a href="<?php echo base_url('admin/formTambahJenis');?>">Jenis Dokumen Baru</a>
                                 </li>
                                 <li>
-                                    <a href="#">Jenis Dokumen Baru</a>
-                                </li>
-                                <li>
-                                    <a href="#">Nomor Peraturan Baru</a>
+                                    <a href="<?php echo base_url('admin/formTambahInstansi');?>">Instansi</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

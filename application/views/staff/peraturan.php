@@ -6,6 +6,18 @@
                 <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#peraturanBaru"></a>
                 </div>
                 <hr>
+                <form class="form-inline" action="<?php echo base_url('staff/buatPeraturan');?>" method="post">
+                    <select class="form-control" name="field">
+                        <option selected="selected" disabled="disabled" value="">Filter By</option>
+                        <option value="unit">Unit</option>
+                        <option value="instansi">Instansi</option>
+                        <option value="tahun">Tahun</option>
+                        <option value="regulator">Regulator</option>
+                    </select>
+                    <input class="form-control" type="text" name="search" value="" placeholder="Search...">
+                    <input class="btn btn-default" type="submit" name="filter" value="Go">
+                </form>
+                <hr>
             </div>
 
 
