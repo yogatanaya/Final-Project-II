@@ -18,11 +18,10 @@
                              <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_instansi">Instansi</label>
                                     <div class="col-md-6">
-                                    <select class="form-control" name="id_instansi">
-                                            <option value="">Pilih Nomor Instansi</option>
-                                            <?php foreach($tb_instansi as $i){ ?>
-                                            <option value="<?php echo $i['id_instansi']; ?>"><?php echo $i['instansi']; ?>   </option>
-                                            <?php } ?>
+                                    <select name="id_instansi" class="form-control">
+                                        <?php foreach ($tb_instansi as $i) { ?>
+                                        <option <?php if($i->id_instansi == $edit->id_instansi ){ echo 'selected="selected"'; } ?> value="<?php echo $i->id_instansi ?>"><?php echo $i->instansi ?> </option>
+                                        <?php } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -49,11 +48,10 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_regulator">Regulator</label>
                                     <div class="col-md-6">
-                                    <select class="form-control" name="id_regulator">
-                                            <option value="">Pilih Regulator</option>
-                                            <?php foreach($regulator as $rg){ ?>
-                                            <option value="<?php echo $rg['id_regulator']; ?>"><?php echo $rg['regulator']; ?>   </option>
-                                            <?php } ?>
+                                    <select name="id_regulator" class="form-control">
+                                        <?php foreach ($regulator as $r) { ?>
+                                        <option <?php if($r->id_regulator == $edit->id_regulator ){ echo 'selected="selected"'; } ?> value="<?php echo $r->id_regulator ?>"><?php echo $r->regulator ?> </option>
+                                        <?php } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -63,8 +61,9 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="file">File</label>
                                     <div class="col-md-6">
+                                    <?php echo $edit->file; ?>
                                     <input id="file" name="file" type="file" class="form-control"
-                                    value="<?php echo $edit->file; ?>">
+                                    >
                                     </div>
                                 </div>
 

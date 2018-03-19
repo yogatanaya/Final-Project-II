@@ -30,6 +30,8 @@ class model_dokumen_baru extends CI_Model{
 		return $query->result_array();
 	}
 
+
+
     //FILTER 
     public function getDokumenWhereLike($field, $search)
     {

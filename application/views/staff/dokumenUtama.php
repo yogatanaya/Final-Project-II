@@ -1,5 +1,7 @@
 <div id="page-wrapper">
-    
+             <div class="alert alert-warning">
+                    Perhatian! Sebelum menghapus dokumen unit harap remove terlebih dahulu link tautan di sub menu detail pada dokumen unit</a>.
+                </div>
             <div class="col-lg-12">
                 <h1 class="page-header">Dokumen Unit</h1>
                 <div class="page-body">
@@ -152,8 +154,7 @@
                         <td style="white-space: nowrap;">
                             <a href="<?php echo base_url('staff/download/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-save btn btn-sm btn-primary"></a>
                             <a href="<?php echo base_url('staff/editDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-edit btn btn-sm btn-success"></a>
-                             <a href="<?php echo base_url('staff/hapusDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-trash btn btn-sm btn-danger"
-                                onclick="return confirm('Anda akan menghapus dokumen ini?')"></a>
+                             
                         </td>
                     </tr>
                     <?php } ?>

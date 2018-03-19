@@ -1,5 +1,7 @@
 <div id="page-wrapper">
-    
+             <div class="alert alert-warning">
+                    Perhatian! Sebelum menghapus dokumen unit harap remove terlebih dahulu link tautan di sub menu detail pada dokumen unit</a>.
+                </div>
             <div class="col-lg-12">
                 <h1 class="page-header">Dokumen Unit</h1>
                 <div class="page-body">
@@ -151,7 +153,7 @@
             </div>
         </div>
 
-
+        
        
 
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">

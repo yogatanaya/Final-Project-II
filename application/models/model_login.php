@@ -25,5 +25,21 @@ class model_login extends CI_Model{
 
 		return $query->result_array();
   }
+
+  function get_unit(){
+  	$query=$this->db->query('
+  		SELECT *
+  		FROM unit 
+  		');
+  		return $query->result_array();
+  }
+
+  function addUser($data, $table){
+  		$this->db->insert($table, $data);
+  }
+
+  function addUnit($data, $table){
+    $this->db->insert($table, $data);
+  }
  
 }

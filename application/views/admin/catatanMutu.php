@@ -1,5 +1,7 @@
         <div id="page-wrapper">
-    
+             <div class="alert alert-warning">
+                    Perhatian! Sebelum menghapus catatan mutu harap remove terlebih dahulu link tautan di sub menu detail pada dokumen unit</a>.
+                </div>
             <div class="col-lg-12">
                 <h1 class="page-header">Catatan Mutu</h1>
                 <div class="page-body">

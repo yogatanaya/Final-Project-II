@@ -6,6 +6,7 @@ class Admin extends CI_Controller{
 	public function __construct(){
 	parent::__construct();
 	$this->load->model('model_peraturan');
+	$this->load->model('model_login');
 	$this->load->model('model_dokumen_baru');
 	$this->load->model('model_catatan_mutu');
 	$this->load->helper('url');
@@ -370,9 +371,9 @@ class Admin extends CI_Controller{
 		$where = array('id_peraturan' => $id
 					);
 		$data['tb_peraturan']=$this->model_peraturan->edit_peraturan($where,'tb_peraturan')->result();
-		$data['tb_instansi']=$this->model_peraturan->get_instansi();
+		$data['tb_instansi']=$this->db->get('tb_instansi')->result();
 		//$data['unit']=$this->model_peraturan->get_unit_user();
-		$data['regulator']=$this->model_peraturan->get_regulator();
+		$data['regulator']=$this->db->get('regulator')->result();
 
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/editPeraturan',$data);
@@ -516,8 +517,8 @@ class Admin extends CI_Controller{
 		$data['title']='Edit Catatan';
 		$where = array('id_catatan' => $id
 					);
-		$data['status_cm']=$this->model_catatan_mutu->get_status_cm();
-		$data['metode']=$this->model_catatan_mutu->get_metode();
+		$data['status_cm']=$this->db->get('status_cm')->result();
+		$data['metode']=$this->db->get('metode')->result();
 		$data['catatan_mutu']=$this->model_catatan_mutu->edit_catatan($where,'catatan_mutu')->result();
 
 		$this->load->view('admin/header',$data);
@@ -687,7 +688,58 @@ class Admin extends CI_Controller{
 	}
 	//INSTANSI
 
-	
+	//REGISTRASI 
+	public function formRegistrasi(){
+		$data['title']='New User';
+		$data['unit']=$this->model_login->get_unit();
+		$this->load->view('admin/header',$data);
+		$this->load->view('admin/formRegistrasi',$data);
+	}
+
+	public function register(){
+		$nama=$this->input->post('nama');
+		$id_unit=$this->input->post('id_unit');
+		$username=$this->input->post('username');
+		$password=$this->input->post('password');
+		$tipe=$this->input->post('tipe');
+		if($id_unit==1){
+			$data=array(
+				'nama'=>$nama,
+				'id_unit'=>$id_unit,
+				'username'=>$username,
+				'password'=>$password,
+				'tipe'=>0
+			);
+			$this->model_login->addUser($data, 'tb_admin');
+			redirect(base_url('admin/formRegistrasi'));
+		}else{
+			$data=array(
+				'nama'=>$nama,
+				'id_unit'=>$id_unit,
+				'username'=>$username,
+				'password'=>$password,
+				'tipe'=>1
+			);
+			$this->model_login->addUser($data, 'tb_admin');
+			redirect(base_url('admin/formRegistrasi'));
+		}
+	}
+
+	function addUnit(){
+		$unit=$this->input->post('unit');
+		$data=array('unit'=>$unit);
+		$this->model_login->addUnit($data, 'unit');
+		redirect(base_url('admin/formRegistrasi'));
+	}
+	function hapusUnit($id){
+		$this->db->where('unit',$id);
+    	 $query = $this->db->get('unit');
+     	$row = $query->row();
+		$this->db->delete('unit', array('id_unit' => $id));
+		redirect(base_url('admin/formRegistrasi'));
+	}
+
+
 
 
 }

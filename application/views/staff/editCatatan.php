@@ -21,15 +21,14 @@
                                     </div>
                                 </div>
 
-                                <!-- Status -->
+                                 <!-- Status -->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_status_cm">Status</label>
                                     <div class="col-md-6">
-                                    <select class="form-control" name="id_status_cm">
-                                            <option value="">Pilih Status Dokumen</option>
-                                            <?php foreach($status_cm as $cm){ ?>
-                                            <option value="<?php echo $cm['id_status_cm']; ?>"><?php echo $cm['status_cm']; ?>   </option>
-                                            <?php } ?>
+                                    <select name="id_status_cm" class="form-control">
+                                        <?php foreach ($status_cm as $s) { ?>
+                                        <option <?php if($s->id_status_cm == $edit->id_status_cm ){ echo 'selected="selected"'; } ?> value="<?php echo $s->id_status_cm ?>"><?php echo $s->status_cm ?> </option>
+                                        <?php } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -63,24 +62,23 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_metode">Metode</label>
                                     <div class="col-md-6">
-                                    <select class="form-control" name="id_metode">
-                                            <option value="">Pilih Metode</option>
-                                            <?php foreach($metode as $m){ ?>
-                                            <option value="<?php echo $m['id_metode']; ?>"><?php echo $m['metode']; ?>   </option>
-                                            <?php } ?>
+                                    <select name="id_metode" class="form-control">
+                                        <?php foreach ($metode as $m) { ?>
+                                        <option <?php if($m->id_metode == $edit->id_metode ){ echo 'selected="selected"'; } ?> value="<?php echo $m->id_metode ?>"><?php echo $m->metode ?> </option>
+                                        <?php } ?>
                                         </select>
                                     </div>
                                 </div>
 
                                 
-                                <!-- Isi Dokumen-->
+                                  <!-- Isi Dokumen-->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="file">File</label>
                                     <div class="col-md-6">
-                                    <input id="file" name="file" type="file" placeholder="file" class="form-control" value="<?php echo $edit->file; ?>">
+                                    <?php echo $edit->file; ?>
+                                    <input id="file" name="file" type="file" placeholder="file" class="form-control">
                                     </div>
                                 </div>
-
                          
 
 

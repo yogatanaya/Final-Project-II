@@ -337,8 +337,8 @@ class Staff extends CI_Controller {
 		$data['title']='Edit Catatan';
 		$where = array('id_catatan' => $id
 					);
-		$data['status_cm']=$this->model_catatan_mutu->get_status_cm();
-		$data['metode']=$this->model_catatan_mutu->get_metode();
+		$data['status_cm']=$this->db->get('status_cm')->result();
+		$data['metode']=$this->db->get('metode')->result();
 		$data['catatan_mutu']=$this->model_catatan_mutu->edit_catatan($where,'catatan_mutu')->result();
 
 		$this->load->view('staff/header',$data);
@@ -495,9 +495,9 @@ class Staff extends CI_Controller {
 		$where = array('id_peraturan' => $id
 					);
 		$data['tb_peraturan']=$this->model_peraturan->edit_peraturan($where,'tb_peraturan')->result();
-		$data['tb_instansi']=$this->model_peraturan->get_instansi();
+		$data['tb_instansi']=$this->db->get('tb_instansi')->result();
 		//$data['unit']=$this->model_peraturan->get_unit_user();
-		$data['regulator']=$this->model_peraturan->get_regulator();
+		$data['regulator']=$this->db->get('regulator')->result();
 
 		$this->load->view('staff/header',$data);
 		$this->load->view('staff/editPeraturan',$data);
