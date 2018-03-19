@@ -23,15 +23,14 @@
                                 </div>
                             
                             
-                                <!-- Jenis Dokumen-->
+                                 <!-- Jenis Dokumen-->
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_jenis_dokumen">Jenis Dokumen</label>
                                     <div class="col-md-6">
-                                    <select class="form-control" name="id_jenis_dokumen">
-                                            <option value="">Pilih Jenis Dokumen</option>
-                                            <?php foreach($tb_jenis_dokumen as $jenis){ ?>
-                                            <option value="<?php echo $jenis['id_jenis_dokumen']; ?>"><?php echo $jenis['jenis_dokumen']; ?>   </option>
-                                            <?php } ?>
+                                    <select name="id_jenis_dokumen" class="form-control">
+                                        <?php foreach ($tb_jenis_dokumen as $jenis) { ?>
+                                        <option <?php if($jenis->id_jenis_dokumen == $data->id_jenis_dokumen ){ echo 'selected="selected"'; } ?> value="<?php echo $jenis->id_jenis_dokumen ?>"><?php echo $jenis->jenis_dokumen ?> </option>
+                                        <?php } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -55,10 +54,9 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_status_dokumen">Status Dokumen</label>
                                     <div class="col-md-6">
-                                    <select class="form-control" name="id_status_dokumen">
-                                            <option value="">Pilih Status Dokumen</option>
-                                            <?php foreach($status_dokumen as $status){ ?>
-                                            <option value="<?php echo $status['id_status_dokumen']; ?>"><?php echo $status['status_dokumen']; ?>   </option>
+                                        <select name="id_status_dokumen" class="form-control">
+                                            <?php foreach ($status_dokumen as $status) { ?>
+                                            <option <?php if($status->id_status_dokumen == $data->id_status_dokumen ){ echo 'selected="selected"'; } ?> value="<?php echo $status->id_status_dokumen ?>"><?php echo $status->status_dokumen ?> </option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -69,20 +67,20 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label" for="file">File</label>
                                     <div class="col-md-6">
-                                    <input id="file" name="file" type="file" placeholder="file" class="form-control" value="<?php echo $data->file; ?>">
+                                    <?php echo $data->file; ?>
+                                    <input id="file" name="file" type="file" placeholder="file" class="form-control">
                                     </div>
                                 </div>
 
                                 <!--Revisi-->
-                                <div class="form-group"-->
+                                <div class="form-group">
                                     <label class="col-md-3 control-label" for="id_revisi">Revisi</label>
                                     <div class="col-md-3">
-                                    <select class="form-control" name="id_revisi">
-                                            <option value="">Revisi Ke-</option>
-                                            <?php foreach($revisi as $r){ ?>
-                                            <option value="<?php echo $r['id_revisi']; ?>"><?php echo $r['revisi']; ?>   </option>
-                                            <?php } ?>
-                                    </select>
+                                    <select name="id_revisi" class="form-control">
+                                        <?php foreach ($revisi as $r) { ?>
+                                        <option <?php if($r->id_revisi == $data->id_revisi ){ echo 'selected="selected"'; } ?> value="<?php echo $r->id_revisi ?>"><?php echo $r->revisi ?> </option>
+                                        <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
 

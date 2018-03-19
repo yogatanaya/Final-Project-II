@@ -58,6 +58,8 @@ class model_dokumen_baru extends CI_Model{
         return $query->result_array();
     }
 
+
+
    
 
 
@@ -144,6 +146,7 @@ class model_dokumen_baru extends CI_Model{
         
     }
 
+
   function get_jenis_dokumen(){
 		$data=array();
     	$query = $this->db->get('tb_jenis_dokumen');
@@ -180,6 +183,7 @@ class model_dokumen_baru extends CI_Model{
     	return $data;
 	}
 
+    /*
     function get_status_user(){
         $data=array();
         $query = $this->db->query('
@@ -199,9 +203,9 @@ class model_dokumen_baru extends CI_Model{
         }
         $query->free_result();
         return $data;
-    }
+    }*/
 
-
+    
 	function get_unit_user(){
 		$data=array();
     	$query = $this->db->query('

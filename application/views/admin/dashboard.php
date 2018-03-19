@@ -107,15 +107,12 @@
                         <td><?php echo $setuju['revisi'];?></td>
                         <td><?php echo $setuju['entry_date'];?></td>
                         <td><?php echo $setuju['keterangan'];?></td>
-                        <td>
-                            <ul style="list-style-type: none;">
-                                <li>
-                                    <li><a href="<?php echo base_url('admin/download/'.$setuju['id_dokumen']);?>" class="glyphicon glyphicon-download"></a></li>
-                                    <li><a href="<?php echo base_url('admin/hapusDokumen/'.$setuju['id_dokumen']);?>" class="glyphicon glyphicon-trash"
-                                         onclick="return confirm('Anda akan menghapus dokumen ini?')"></a></li>
-                                </li>
-                            </ul>            
-                                    
+                        <td style="white-space: nowrap;">
+                            
+                            <a href="<?php echo base_url('admin/download/'.$setuju['id_dokumen']);?>" class="glyphicon glyphicon-save btn btn-sm btn-primary"></a>
+                            <a href="<?php echo base_url('admin/hapusDokumen/'.$setuju['id_dokumen']);?>" class="glyphicon glyphicon-trash btn btn-sm btn-success"
+                                         onclick="return confirm('Anda akan menghapus dokumen ini?')"></a>
+                                     
                         </td>
                     </tr>
                     <?php } ?>

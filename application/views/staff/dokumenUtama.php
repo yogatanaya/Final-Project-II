@@ -33,7 +33,7 @@
 
                                 <!-- Jenis Dokumen-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="id_jenis_dokumen">Jenis Dokumen</label>
+                                    <label class="col-md-3 control-label" for="id_jenis_dokumen">Jenis Dokumen<font color="red">*</font></label>
                                     <div class="col-md-6">
                                     <select class="form-control" name="id_jenis_dokumen">
                                             <option value="">Pilih Jenis Dokumen</option>
@@ -53,7 +53,7 @@
     
                                 <!-- Judul Dokumen-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="nama_dokumen">Judul</label>
+                                    <label class="col-md-3 control-label" for="nama_dokumen">Judul<font color="red">*</font></label>
                                     <div class="col-md-6">
                                     <input id="nama_dokumen" name="nama_dokumen" type="text" placeholder="Nama Dokumen" class="form-control">
                                     </div>
@@ -61,7 +61,7 @@
 
                                 <!-- Status Dokumen-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="id_status_dokumen">Status Dokumen</label>
+                                    <label class="col-md-3 control-label" for="id_status_dokumen">Status Dokumen<font color="red">*</font></label>
                                     <div class="col-md-6">
                                     <select class="form-control" name="id_status_dokumen">
                                             <option value="">Pilih Status Dokumen</option>
@@ -76,7 +76,7 @@
 
                                 <!--Revisi-->
                                 <div class="form-group"-->
-                                    <label class="col-md-3 control-label" for="id_revisi">Revisi</label>
+                                    <label class="col-md-3 control-label" for="id_revisi">Revisi<font color="red">*</font></label>
                                     <div class="col-md-3">
                                     <select class="form-control" name="id_revisi">
                                             <option value="">Revisi Ke-</option>
@@ -99,14 +99,13 @@
 
                                 <!-- Isi Dokumen-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="file">Isi</label>
+                                    <label class="col-md-3 control-label" for="file">Isi<font color="red">*</font></label>
                                     <div class="col-md-6">
                                     <input id="file" name="file" type="file" placeholder="file" class="form-control">
                                     </div>
                                 </div>
 
-                         
-
+                                <font color="red">&nbsp;*&nbsp;</font>=&nbsp;Wajib Diisi
                                                           
 
                         </div>
@@ -150,15 +149,11 @@
                         <td><?php echo $baru['revisi'];?></td>
                         <td><?php echo $baru['entry_date'];?></td>
                         <td><?php echo $baru['keterangan'];?></td>
-                        <td>
-                            <ul style="list-style-type: none;">
-                                <li>
-                                    <li><a href="<?php echo base_url('staff/download/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-download"></a></li>
-                                    <li><a href="<?php echo base_url('staff/editDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-edit"></a></li>
-                                   
-                                </li>
-                            </ul>            
-                                    
+                        <td style="white-space: nowrap;">
+                            <a href="<?php echo base_url('staff/download/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-save btn btn-sm btn-primary"></a>
+                            <a href="<?php echo base_url('staff/editDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-edit btn btn-sm btn-success"></a>
+                             <a href="<?php echo base_url('staff/hapusDokumen/'.$baru['id_dokumen']);?>" class="glyphicon glyphicon-trash btn btn-sm btn-danger"
+                                onclick="return confirm('Anda akan menghapus dokumen ini?')"></a>
                         </td>
                     </tr>
                     <?php } ?>

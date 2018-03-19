@@ -75,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-12">
+            <!--div class="col-lg-12">
                     <h1 class="page-header">Approved Documents</h1>
             </div>
 
@@ -107,18 +107,16 @@
                         <td><?php echo $setuju['revisi'];?></td>
                         <td><?php echo $setuju['entry_date'];?></td>
                         <td><?php echo $setuju['keterangan'];?></td>
-                        <td>
-                            <ul style="list-style-type: none;">
-                                <li>
-                                    <li><a href="<?php echo base_url('staff/download/'.$setuju['id_dokumen']);?>" class="glyphicon glyphicon-download"></a></li>
-                                </li>
-                            </ul>            
-                                    
+                        <td style="white-space: nowrap;">
+                            
+                            <a href="<?php echo base_url('staff/download/'.$setuju['id_dokumen']);?>" class="glyphicon glyphicon-save btn btn-sm btn-primary"></a>
+                          
+                                     
                         </td>
                     </tr>
                     <?php } ?>
                 </tbody>
-            </table>
+            </table-->
             
             </div>
         </div>

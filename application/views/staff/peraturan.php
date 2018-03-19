@@ -37,7 +37,7 @@
 
                                 <!-- Jenis Dokumen-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="id_instansi">Instansi</label>
+                                    <label class="col-md-3 control-label" for="id_instansi">Instansi<font color="red">*</font></label></label>
                                     <div class="col-md-6">
                                     <select class="form-control" name="id_instansi">
                                             <option value="">Pilih Nomor Instansi</option>
@@ -52,7 +52,7 @@
     
                                 <!-- Judul Dokumen-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="judul">Judul</label>
+                                    <label class="col-md-3 control-label" for="judul">Judul<font color="red">*</font></label></label>
                                     <div class="col-md-6">
                                     <input id="judul" name="judul" type="text" placeholder="Judul Peraturan" class="form-control">
                                     </div>
@@ -60,7 +60,7 @@
 
                                 <!--Tahun-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="tahun">Tahun</label>
+                                    <label class="col-md-3 control-label" for="tahun">Tahun<font color="red">*</font></label></label>
                                     <div class="col-md-6">
                                     <input id="tahun" name="tahun" type="text" placeholder="Tahun Terbit" class="form-control">
                                     </div>
@@ -68,7 +68,7 @@
 
                                 <!-- Regulator-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="id_regulator">Regulator</label>
+                                    <label class="col-md-3 control-label" for="id_regulator">Regulator<font color="red">*</font></label></label>
                                     <div class="col-md-6">
                                     <select class="form-control" name="id_regulator">
                                             <option value="">Pilih Regulator</option>
@@ -82,7 +82,7 @@
 
                                 <!-- Isi Dokumen-->
                                 <div class="form-group">
-                                    <label class="col-md-3 control-label" for="file">File</label>
+                                    <label class="col-md-3 control-label" for="file">File<font color="red">*</font></label></label>
                                     <div class="col-md-6">
                                     <input name="file"  type="file" placeholder="file" class="form-control">
                                     </div>
@@ -91,14 +91,14 @@
 
                                 <!--Masa Berlaku-->
                                 <div class="form-group"-->
-                                    <label class="col-md-3 control-label" for="masa_berlaku">Masa Berlaku</label>
+                                    <label class="col-md-3 control-label" for="masa_berlaku">Masa Berlaku<font color="red">*</font></label></label>
                                     <div class="col-md-6">
                                     <input id="masa_berlaku" name="masa_berlaku" type="date"  class="form-control">
                                     </div>
                                 </div>
 
 
-                          
+                                 <font color="red">&nbsp;*&nbsp;</font>=&nbsp;Wajib Diisi
 
                         </div>
                         <div class="modal-footer">
@@ -140,12 +140,11 @@
                         <td><?php echo $p['nama']; ?></td>
                         <td><?php echo $p['entry_date']; ?></td>
                         <td><?php echo $p['masa_berlaku']; ?></td>
-                        <td>
-                             <ul style="list-style-type: none;">
-                                <li>
-                                    <li><a href="<?php echo base_url('staff/downloadPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-download"></a></li>
-                                    <li><a href="<?php echo base_url('staff/editPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-edit"></a></li>
-                                </li>
+                        <td style="white-space: nowrap;">
+                            
+                            <a href="<?php echo base_url('staff/downloadPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-save btn btn-sm btn-primary"></a>
+                            <a href="<?php echo base_url('staff/editPeraturan/'.$p['id_peraturan']);?>" class="glyphicon glyphicon-edit btn btn-sm btn-success"></a>
+                                
                             </ul>        
                         </td>
                     </tr>

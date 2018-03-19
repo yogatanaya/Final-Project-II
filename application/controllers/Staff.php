@@ -26,14 +26,6 @@ class Staff extends CI_Controller {
 
 
 
-
-
-
-
-
-
-
-
 	/////////////////////////////// DOKUMEN UNIT ////////////////////////////////////////////////
 
 	//Buat Dokumen Baru 
@@ -96,9 +88,21 @@ class Staff extends CI_Controller {
         $config['allowed_types']        = '*';
         $config['max_size']             = 0;
   
+        $this->form_validation->set_rules('id_jenis_dokumen','id_jenis_dokumen','required');
+        $this->form_validation->set_rules('nama_dokumen','nama_dokumen','required');
+        $this->form_validation->set_rules('id_status_dokumen','id_status_dokumen','required');
+        $this->form_validation->set_rules('id_revisi','id_revisi','required');
+
 	    $this->load->library('upload', $config);
 	    $this->upload->initialize($config);
-	    if (!$this->upload->do_upload('file')) {
+
+	    if($this->form_validation->run()==FALSE){
+	    	echo "<script>alert('Form kurang lengkap');
+			document.location='".base_url()."staff/buatDokumenBaru';
+			</script>";
+	    }
+	    else {
+	    	if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
 	        //var_dump($error);
 	        echo "<script>alert('Upload Gagal!');
@@ -121,7 +125,9 @@ class Staff extends CI_Controller {
 	      	
 	          $this->model_dokumen_baru->insert_dokumen($data, 'tb_dokumen_baru');
 	          redirect(base_url('staff/buatDokumenBaru'));
+	    	}
 	    }
+	   
 		
 	}
 
@@ -152,10 +158,16 @@ class Staff extends CI_Controller {
 		$data['title']='Edit Dokumen';
 		$where = array('id_dokumen' => $id
 					);
-		$data['tb_jenis_dokumen']=$this->model_dokumen_baru->get_jenis_dokumen();
-		$data['revisi']=$this->model_dokumen_baru->get_revisi();
+		$data['tb_jenis_dokumen']=$this->db->get('tb_jenis_dokumen')->result();
+		$data['revisi']=$this->db->get('revisi')->result();
 		//$data['unit']=$this->model_dokumen_baru->get_unit_user();
-		$data['status_dokumen']=$this->model_dokumen_baru->get_status_user();
+		$data['status_dokumen']=$this->db->query('SELECT
+        status_dokumen.id_status_dokumen,
+        status_dokumen.status_dokumen
+        FROM
+        status_dokumen
+        WHERE
+        status_dokumen.id_status_dokumen <>  2')->result();
 		$data['tb_dokumen_baru'] = $this->model_dokumen_baru->edit_dokumen($where,'tb_dokumen_baru')->result();
 
 		$this->load->view('staff/header',$data);
@@ -282,7 +294,7 @@ class Staff extends CI_Controller {
 
 		if($this->form_validation->run()==FALSE){
 			echo "<script>
-			alert('salah satu form ada yang kosong atau salah pengisian form');
+			alert('Form kurang lengkap);
 			document.location='".base_url()."staff/buatCatatanMutu';
 			</script>";
 		}

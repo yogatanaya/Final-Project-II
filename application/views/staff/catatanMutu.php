@@ -40,7 +40,7 @@
                         </div-->
 
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="judul">Judul</label>
+                            <label class="col-md-3 control-label" for="judul">Judul<font color="red">*</font></label>
                                 <div class="col-md-6">
                                     <input id="judul" name="judul" type="text" placeholder="judul catatan mutu" class="form-control">
                                 </div>
@@ -49,7 +49,7 @@
 
                         <!-- Status Dokumen-->
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="id_status_cm">Status</label>
+                            <label class="col-md-3 control-label" for="id_status_cm">Status<font color="red">*</font></label>
                             <div class="col-md-6">
                                 <select class="form-control" name="id_status_cm">
                                     <option value="">Status</option>
@@ -63,7 +63,7 @@
                         <!--Masa Berlaku-->
 
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="masa_berlaku">Masa Berlaku</label>
+                            <label class="col-md-3 control-label" for="masa_berlaku">Masa Berlaku<font color="red">*</font></label>
                                 <div class="col-md-6">
                                     <input id="masa_berlaku" name="masa_berlaku" type="date" placeholder="Masa Berlaku" class="form-control">
                                 </div>
@@ -72,7 +72,7 @@
                     <!--Lokasi Simpan-->
 
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="name">Lokasi Simpan</label>
+                        <label class="col-md-3 control-label" for="name">Lokasi Simpan<font color="red">*</font></label>
                         <div class="col-md-3">
                         <input id="lokasi_simpan" name="lokasi_simpan" type="text" placeholder="Lokasi Simpan" class="form-control">
                         </div>
@@ -80,7 +80,7 @@
 
                     <!--Metode Simpan-->
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="id_metode">Metode</label>
+                        <label class="col-md-3 control-label" for="id_metode">Metode<font color="red">*</font></label>
                         <div class="col-md-6">
                             <select class="form-control" name="id_metode">
                                 <option value="">Metode</option>
@@ -95,7 +95,7 @@
 
                     <!-- Isi Dokumen-->
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="file">File</label>
+                        <label class="col-md-3 control-label" for="file">File<font color="red">*</font></label>
                         <div class="col-md-6">
                         <input id="file" name="file" type="file" placeholder="file" class="form-control">
                         </div>
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                     
-
+                    <font color="red">&nbsp;*&nbsp;</font>=&nbsp;Wajib Diisi
                           
 
                     </div>
@@ -150,12 +150,11 @@
                         <td><?php echo $c['entry_date']; ?></td>
                         <td><?php echo $c['keterangan']; ?></td>
                         <td><?php echo $c['nama']; ?></td>
-                        <td>
-                            <ul style="list-style-type: none;">
-                                <li>
-                                    <li><a href="<?php echo base_url('staff/downloadCM/'.$c['id_catatan']);?>" class="glyphicon glyphicon-download"></a></li>
-                                    <li><a href="<?php echo base_url('staff/editCatatan/'.$c['id_catatan']);?>" class="glyphicon glyphicon-edit"></a></li>
-                                </li>
+                        <td style="white-space: nowrap;">
+                            
+                            <a href="<?php echo base_url('staff/downloadCM/'.$c['id_catatan']);?>" class="glyphicon glyphicon-save btn btn-sm btn-primary"></a>
+                            <a href="<?php echo base_url('staff/editCatatan/'.$c['id_catatan']);?>" class="glyphicon glyphicon-edit btn btn-sm btn-success"></a>
+                                
                         </td>
                     </tr>
                     <?php } ?>

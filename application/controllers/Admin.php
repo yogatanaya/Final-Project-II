@@ -69,20 +69,31 @@ class Admin extends CI_Controller{
 		$id_admin=$_SESSION['id_admin'];
 		//$kode=$this->input->post('kode');
 
+		$this->form_validation->set_rules('id_jenis_dokumen','id_jenis_dokumen','required');
+        $this->form_validation->set_rules('nama_dokumen','nama_dokumen','required');
+        $this->form_validation->set_rules('id_status_dokumen','id_status_dokumen','required');
+        $this->form_validation->set_rules('id_revisi','id_revisi','required');
+
 		$config['upload_path']          = 'files';
         $config['allowed_types']        = '*';
         $config['max_size']             = 0;
   
 	    $this->load->library('upload', $config);
 	    $this->upload->initialize($config);
-	    if (!$this->upload->do_upload('file')) {
+
+	    if($this->form_validation->run()==FALSE){
+	    	echo "<script>alert('Form kurang lengkap');
+			document.location='".base_url()."staff/buatDokumenBaru';
+			</script>";
+	    }else {
+	    	 if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
 	        //var_dump($error);
 	        echo "<script>alert('Upload Gagal!');
 				document.location='".base_url()."admin/buatDokumenBaru';
 				</script>";
 	        redirect(base_url('admin/buatDokumenBaru'));
-	    } else {
+	    }else {
 	    	$dokumen=$this->upload->data();
 	        $data = array(
 	          	'file' => $dokumen['file_name'],
@@ -101,7 +112,9 @@ class Admin extends CI_Controller{
 				</script>";
 	          redirect(base_url('admin/buatDokumenBaru'));
 	          
+	    	}
 	    }
+	   
 		
 	}
 
@@ -134,10 +147,10 @@ class Admin extends CI_Controller{
 		$data['title']='Edit Dokumen';
 		$where = array('id_dokumen' => $id
 					);
-		$data['tb_jenis_dokumen']=$this->model_dokumen_baru->get_jenis_dokumen();
-		$data['revisi']=$this->model_dokumen_baru->get_revisi();
+		$data['tb_jenis_dokumen']=$this->db->get('tb_jenis_dokumen')->result();
+		$data['revisi']=$this->db->get('revisi')->result();
 		//$data['unit']=$this->model_dokumen_baru->get_unit_user();
-		$data['status_dokumen']=$this->model_dokumen_baru->get_status();
+		$data['status_dokumen']=$this->db->get('status_dokumen')->result();
 		$data['tb_dokumen_baru'] = $this->model_dokumen_baru->edit_dokumen($where,'tb_dokumen_baru')->result();
 
 		$this->load->view('admin/header',$data);
@@ -281,7 +294,7 @@ class Admin extends CI_Controller{
 
 		if($this->form_validation->run()==false){
 			echo "<script>
-			alert('Mohon Lengkapi Form');
+			alert('Form kurang lengkap');
 			document.location='".base_url()."admin/buatPeraturan';
 			</script>";
 		}
@@ -457,7 +470,7 @@ class Admin extends CI_Controller{
 
 		if($this->form_validation->run()==FALSE){
 			echo "<script>
-			alert('salah satu form ada yang kosong atau salah pengisian form');
+			alert('Form kurang lengkap');
 			document.location='".base_url()."admin/buatCatatanMutu';
 			</script>";
 		}
