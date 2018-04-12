@@ -2,6 +2,18 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Detail</h1>
+            
+                        <form class="form-inline" action="<?php echo base_url('staff/detailUtama');?>" method="post">
+                            <select class="form-control" name="field">
+                                <option selected="selected" disabled="disabled" value="">Filter By</option>
+                                <option value="unit">Unit</option>
+                                <option value="jenis_dokumen">Jenis Dokumen</option>
+                                <option value="status_dokumen">Status Dokumen</option>
+                            </select>
+                            <input class="form-control" type="text" name="search" value="" placeholder="Search...">
+                            <input class="btn btn-default" type="submit" name="filter" value="Go">
+                        </form>
+                 <hr>
                 </div>
                 <hr>
                 <!-- /.col-lg-12 -->

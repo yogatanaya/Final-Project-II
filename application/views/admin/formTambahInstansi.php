@@ -39,7 +39,7 @@
                         <td><?php echo $i['instansi'];?></td>
                         <td>
                             <ul style="list-style-type: none;">
-                                    <li><a href="<?php echo base_url('staff/hapusInstansi/'.$i['id_instansi']);?>" class="glyphicon glyphicon-remove" onclick="return confirm('Anda akan menghapus regulator ini?');"></a>
+                                    <li><a href="<?php echo base_url('admin/hapusInstansi/'.$i['id_instansi']);?>" class="glyphicon glyphicon-remove" onclick="return confirm('Anda akan menghapus regulator ini?');"></a>
                                  </li>
                             </ul>            
                                     

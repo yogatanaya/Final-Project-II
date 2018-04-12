@@ -99,7 +99,7 @@
                             <a href="<?php echo base_url('staff');?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Dokumen Unit<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-lock"></i> Dokumen Unit<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="<?php echo base_url('staff/buatDokumenBaru');?>">Utama</a>
@@ -114,12 +114,12 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="<?php echo base_url('staff/buatPeraturan');?>"><i class="fa fa-table fa-fw"></i> Peraturan Eksternal</a>
+                            <a href="<?php echo base_url('staff/buatPeraturan');?>"><i class="fa fa-file"></i> Peraturan Eksternal</a>
                         </li>
                        
                       
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Lainnya<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-cogs"></i> Lainnya<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="<?php echo base_url('staff/formTambahRegulator');?>">Regulator Baru</a>

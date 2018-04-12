@@ -5,6 +5,7 @@ class Staff extends CI_Controller {
 		$this->load->model('model_peraturan');
 		$this->load->model('model_dokumen_baru');
 		$this->load->model('model_catatan_mutu');
+		$this->load->model('model_login');
 		 $this->load->helper('url');
 		  $this->load->library('form_validation');
 		  $this->load->library('session');
@@ -63,6 +64,17 @@ class Staff extends CI_Controller {
 		$data['status_dokumen']=$this->model_dokumen_baru->get_status();
 		$data['tb_dokumen_baru']=$this->model_dokumen_baru->get_dokumen();
 		$data['internal']=$this->model_dokumen_baru->get_detail();
+
+		//filter search...
+		$filter=$this->input->post('filter');
+		$field=$this->input->post('field');
+		$search=$this->input->post('search');
+		if (isset($filter) && !empty($search)) {
+           $data['internal'] = $this->model_dokumen_baru->getDetailWhereLike($field, $search);
+        } else {
+            $data['internal'] = $this->model_dokumen_baru->get_detail();
+        }
+
 		$this->load->view('staff/header',$data);
 		$this->load->view('staff/detailUtama',$data);
 	}
@@ -644,6 +656,30 @@ class Staff extends CI_Controller {
 		$data['title']='My Profile';
 		$this->load->view('staff/header',$data);
 		$this->load->view('staff/formUbahPassword',$data);
+	}
+	public function ubahPassword(){
+		$nama=$this->input->post('nama');
+		$username=$this->input->post('username');
+		$oldpass=$this->input->post('oldPass');
+		$newpass=$this->input->post('newPass');
+		$confirmPass=$this->input->post('confirmPass');
+
+	
+		if($confirmPass==$newpass){
+			$data=array('password'=>$newpass);
+			$where=array('nama'=>$this->session->userdata('nama'));
+			$this->model_login->edit_pass($where, $data, 'tb_admin');
+	        redirect(base_url('staff/formUbahPassword'));
+	     }
+	     else{
+	        echo '<script>
+	        alert("Password baru dan konfirmasi tidak sama");
+	        document.location="'.base_url('staff/formUbahPassword').'";
+	        </script>';
+
+		}
+		
+		
 	}
 
 

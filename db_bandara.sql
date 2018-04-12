@@ -38,11 +38,9 @@ CREATE TABLE `catatan_mutu` (
   CONSTRAINT `catatan_mutu_ibfk_2` FOREIGN KEY (`id_metode`) REFERENCES `metode` (`id_metode`),
   CONSTRAINT `catatan_mutu_ibfk_3` FOREIGN KEY (`id_status_cm`) REFERENCES `status_cm` (`id_status_cm`),
   CONSTRAINT `catatan_mutu_ibfk_4` FOREIGN KEY (`id_admin`) REFERENCES `tb_admin` (`id_admin`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `catatan_mutu` */
-
-insert  into `catatan_mutu`(`id_catatan`,`judul`,`id_status_cm`,`masa_berlaku`,`lokasi_simpan`,`file`,`keterangan`,`entry_date`,`id_metode`,`id_admin`) values (17,'catatan 01',1,'2018-03-31','r','19508-Kisi_-_Kisi_Kewarganegaraan1.docx',NULL,'2018-03-07 00:00:00',1,1),(18,'catatan 02',2,'2019-12-27','rts','71495-8563461.jpg','','2018-03-08 00:00:00',2,1);
 
 /*Table structure for table `internal` */
 
@@ -83,11 +81,11 @@ CREATE TABLE `regulator` (
   `id_regulator` int(3) NOT NULL AUTO_INCREMENT,
   `regulator` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_regulator`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 /*Data for the table `regulator` */
 
-insert  into `regulator`(`id_regulator`,`regulator`) values (2,'Angkasa Pura 1'),(3,'Pemerintah'),(5,'kemkominfo'),(7,'Kemenkeu');
+insert  into `regulator`(`id_regulator`,`regulator`) values (2,'Angkasa Pura 1'),(3,'Pemerintah'),(5,'kemkominfo'),(7,'Kemenkeu'),(9,'tes');
 
 /*Table structure for table `revisi` */
 
@@ -147,11 +145,11 @@ CREATE TABLE `tb_admin` (
   KEY `id_admin` (`id_admin`),
   KEY `id_unit` (`id_unit`),
   CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`id_unit`) REFERENCES `unit` (`id_unit`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_admin` */
 
-insert  into `tb_admin`(`id_admin`,`nama`,`id_unit`,`username`,`password`,`date_user`,`tipe`) values (1,'yoga',2,'yoga','yoga','2018-02-10 20:10:23',1),(2,'eirene',1,'eirene','eirene','2018-02-10 20:20:38',0),(3,'Joko',2,'joko','joko','2018-02-20 13:05:46',1);
+insert  into `tb_admin`(`id_admin`,`nama`,`id_unit`,`username`,`password`,`date_user`,`tipe`) values (1,'yoga',2,'yoga','yoga','2018-02-10 20:10:23',1),(2,'eirene',1,'eirene','123','2018-02-10 20:20:38',0),(4,'joko',4,'joko','joko','2018-03-09 13:45:43',1),(5,'Agus',1,'agus','agus','2018-03-20 00:19:44',0),(6,'Jordan',3,'jordan','jordan','2018-03-20 00:19:48',1);
 
 /*Table structure for table `tb_dokumen_baru` */
 
@@ -178,11 +176,9 @@ CREATE TABLE `tb_dokumen_baru` (
   CONSTRAINT `tb_dokumen_baru_ibfk_7` FOREIGN KEY (`id_status_dokumen`) REFERENCES `status_dokumen` (`id_status_dokumen`),
   CONSTRAINT `tb_dokumen_baru_ibfk_8` FOREIGN KEY (`id_revisi`) REFERENCES `revisi` (`id_revisi`),
   CONSTRAINT `tb_dokumen_baru_ibfk_9` FOREIGN KEY (`id_admin`) REFERENCES `tb_admin` (`id_admin`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_dokumen_baru` */
-
-insert  into `tb_dokumen_baru`(`id_dokumen`,`kode`,`nama_dokumen`,`id_jenis_dokumen`,`keterangan`,`id_revisi`,`file`,`id_status_dokumen`,`entry_date`,`id_admin`) values (2,'Belum Disertai','k3',4,'',4,'24919-SB_BIT106_A2_Sep15.pdf',4,'2018-03-08',1);
 
 /*Table structure for table `tb_instansi` */
 
@@ -192,11 +188,11 @@ CREATE TABLE `tb_instansi` (
   `id_instansi` int(3) NOT NULL AUTO_INCREMENT,
   `instansi` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`id_instansi`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_instansi` */
 
-insert  into `tb_instansi`(`id_instansi`,`instansi`) values (1,'UU'),(2,'PP'),(3,'PM'),(4,'SKEP DJU'),(5,'SKEP AP'),(6,'SKEP-AP2');
+insert  into `tb_instansi`(`id_instansi`,`instansi`) values (1,'UU'),(2,'PP'),(3,'PM'),(4,'SKEP DJU'),(5,'SKEP AP'),(6,'SKEP-AP2'),(10,'kemkominfo');
 
 /*Table structure for table `tb_jenis_dokumen` */
 
@@ -206,11 +202,11 @@ CREATE TABLE `tb_jenis_dokumen` (
   `id_jenis_dokumen` int(10) NOT NULL AUTO_INCREMENT,
   `jenis_dokumen` varchar(50) NOT NULL,
   PRIMARY KEY (`id_jenis_dokumen`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_jenis_dokumen` */
 
-insert  into `tb_jenis_dokumen`(`id_jenis_dokumen`,`jenis_dokumen`) values (1,'Intruksi Kerja'),(3,'pedoman'),(4,'prosedur'),(6,'Loca'),(7,'Manual');
+insert  into `tb_jenis_dokumen`(`id_jenis_dokumen`,`jenis_dokumen`) values (1,'Intruksi Kerja'),(3,'pedoman'),(4,'prosedur'),(6,'Loca'),(7,'Manual'),(8,'tes');
 
 /*Table structure for table `tb_peraturan` */
 
@@ -245,11 +241,11 @@ CREATE TABLE `unit` (
   `id_unit` int(3) NOT NULL AUTO_INCREMENT,
   `unit` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_unit`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 /*Data for the table `unit` */
 
-insert  into `unit`(`id_unit`,`unit`) values (1,'Quality Management Section '),(2,'Application Operation & Support Section'),(3,'Airport Technology , Network Operation'),(4,'Airport Readiness Section ');
+insert  into `unit`(`id_unit`,`unit`) values (1,'Quality Management Section '),(2,'Application Operation & Support Section'),(3,'Airport Technology , Network Operation'),(4,'Airport Readiness Section '),(5,'General Manager '),(6,'new department');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -1,4 +1,7 @@
  <div id="page-wrapper">
+    <div class="alert alert-warning">
+        Perhatian! Sebelum menghapus dokumen unit harap remove terlebih dahulu link tautan di sub menu detail pada dokumen unit</a>.
+    </div>
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Dashboard</h1>

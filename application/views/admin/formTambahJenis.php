@@ -1,6 +1,6 @@
 <div id="page-wrapper">
    	<div class="col-lg-12">
-        <h1 class="page-header">Regulator</h1>
+        <h1 class="page-header">Jenis Dokumen</h1>
     </div>
      <!-- /.row -->
         <div class="row">
@@ -39,7 +39,7 @@
                         <td><?php echo $j['jenis_dokumen'];?></td>
                         <td>
                             <ul style="list-style-type: none;">
-                                    <li><a href="<?php echo base_url('staff/hapusJenis/'.$j['id_jenis_dokumen']);?>" class="glyphicon glyphicon-remove" onclick="return confirm('Anda akan menghapus regulator ini?');"></a>
+                                    <li><a href="<?php echo base_url('admin/hapusJenis/'.$j['id_jenis_dokumen']);?>" class="glyphicon glyphicon-remove" onclick="return confirm('Anda akan menghapus regulator ini?');"></a>
                                  </li>
                             </ul>            
                                     

@@ -67,7 +67,7 @@
                          Hai, <?php echo $this->session->userdata('nama');?>&nbsp;<i class="fa fa-user fa-fw"></i><i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="<?php echo base_url('admin/formUbahPassword');?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
                         <li><a href="<?php echo base_url('admin/formRegistrasi');?>"><i class="fa fa-users fa-fw"></i> Register</a>
                         </li>
@@ -100,7 +100,7 @@
                             <a href="<?php echo base_url('admin');?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Dokumen Unit<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-lock"></i> Dokumen Unit<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="<?php echo base_url('admin/buatDokumenBaru');?>">Utama</a>
@@ -111,16 +111,24 @@
                                 <li>
                                     <a href="<?php echo base_url('admin/detailUtama');?>">Detail</a>
                                 </li>
+                                <!--li>
+                                    <a href="<?php echo base_url('admin/berkasUnit');?>">Berkas</a>
+                                </li-->
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="<?php echo base_url('admin/buatPeraturan');?>"><i class="fa fa-table fa-fw"></i> Peraturan Eksternal</a>
+                            <a href="<?php echo base_url('admin/buatPeraturan');?>"><i class="fa fa-file"></i> Peraturan Eksternal <!--span class="fa arrow"></span--></a>
+                            <!--ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo base_url('admin/berkasEksternal');?>">Berkas</a>
+                                </li>
+                            </ul-->
                         </li>
                        
                       
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Lainnya<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-cogs"></i> Lainnya<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                     <a href="<?php echo base_url('admin/formTambahRegulator');?>">Regulator Baru</a>

@@ -6,6 +6,7 @@
                 <h1 class="page-header">Catatan Mutu</h1>
                 <div class="page-body">
                      <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#modalCatatan"></a>
+                     <a href="#" class="btn btn-md btn-success glyphicon glyphicon-list-alt" data-toggle="modal" data-target="#exportCatatan"></a>
                 </div> 
                 <hr>
                 <form class="form-inline" action="<?php echo base_url('admin/buatCatatanMutu');?>" method="post">
@@ -22,6 +23,41 @@
                 </form>
                 <hr>
             </div>
+
+            <!--Modal Export -->
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="exportCatatan" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                        <h4 class="modal-title">Export Catatan</h4>
+                    </div>
+                        <form class="form-horizontal" action="<?php echo base_url('admin/exportCatatan')?>" method="post" enctype="multipart/form-data" role="form" id="exportDokumenUnit" name="tambahDokumen">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label">Dari</label>
+                                    <div class="col-md-9">
+                                        <input name="dari" type="date"  class="form-control">
+                                    </div>
+                                    <br>
+                                    <br>
+                                     <label class="col-sm-3 control-label">Bulan</label>
+                                    <div class="col-md-9">
+                                        <input name="sampai" type="date"  class="form-control">
+                                    </div>
+                            </div>
+
+                                                          
+
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-info" type="submit" name="export"> Export&nbsp;</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
              <!-- Modal Tambah -->
             <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalCatatan" class="modal fade">

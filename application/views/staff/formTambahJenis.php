@@ -1,6 +1,6 @@
 <div id="page-wrapper">
    	<div class="col-lg-12">
-        <h1 class="page-header">Regulator</h1>
+        <h1 class="page-header">Jenis Dokumen</h1>
     </div>
      <!-- /.row -->
         <div class="row">

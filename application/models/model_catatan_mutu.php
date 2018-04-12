@@ -65,6 +65,34 @@ class model_catatan_mutu extends CI_Model{
         return $query->result_array();
     }
 
+    public function getCatatanExportLike($dari, $sampai)
+    {
+
+        $query =$this->db->query("
+            SELECT
+            catatan_mutu.id_catatan,
+            catatan_mutu.judul,
+            status_cm.status_cm,
+            catatan_mutu.masa_berlaku,
+            catatan_mutu.lokasi_simpan,
+            catatan_mutu.`file`,
+            catatan_mutu.keterangan,
+            catatan_mutu.entry_date,
+            metode.metode,
+            tb_admin.nama,
+            unit.unit
+            FROM
+            catatan_mutu
+            Inner Join tb_admin ON catatan_mutu.id_admin = tb_admin.id_admin
+            Inner Join unit ON tb_admin.id_unit = unit.id_unit
+            Inner Join status_cm ON status_cm.id_status_cm = catatan_mutu.id_status_cm
+            Inner Join metode ON metode.id_metode = catatan_mutu.id_metode
+            WHERE entry_date BETWEEN '%$dari%' AND '%$sampai%'
+            order by id_catatan desc
+        ");
+        return $query->result_array();
+    }
+
      //FILTER 
     public function getCatatanWhereLike($field, $search)
     {

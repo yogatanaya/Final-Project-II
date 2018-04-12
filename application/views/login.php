@@ -32,7 +32,7 @@
 
 </head>
 
-<body style="background-image: url('assets/img/angkasa.jpg');">
+<body style="background-image: url('assets/img/airport5.png'); background-repeat: no-repeat; background-size: 100% 100% 100% 100%">
 
     <div class="container">
         <div class="row">

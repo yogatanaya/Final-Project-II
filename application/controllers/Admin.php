@@ -26,6 +26,22 @@ class Admin extends CI_Controller{
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/dashboard', $data);
 	}
+	/*
+
+	function berkasUnit(){
+		$data['title']='Berkas Unit';
+		$data['tb_dokumen_baru']=$this->model_dokumen_baru->getAllFile();
+		$this->load->view('admin/header', $data);
+		$this->load->view('admin/berkasUnit', $data);
+	}
+
+	function berkasEksternal(){
+		$data['title']='Berkas Unit';
+		$data['tb_peraturan']=$this->model_peraturan->getAllFile();
+		$this->load->view('admin/header', $data);
+		$this->load->view('admin/berkasEksternal', $data);
+	}
+	*/
 
 
 	//Buat Dokumen Baru 
@@ -76,24 +92,27 @@ class Admin extends CI_Controller{
         $this->form_validation->set_rules('id_revisi','id_revisi','required');
 
 		$config['upload_path']          = 'files';
-        $config['allowed_types']        = '*';
-        $config['max_size']             = 0;
+       $config['allowed_types']        = '*';
+       $config['max_size']             = 0;
   
 	    $this->load->library('upload', $config);
 	    $this->upload->initialize($config);
 
 	    if($this->form_validation->run()==FALSE){
 	    	echo "<script>alert('Form kurang lengkap');
-			document.location='".base_url()."staff/buatDokumenBaru';
+			document.location='".base_url()."admin/buatDokumenBaru';
 			</script>";
 	    }else {
 	    	 if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
-	        //var_dump($error);
+	        var_dump($error);
+	        /*
 	        echo "<script>alert('Upload Gagal!');
 				document.location='".base_url()."admin/buatDokumenBaru';
 				</script>";
-	        redirect(base_url('admin/buatDokumenBaru'));
+			*/
+			
+	        //redirect(base_url('admin/buatDokumenBaru'));
 	    }else {
 	    	$dokumen=$this->upload->data();
 	        $data = array(
@@ -169,7 +188,7 @@ class Admin extends CI_Controller{
 		$keterangan=$this->input->post('keterangan');
 		$entry_date=$this->input->post('entry_date');
 		
-		$config['upload_path']          = 'files/catatan';
+		$config['upload_path']          = 'files';
         $config['allowed_types']        = '*';
         $config['max_size']             = 0;
   		$config['overwrite'] = TRUE;
@@ -206,7 +225,7 @@ class Admin extends CI_Controller{
     	 $query = $this->db->get('tb_dokumen_baru');
      	$row = $query->row();
 
-     	unlink("files/$row->file");
+     	unlink("./files/$row->file");
 		$this->db->delete('tb_dokumen_baru', array('id_dokumen' => $id));
 		redirect(base_url('admin/buatDokumenBaru'));
 		
@@ -221,6 +240,17 @@ class Admin extends CI_Controller{
 		$data['status_dokumen']=$this->model_dokumen_baru->get_status();
 		$data['tb_dokumen_baru']=$this->model_dokumen_baru->get_dokumen();
 		$data['internal']=$this->model_dokumen_baru->get_detail();
+
+		//filter search...
+		$filter=$this->input->post('filter');
+		$field=$this->input->post('field');
+		$search=$this->input->post('search');
+		if (isset($filter) && !empty($search)) {
+           $data['internal'] = $this->model_dokumen_baru->getDetailWhereLike($field, $search);
+        } else {
+            $data['internal'] = $this->model_dokumen_baru->get_detail();
+        }
+
 		$this->load->view('admin/header',$data);
 		$this->load->view('admin/detailUtama',$data);
 	}
@@ -231,7 +261,7 @@ class Admin extends CI_Controller{
      	$row = $query->row();
 
 		$this->db->delete('internal', array('id' => $id));
-		redirect(base_url('staff/detailUtama'));
+		redirect(base_url('admin/detailUtama'));
 	}
 
 	public function addDetail(){
@@ -312,7 +342,7 @@ class Admin extends CI_Controller{
 	        echo "<script>alert('Upload Gagal!');
 				document.location='".base_url()."admin/buatPeraturan';
 				</script>";
-	        redirect(base_url('staff/buatPeraturan'));
+	        redirect(base_url('admin/buatPeraturan'));
 	    } else {
 	    	$file=$this->upload->data();
 	        $data = array(
@@ -419,7 +449,7 @@ class Admin extends CI_Controller{
 	        $where=array('id_peraturan'=>$id_peraturan);
 	          $this->model_peraturan->update_peraturan($where, $data, 'tb_peraturan');
 	          echo "<script>alert('Peraturan Tersimpan');
-				document.location='".base_url()."staff/buatPeraturan';
+				document.location='".base_url()."admin/buatPeraturan';
 				</script>";
 	          redirect(base_url('admin/buatPeraturan'));
 	    }
@@ -702,7 +732,7 @@ class Admin extends CI_Controller{
 		$username=$this->input->post('username');
 		$password=$this->input->post('password');
 		$tipe=$this->input->post('tipe');
-		if($id_unit==1){
+		if($id_unit==1 || $id_unit==5){
 			$data=array(
 				'nama'=>$nama,
 				'id_unit'=>$id_unit,
@@ -739,7 +769,81 @@ class Admin extends CI_Controller{
 		redirect(base_url('admin/formRegistrasi'));
 	}
 
+	//Ubah Password 
+	public function formUbahPassword(){
+		$data['title']='My Profile';
+		$this->load->view('admin/header',$data);
+		$this->load->view('admin/formUbahPassword',$data);
+	}
+	public function ubahPassword(){
+		$nama=$this->input->post('nama');
+		$username=$this->input->post('username');
+		$oldpass=$this->input->post('oldPass');
+		$newpass=$this->input->post('newPass');
+		$confirmPass=$this->input->post('confirmPass');
 
+		if($confirmPass==$newpass){
+			$data=array('password'=>$newpass);
+			$where=array('nama'=>$this->session->userdata('nama'));
+			 $this->model_login->edit_pass($where, $data, 'tb_admin');
+	       	redirect(base_url('admin/formUbahPassword'));
+	     }
+	     else{
+	        echo '<script>
+	        alert("Password baru dan konfirmasi tidak sama");
+	        document.location="'.base_url('admin/formUbahPassword').'";
+	        </script>';
+		}
+		
+		
+	}
+
+
+	//////////////////////////////////FUNGSI EXPORT ///////////////////////////////////////////////////////////
+	//export ke dalam format excel
+     public function exportUnit(){
+      	$dari=$this->input->post('dari');
+      	$sampai=$this->input->post('sampai');
+      	if(isset($_POST['export'])) {
+      		$data['tb_dokumen_baru'] = $this->model_dokumen_baru->getDokumenExportLike($dari, $sampai);
+      	}else{
+      		$data['tb_dokumen_baru'] = $this->model_dokumen_baru->get_dokumen();
+      	}
+          // $data = array( 'title' => 'Laporan Dokumen Unit',
+            //    'tb_dokumen_baru' => $this->model_dokumen_baru->get_dokumen());
+ 
+           $this->load->view('admin/export_dokumen_unit',$data);
+      }
+
+      public function exportPeraturan(){
+      	$dari=$this->input->post('dari');
+      	$sampai=$this->input->post('sampai');
+      	if (isset($_POST['export'])) {
+      		$data['tb_peraturan'] = $this->model_peraturan->getPeraturanExportLike($dari, $sampai);
+      	}else{
+      		$data['tb_peraturan'] = $this->model_peraturan->get_peraturan();
+      	}
+          // $data = array( 'title' => 'Laporan Dokumen Unit',
+            //    'tb_dokumen_baru' => $this->model_dokumen_baru->get_dokumen());
+ 
+           $this->load->view('admin/exportPeraturan',$data);
+      }
+
+      public function exportCatatan(){
+      	$dari=$this->input->post('dari');
+      	$sampai=$this->input->post('sampai');
+      	if (isset($_POST['export'])) {
+      		$data['catatan_mutu'] = $this->model_catatan_mutu->getCatatanExportLike($dari, $sampai);
+      	}else{
+      		$data['catatan_mutu'] = $this->model_catatan_mutu->get_catatan();
+      	}
+          // $data = array( 'title' => 'Laporan Dokumen Unit',
+            //    'tb_dokumen_baru' => $this->model_dokumen_baru->get_dokumen());
+ 
+           $this->load->view('admin/exportCatatan',$data);
+      }
+	
+	
 
 
 }

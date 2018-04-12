@@ -31,12 +31,18 @@
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                         <h4 class="modal-title">Export Peraturan</h4>
                     </div>
-                        <form class="form-horizontal" action="<?php echo base_url('admin/export')?>" method="post" enctype="multipart/form-data" role="form" id="exportDokumenUnit" name="tambahDokumen">
+                        <form class="form-horizontal" action="<?php echo base_url('admin/exportPeraturan')?>" method="post" enctype="multipart/form-data" role="form" id="exportDokumenUnit" name="tambahDokumen">
                         <div class="modal-body">
                             <div class="form-group">
-                                    <label class="col-md-3 control-label">Bulan</label>
-                                    <div class="col-md-6">
-                                    <input id="bulan" name="bulan" type="month"  class="form-control">
+                                    <label class="col-sm-3 control-label">Dari</label>
+                                    <div class="col-md-9">
+                                        <input name="dari" type="date"  class="form-control">
+                                    </div>
+                                    <br>
+                                    <br>
+                                     <label class="col-sm-3 control-label">Bulan</label>
+                                    <div class="col-md-9">
+                                        <input name="sampai" type="date"  class="form-control">
                                     </div>
                             </div>
 
@@ -44,7 +50,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-info" type="submit"> Export&nbsp;</button>
+                            <button class="btn btn-info" type="submit" name="export"> Export&nbsp;</button>
                             <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
                         </div>
                     </form>

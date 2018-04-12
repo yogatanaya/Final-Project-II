@@ -41,5 +41,11 @@ class model_login extends CI_Model{
   function addUnit($data, $table){
     $this->db->insert($table, $data);
   }
+
+  function edit_pass($where, $data, $table){
+    $this->db->where($where);
+    $this->db->update($table,$data);
+  }
  
+  
 }

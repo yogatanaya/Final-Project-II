@@ -6,7 +6,7 @@
                 <h1 class="page-header">Dokumen Unit</h1>
                 <div class="page-body">
                     <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#dokumenBaru"></a>
-                    <a href="#" class="btn btn-md btn-success glyphicon glyphicon-list-alt" data-toggle="modal" data-target="#exportDokumenUnit"></a>
+                    <a href="#" class="btn btn-md btn-success glyphicon glyphicon-list-alt" data-toggle="modal" data-target="#formExportUnit"></a>
                 
                 </div> 
                 <hr>
@@ -25,19 +25,25 @@
 
 
             <!--Modal Export -->
-                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="exportDokumenUnit" class="modal fade">
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="formExportUnit" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                         <h4 class="modal-title">Export Dokumen</h4>
                     </div>
-                        <form class="form-horizontal" action="<?php echo base_url('admin/export')?>" method="post" enctype="multipart/form-data" role="form" id="exportDokumenUnit" name="tambahDokumen">
+                        <form class="form-horizontal" action="<?php echo base_url('admin/exportUnit')?>" method="post" enctype="multipart/form-data" role="form">
                         <div class="modal-body">
                             <div class="form-group">
-                                    <label class="col-md-3 control-label">Bulan</label>
-                                    <div class="col-md-6">
-                                    <input id="bulan" name="bulan" type="month"  class="form-control">
+                                    <label class="col-sm-3 control-label">Dari</label>
+                                    <div class="col-md-9">
+                                        <input name="dari" type="date"  class="form-control">
+                                    </div>
+                                    <br>
+                                    <br>
+                                     <label class="col-sm-3 control-label">Bulan</label>
+                                    <div class="col-md-9">
+                                        <input name="sampai" type="date"  class="form-control">
                                     </div>
                             </div>
 
@@ -45,7 +51,7 @@
 
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-info" type="submit"> Export&nbsp;</button>
+                            <button class="btn btn-info" type="submit" name="export"> Export&nbsp;</button>
                             <button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
                         </div>
                     </form>
