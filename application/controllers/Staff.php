@@ -681,6 +681,13 @@ class Staff extends CI_Controller {
 		
 		
 	}
+	//////////////BANTUAN////////////
+
+	function bantuan(){
+		$data['title']='Bantuan';
+		$this->load->view('staff/header',$data);
+		$this->load->view('staff/bantuan',$data);
+	}
 
 
 }

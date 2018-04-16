@@ -50,7 +50,7 @@ class model_peraturan extends CI_Model{
             Inner Join unit ON tb_admin.id_unit=unit.id_unit
             Inner Join tb_instansi ON tb_instansi.id_instansi = tb_peraturan.id_instansi
             Inner Join regulator ON regulator.id_regulator = tb_peraturan.id_regulator
-            where entry_date BETWEEN '%$dari%' AND '%$sampai%'
+            where tb_peraturan.entry_date BETWEEN '$dari' AND '$sampai'
             order by id_peraturan desc 
         ");
         return $query->result_array();

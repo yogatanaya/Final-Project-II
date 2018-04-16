@@ -87,7 +87,7 @@ class model_catatan_mutu extends CI_Model{
             Inner Join unit ON tb_admin.id_unit = unit.id_unit
             Inner Join status_cm ON status_cm.id_status_cm = catatan_mutu.id_status_cm
             Inner Join metode ON metode.id_metode = catatan_mutu.id_metode
-            WHERE entry_date BETWEEN '%$dari%' AND '%$sampai%'
+            WHERE catatan_mutu.entry_date BETWEEN '$dari' AND '$sampai'
             order by id_catatan desc
         ");
         return $query->result_array();

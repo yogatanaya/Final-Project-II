@@ -738,6 +738,7 @@ class Admin extends CI_Controller{
 				'id_unit'=>$id_unit,
 				'username'=>$username,
 				'password'=>$password,
+				'date_user'=>date('Y-m-d'),
 				'tipe'=>0
 			);
 			$this->model_login->addUser($data, 'tb_admin');
@@ -747,7 +748,8 @@ class Admin extends CI_Controller{
 				'nama'=>$nama,
 				'id_unit'=>$id_unit,
 				'username'=>$username,
-				'password'=>$password,
+				'password'=>sha1($password),
+				'date_user'=>date('Y-m-d'),
 				'tipe'=>1
 			);
 			$this->model_login->addUser($data, 'tb_admin');
@@ -783,7 +785,7 @@ class Admin extends CI_Controller{
 		$confirmPass=$this->input->post('confirmPass');
 
 		if($confirmPass==$newpass){
-			$data=array('password'=>$newpass);
+			$data=array('password'=>sha1($newpass));
 			$where=array('nama'=>$this->session->userdata('nama'));
 			 $this->model_login->edit_pass($where, $data, 'tb_admin');
 	       	redirect(base_url('admin/formUbahPassword'));
@@ -805,8 +807,13 @@ class Admin extends CI_Controller{
       	$dari=$this->input->post('dari');
       	$sampai=$this->input->post('sampai');
       	if(isset($_POST['export'])) {
+      		$data['tb_jenis_dokumen']=$this->model_dokumen_baru->get_jenis_dokumen();
+			$data['status_dokumen']=$this->model_dokumen_baru->get_status();
       		$data['tb_dokumen_baru'] = $this->model_dokumen_baru->getDokumenExportLike($dari, $sampai);
       	}else{
+      		$data['tb_jenis_dokumen']=$this->model_dokumen_baru->get_jenis_dokumen();
+			$data['status_dokumen']=$this->model_dokumen_baru->get_status();
+			$data['tb_dokumen_baru']=$this->model_dokumen_baru->get_dokumen();
       		$data['tb_dokumen_baru'] = $this->model_dokumen_baru->get_dokumen();
       	}
           // $data = array( 'title' => 'Laporan Dokumen Unit',
@@ -819,8 +826,12 @@ class Admin extends CI_Controller{
       	$dari=$this->input->post('dari');
       	$sampai=$this->input->post('sampai');
       	if (isset($_POST['export'])) {
+      		$data['tb_instansi']=$this->model_peraturan->get_instansi();
+			$data['regulator']=$this->model_peraturan->get_regulator();
       		$data['tb_peraturan'] = $this->model_peraturan->getPeraturanExportLike($dari, $sampai);
       	}else{
+      		$data['tb_instansi']=$this->model_peraturan->get_instansi();
+			$data['regulator']=$this->model_peraturan->get_regulator();
       		$data['tb_peraturan'] = $this->model_peraturan->get_peraturan();
       	}
           // $data = array( 'title' => 'Laporan Dokumen Unit',
@@ -833,8 +844,12 @@ class Admin extends CI_Controller{
       	$dari=$this->input->post('dari');
       	$sampai=$this->input->post('sampai');
       	if (isset($_POST['export'])) {
+      		$data['status_cm']=$this->model_catatan_mutu->get_status_cm();
+			$data['metode']=$this->model_catatan_mutu->get_metode();
       		$data['catatan_mutu'] = $this->model_catatan_mutu->getCatatanExportLike($dari, $sampai);
       	}else{
+      		$data['status_cm']=$this->model_catatan_mutu->get_status_cm();
+			$data['metode']=$this->model_catatan_mutu->get_metode();
       		$data['catatan_mutu'] = $this->model_catatan_mutu->get_catatan();
       	}
           // $data = array( 'title' => 'Laporan Dokumen Unit',

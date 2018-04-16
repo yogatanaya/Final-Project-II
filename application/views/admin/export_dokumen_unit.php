@@ -4,7 +4,7 @@
  
  header("Content-type: application/vnd-ms-excel");
  
- header("Content-Disposition: attachment; filename=$title.xls");
+ header("Content-Disposition: attachment; filename=Dokumen Unit.xls");
  
  header("Pragma: no-cache");
  
@@ -29,13 +29,13 @@ if( ! empty($tb_dokumen_baru)){
   foreach($tb_dokumen_baru as $dok){ // Lakukan looping pada variabel siswa dari controller
     echo "<tr>";
     echo "<td>".$no++;"</td>";
-    echo "<td>".$dok->kode."</td>";
-    echo "<td>".$dok->nama_dokumen."</td>";
-    echo "<td>".$dok->jenis_dokumen."</td>";
-    echo "<td>".$dok->status_dokumen."</td>";
-    echo "<td>".$dok->unit."</td>";
-    echo "<td>".$dok->revisi."</td>";
-    echo "<td>".$dok->entry_date."</td>";
+    echo "<td>".$dok['kode']."</td>";
+    echo "<td>".$dok['nama_dokumen']."</td>";
+    echo "<td>".$dok['jenis_dokumen']."</td>";
+    echo "<td>".$dok['status_dokumen']."</td>";
+    echo "<td>".$dok['unit']."</td>";
+    echo "<td>".$dok['revisi']."</td>";
+    echo "<td>".$dok['entry_date']."</td>";
     echo "</tr>";
   }
 }else{ // Jika data tidak ada

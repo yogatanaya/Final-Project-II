@@ -108,7 +108,7 @@ class model_dokumen_baru extends CI_Model{
             Inner Join tb_jenis_dokumen ON tb_dokumen_baru.id_jenis_dokumen = tb_jenis_dokumen.id_jenis_dokumen
             Inner Join status_dokumen ON tb_dokumen_baru.id_status_dokumen = status_dokumen.id_status_dokumen
             Inner Join revisi ON tb_dokumen_baru.id_revisi = revisi.id_revisi
-            WHERE entry_date BETWEEN '%$dari%' AND '%$sampai%'
+            WHERE tb_dokumen_baru.entry_date BETWEEN '$dari' AND '$sampai'
             ORDER BY id_dokumen desc 
         ");
         return $query->result_array();

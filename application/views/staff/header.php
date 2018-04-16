@@ -69,6 +69,8 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="<?php echo base_url('staff/formUbahPassword');?>"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
+                        <li><a href="<?php echo base_url('staff/bantuan');?>"><i class="fa fa-question-circle"></i> Bantuan</a>
+                        </li>
                         <!--li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li-->
                         <li class="divider"></li>

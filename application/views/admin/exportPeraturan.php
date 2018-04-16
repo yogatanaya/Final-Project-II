@@ -4,7 +4,7 @@
  
  header("Content-type: application/vnd-ms-excel");
  
- header("Content-Disposition: attachment; filename=$title.xls");
+ header("Content-Disposition: attachment; filename=Peraturan Eksternal.xls");
  
  header("Pragma: no-cache");
  
@@ -30,13 +30,13 @@ if( ! empty($tb_peraturan)){
   foreach($tb_peraturan as $p){ // Lakukan looping pada variabel siswa dari controller
     echo "<tr>";
     echo "<td>".$no++;"</td>";
-    echo "<td>".$p->instansi."</td>";
-    echo "<td>".$p->judul."</td>";
-    echo "<td>".$p->tahun."</td>";
-    echo "<td>".$p->regulator."</td>";
-    echo "<td>".$p->unit."</td>";
-    echo "<td>".$p->nama."</td>";
-    echo "<td>".$p->entry_date."</td>";
+    echo "<td>".$p['instansi']."</td>";
+    echo "<td>".$p['judul']."</td>";
+    echo "<td>".$p['tahun']."</td>";
+    echo "<td>".$p['regulator']."</td>";
+    echo "<td>".$p['unit']."</td>";
+    echo "<td>".$p['nama']."</td>";
+    echo "<td>".$p['masa_berlaku']."</td>";
     echo "</tr>";
   }
 }else{ // Jika data tidak ada

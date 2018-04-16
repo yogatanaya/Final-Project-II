@@ -1,5 +1,5 @@
-<div id="page-wrapper">
-             <div class="alert alert-warning">
+        <div id="page-wrapper">
+            <div class="alert alert-warning">
                     Perhatian! Sebelum menghapus dokumen unit harap remove terlebih dahulu link tautan di sub menu detail pada dokumen unit</a>.
                 </div>
             <div class="col-lg-12">
@@ -120,11 +120,8 @@
             </div>
         </div>
 
-
-       
-
                 <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-                <thead>
+                    <thead>
                     <tr>
                         <th align="center">No.</th>
                         <th data-field="kode">Kode</th>
@@ -137,8 +134,8 @@
                         <th data-field="keterangan">Keterangan</th>
                         <th colspan="1">Aksi</th>                         
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <?php $no=1;
                     foreach ($tb_dokumen_baru as $baru) { ?>
                     <tr>
@@ -158,11 +155,11 @@
                         </td>
                     </tr>
                     <?php } ?>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <!-- /#page-wrapper -->
+        <!-- /#Row -->
 
     </div>
     <!-- /#wrapper -->

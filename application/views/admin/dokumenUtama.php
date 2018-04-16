@@ -1,7 +1,7 @@
-<div id="page-wrapper">
+        <div id="page-wrapper">
              <div class="alert alert-warning">
                     Perhatian! Sebelum menghapus dokumen unit harap remove terlebih dahulu link tautan di sub menu detail pada dokumen unit</a>.
-                </div>
+            </div>
             <div class="col-lg-12">
                 <h1 class="page-header">Dokumen Unit</h1>
                 <div class="page-body">
@@ -25,7 +25,7 @@
 
 
             <!--Modal Export -->
-                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="formExportUnit" class="modal fade">
+            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="formExportUnit" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -242,7 +242,4 @@
 
     });
     </script>
-
-    
-
 </body>
