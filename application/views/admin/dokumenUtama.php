@@ -37,13 +37,14 @@
                             <div class="form-group">
                                     <label class="col-sm-3 control-label">Dari</label>
                                     <div class="col-md-9">
-                                        <input name="dari" type="date"  class="form-control">
+                                        <input name="dari" type="date"  class="form-control datepicker">
+                                        
                                     </div>
                                     <br>
                                     <br>
                                      <label class="col-sm-3 control-label">Bulan</label>
                                     <div class="col-md-9">
-                                        <input name="sampai" type="date"  class="form-control">
+                                        <input name="sampai" type="date"  class="form-control datepicker">
                                     </div>
                             </div>
 
@@ -206,10 +207,13 @@
 
     </div>
     <!-- /#wrapper -->
-
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="<?php echo base_url('assets/jquery-ui/jquery-ui.min.js');?>"></script>
     <!-- jQuery -->
     <script src="<?php echo base_url('assets/vendor/jquery/jquery.min.js');?>"></script>
 
+    <script type="text/javascript" src="<?php echo base_url('assets/datepicker/js/bootstrap-datepicker.min.js');?>"></script>
+  
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo base_url('assets/vendor/bootstrap/js/bootstrap.min.js');?>"></script>
 
@@ -236,10 +240,22 @@
         $('#dataTables-example').DataTable({
             responsive: true
         });
-       
-       
 
 
     });
+
+
+
     </script>
+    <script type="text/javascript">
+     $(function(){
+      $(".datepicker").datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true,
+          todayHighlight: true,
+      });
+     });
+    </script>
+
+
 </body>

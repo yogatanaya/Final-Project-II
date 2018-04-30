@@ -32,6 +32,8 @@
     <!-- DataTables Responsive CSS -->
     <link href="<?php echo base_url('assets/vendor/datatables-responsive/dataTables.responsive.css');?>" rel="stylesheet">
 
+    <!--DatePicker-->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/datepicker/css/bootstrap-datepicker.min.css');?>">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

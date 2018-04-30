@@ -10,7 +10,10 @@ class Staff extends CI_Controller {
 		  $this->load->library('form_validation');
 		  $this->load->library('session');
 
-	
+
+		 if($this->session->userdata('logged_in') != 'Sudah Login'){
+			redirect(base_url('auth'));
+		}
 	}
 
 	public function index()
@@ -197,7 +200,7 @@ class Staff extends CI_Controller {
 		$keterangan=$this->input->post('keterangan');
 		$entry_date=$this->input->post('entry_date');
 		
-		$config['upload_path']          = 'files/catatan';
+		$config['upload_path']          = 'files';
         $config['allowed_types']        = '*';
         $config['max_size']             = 0;
   		$config['overwrite'] = TRUE;
@@ -205,25 +208,28 @@ class Staff extends CI_Controller {
 	    $this->load->library('upload', $config);
 	    $this->upload->initialize($config);
 
-	    if (!$this->upload->do_upload('file')) {
+		
+		if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
-	        //var_dump($error);
-	        redirect(base_url('staff/buatDokumenBaru'));
+	        	echo "<script>alert('File Harus Ada Yang DiUpload!');
+				document.location='".base_url()."staff/buatDokumenBaru';
+				</script>";
+	        	//redirect(base_url('staff/editDokumen'));
 	    } else {
 	    	$dokumen=$this->upload->data();
-	         $data = array(
-	        	'kode'=>$kode,
-	          	'file' => $dokumen['file_name'],
-	          	'id_status_dokumen'=>$id_status_dokumen,
-	          	'id_jenis_dokumen'=>$id_jenis_dokumen,
+		        $data = array(
+		        'kode'=>$kode,
+		        'file' => $dokumen['file_name'],
+		        'id_status_dokumen'=>$id_status_dokumen,
+		        'id_jenis_dokumen'=>$id_jenis_dokumen,
 				'nama_dokumen'=>$nama_dokumen,
 				'id_revisi'=>$id_revisi,
 				'keterangan'=>$keterangan,
 				'entry_date'=>date('Y-m-d')
-	      		);
-	        $where=array('id_dokumen'=>$id_dokumen);
-	        $this->model_dokumen_baru->update_dokumen($where, $data, 'tb_dokumen_baru');
-	          redirect(base_url('staff/buatDokumenBaru'));
+	      			);
+	        	$where=array('id_dokumen'=>$id_dokumen);
+	        	$this->model_dokumen_baru->update_dokumen($where, $data, 'tb_dokumen_baru');
+	          	redirect(base_url('staff/buatDokumenBaru'));
 	    }
 		
 		
@@ -378,10 +384,10 @@ class Staff extends CI_Controller {
 	    if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
 	        //var_dump($error);
-	        echo "<script>alert('Upload Gagal!');
+	        echo "<script>alert('File Harus Ada Yang DiUpload!');
 				document.location='".base_url()."staff/buatCatatanMutu';
 				</script>";
-	        redirect(base_url('staff/buatPeraturan'));
+	        //redirect(base_url('staff/buatPeraturan'));
 	    } else {
 	    	$catatan=$this->upload->data();
 	        $data = array(
@@ -536,10 +542,10 @@ class Staff extends CI_Controller {
 	    if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
 	        //var_dump($error);
-	        echo "<script>alert('Upload Gagal!');
+	        echo "<script>alert('File Harus Ada Yang DiUpload!');
 				document.location='".base_url()."staff/buatPeraturan';
 				</script>";
-	        redirect(base_url('staff/buatPeraturan'));
+	        //redirect(base_url('staff/buatPeraturan'));
 	    } else {
 	    	$file=$this->upload->data();
 	        $data = array(

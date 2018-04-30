@@ -14,6 +14,9 @@
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url('assets/vendor/bootstrap/css/bootstrap.min.css');?>" rel="stylesheet">
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
     <!-- MetisMenu CSS -->
     <link href="<?php echo base_url('assets/vendor/metisMenu/metisMenu.min.css');?>" rel="stylesheet">
 
@@ -32,6 +35,9 @@
     <!-- DataTables Responsive CSS -->
     <link href="<?php echo base_url('assets/vendor/datatables-responsive/dataTables.responsive.css');?>" rel="stylesheet">
 
+    <!--DatePicker-->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/datepicker/css/bootstrap-datepicker.min.css');?>">
+   
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -55,7 +61,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">i&nbsp;Document</a>
+                <a class="navbar-brand" href="<?php echo base_url('admin'); ?>">i&nbsp;Document</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -74,6 +80,9 @@
                         
                         <li class="divider"></li>
                         <li><a href="<?php echo base_url('auth/logout');?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+
+                         <li><a href="<?php echo base_url('admin/bantuan');?>"><i class="fa fa-question-circle"></i> Bantuan</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->

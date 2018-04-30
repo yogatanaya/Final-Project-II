@@ -93,7 +93,7 @@
                                 <div class="form-group"-->
                                     <label class="col-md-3 control-label" for="masa_berlaku">Masa Berlaku<font color="red">*</font></label></label>
                                     <div class="col-md-6">
-                                    <input id="masa_berlaku" name="masa_berlaku" type="date"  class="form-control">
+                                    <input id="masa_berlaku" name="masa_berlaku" type="date"  class="form-control datepicker">
                                     </div>
                                 </div>
 
@@ -160,6 +160,7 @@
 
     <!-- jQuery -->
     <script src="<?php echo base_url('assets/vendor/jquery/jquery.min.js');?>"></script>
+    <script type="text/javascript" src="<?php echo base_url('assets/datepicker/js/bootstrap-datepicker.min.js');?>"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo base_url('assets/vendor/bootstrap/js/bootstrap.min.js');?>"></script>
@@ -186,5 +187,15 @@
             responsive: true
         });
     });
+    </script>
+         </script>
+       <script type="text/javascript">
+     $(function(){
+      $(".datepicker").datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true,
+          todayHighlight: true,
+      });
+     });
     </script>
 </body>

@@ -4,17 +4,36 @@
     </div>
      <!-- /.row -->
         <div class="row">
-                <h2 class="page-header">Dokumen Unit</h2>
+                <img src="<?php echo base_url('assets/img/help-menu.png');?>"/>
+            <div class="panel-body">
+                <h2 class="page-header">Keterangan</h2>
+                <ol>
+                    <li>Tombol untuk membuat Dokumen Daru</li>
+                    <li>Tombol untuk memilih kategori pencarian dokumen</li>
+                    <li>Tombol untuk memasukan kata kunci pencarian</li>
+                    <li>Tombol untuk melakukan pencarian</li>
+                    <li>Tombol <i>Download</i> Dokumen</li>
+                    <li>Tombol untuk melakukan sunting dokumen</li>
+
+                </ol>
+                <p>Catatan:</p>
+                <p>Berlaku untuk Peraturan Eksternal, Internal dan Catatan Mutu</p>
+            </div>
+            <hr>
+                <img src="<?php echo base_url('assets/img/detail.png');?>"/>
+            <h2 class="page-header">Keterangan</h2>
+            <div class="panel-body">
+                <ol>
+                    <li>Tombol untuk memilih Dokumen Terkait</li>
+                    <li>Tombol untuk memilih Catatan Cutu</li>
+                    <li>Tombol untuk menghubungkan kedua dokumen</li>
+                    <li>Tombol untuk menghapus keterkaitan antar dokumen</li>
+                  
+                </ol>
+            </div>
         </div>
-         <div class="row">
-                <h2 class="page-header">Catatan Mutu</h2>
-        </div>
-         <div class="row">
-                <h2 class="page-header">Detail</h2>
-        </div>
-         <div class="row">
-                <h2 class="page-header">Peraturan</h2>
-        </div>
+      
+
 
         
 </div>

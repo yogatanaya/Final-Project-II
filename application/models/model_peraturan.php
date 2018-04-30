@@ -4,6 +4,7 @@ class model_peraturan extends CI_Model{
 		parent::__construct();
 	}
 
+
 	function get_peraturan(){
 		$query=$this->db->query('
 		SELECT

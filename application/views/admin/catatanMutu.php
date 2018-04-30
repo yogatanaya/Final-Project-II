@@ -37,13 +37,13 @@
                             <div class="form-group">
                                     <label class="col-sm-3 control-label">Dari</label>
                                     <div class="col-md-9">
-                                        <input name="dari" type="date"  class="form-control">
+                                        <input name="dari" type="date" id="date-from" class="form-control datepicker">
                                     </div>
                                     <br>
                                     <br>
                                      <label class="col-sm-3 control-label">Bulan</label>
                                     <div class="col-md-9">
-                                        <input name="sampai" type="date"  class="form-control">
+                                        <input name="sampai" type="date" id="date-to" class="form-control datepicker">
                                     </div>
                             </div>
 
@@ -103,7 +103,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="masa_berlaku">Masa Berlaku<font color="red">*</font></label>
                                 <div class="col-md-6">
-                                    <input id="masa_berlaku" name="masa_berlaku" type="date" placeholder="Masa Berlaku" class="form-control">
+                                    <input id="masa_berlaku" name="masa_berlaku" type="date" placeholder="Masa Berlaku" class="form-control datepicker">
                                 </div>
                         </div>
                                     
@@ -204,9 +204,14 @@
 
     </div>
     <!-- /#wrapper -->
-
+  
     <!-- jQuery -->
+     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
     <script src="<?php echo base_url('assets/vendor/jquery/jquery.min.js');?>"></script>
+
+    <script type="text/javascript" src="<?php echo base_url('assets/datepicker/js/bootstrap-datepicker.min.js');?>"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo base_url('assets/vendor/bootstrap/js/bootstrap.min.js');?>"></script>
@@ -231,7 +236,18 @@
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
             responsive: true
-        });
+        });    
+
     });
+        
+    </script>
+       <script type="text/javascript">
+     $(function(){
+      $(".datepicker").datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true,
+          todayHighlight: true,
+      });
+     });
     </script>
 </body>

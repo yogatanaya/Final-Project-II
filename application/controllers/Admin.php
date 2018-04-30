@@ -13,6 +13,9 @@ class Admin extends CI_Controller{
 	$this->load->library('form_validation');
 	$this->load->library('session');
 
+	if($this->session->userdata('logged_in') != 'Sudah Login'){
+			redirect(base_url('auth'));
+		}
 	
 	}
 
@@ -25,6 +28,13 @@ class Admin extends CI_Controller{
 		$data['count_unit']=$this->model_dokumen_baru->count_unit();
 		$this->load->view('admin/header', $data);
 		$this->load->view('admin/dashboard', $data);
+	}
+
+
+	function bantuan(){
+		$data['title']='Bantuan';
+		$this->load->view('admin/header',$data);
+		$this->load->view('admin/bantuan',$data);
 	}
 	/*
 
@@ -105,12 +115,12 @@ class Admin extends CI_Controller{
 	    }else {
 	    	 if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
-	        var_dump($error);
-	        /*
+	        //var_dump($error);
+	        
 	        echo "<script>alert('Upload Gagal!');
 				document.location='".base_url()."admin/buatDokumenBaru';
 				</script>";
-			*/
+			
 			
 	        //redirect(base_url('admin/buatDokumenBaru'));
 	    }else {
@@ -196,16 +206,19 @@ class Admin extends CI_Controller{
 	    $this->load->library('upload', $config);
 	    $this->upload->initialize($config);
 
-	    if (!$this->upload->do_upload('file')) {
-	        $error = ['error' => $this->upload->display_errors()];
-	        redirect(base_url('admin/buatPeraturan'));
+		if (!$this->upload->do_upload('file')) {
+	        	$error = ['error' => $this->upload->display_errors()];
+	        	echo "<script>alert('File Harus Ada Yang DiUpload!');
+				document.location='".base_url()."admin/buatDokumenBaru';
+				</script>";
+	        	//redirect(base_url('admin/editDokumen'));
 	    } else {
 	    	$dokumen=$this->upload->data();
-	         $data = array(
-	        	'kode'=>$kode,
-	          	'file' => $dokumen['file_name'],
-	          	'id_status_dokumen'=>$id_status_dokumen,
-	          	'id_jenis_dokumen'=>$id_jenis_dokumen,
+		        $data = array(
+		        'kode'=>$kode,
+		        'file' => $dokumen['file_name'],
+		        'id_status_dokumen'=>$id_status_dokumen,
+		        'id_jenis_dokumen'=>$id_jenis_dokumen,
 				'nama_dokumen'=>$nama_dokumen,
 				'id_revisi'=>$id_revisi,
 				'keterangan'=>$keterangan,
@@ -213,9 +226,8 @@ class Admin extends CI_Controller{
 	      		);
 	        $where=array('id_dokumen'=>$id_dokumen);
 	        $this->model_dokumen_baru->update_dokumen($where, $data, 'tb_dokumen_baru');
-	          redirect(base_url('admin/buatDokumenBaru'));
+	        redirect(base_url('admin/buatDokumenBaru'));
 	    }
-		
 		
 	}
 
@@ -239,7 +251,7 @@ class Admin extends CI_Controller{
 		$data['catatan_mutu']=$this->model_catatan_mutu->get_judul();
 		$data['status_dokumen']=$this->model_dokumen_baru->get_status();
 		$data['tb_dokumen_baru']=$this->model_dokumen_baru->get_dokumen();
-		$data['internal']=$this->model_dokumen_baru->get_detail();
+		$data['internal']=$this->model_dokumen_baru->get_detail_admin();
 
 		//filter search...
 		$filter=$this->input->post('filter');
@@ -248,7 +260,7 @@ class Admin extends CI_Controller{
 		if (isset($filter) && !empty($search)) {
            $data['internal'] = $this->model_dokumen_baru->getDetailWhereLike($field, $search);
         } else {
-            $data['internal'] = $this->model_dokumen_baru->get_detail();
+            $data['internal'] = $this->model_dokumen_baru->get_detail_admin();
         }
 
 		$this->load->view('admin/header',$data);
@@ -431,10 +443,10 @@ class Admin extends CI_Controller{
 	    if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
 	        //var_dump($error);
-	        echo "<script>alert('Upload Gagal!');
+	        echo "<script>alert('File Harus Ada Yang DiUpload!');
 				document.location='".base_url()."admin/buatPeraturan';
 				</script>";
-	        redirect(base_url('admin/buatPeraturan'));
+	        //redirect(base_url('admin/buatPeraturan'));
 	    } else {
 	    	$file=$this->upload->data();
 	        $data = array(
@@ -576,10 +588,10 @@ class Admin extends CI_Controller{
 	    if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
 	        //var_dump($error);
-	        echo "<script>alert('Upload Gagal!');
+	        echo "<script>alert('File Harus Ada Yang Diupload!');
 				document.location='".base_url()."admin/buatCatatanMutu';
 				</script>";
-	        redirect(base_url('admin/buatPeraturan'));
+	        //redirect(base_url('admin/buatPeraturan'));
 	    } else {
 	    	$catatan=$this->upload->data();
 	        $data = array(

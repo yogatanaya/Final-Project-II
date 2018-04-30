@@ -1,7 +1,4 @@
         <div id="page-wrapper">
-             <div class="alert alert-warning">
-                    Perhatian! Sebelum menghapus catatan mutu harap remove terlebih dahulu link tautan di sub menu detail pada dokumen unit</a>.
-                </div>
             <div class="col-lg-12">
                 <h1 class="page-header">Catatan Mutu</h1>
                 <div class="page-body">
@@ -67,7 +64,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="masa_berlaku">Masa Berlaku<font color="red">*</font></label>
                                 <div class="col-md-6">
-                                    <input id="masa_berlaku" name="masa_berlaku" type="date" placeholder="Masa Berlaku" class="form-control">
+                                    <input id="masa_berlaku" name="masa_berlaku" type="date" placeholder="Masa Berlaku" class="form-control datepicker">
                                 </div>
                         </div>
                                     
@@ -169,9 +166,11 @@
     </div>
     <!-- /#wrapper -->
 
+
+    <script src="<?php echo base_url('assets/js-webshim/minified/polyfiller.js');?>"></script> 
     <!-- jQuery -->
     <script src="<?php echo base_url('assets/vendor/jquery/jquery.min.js');?>"></script>
-
+     <script type="text/javascript" src="<?php echo base_url('assets/datepicker/js/bootstrap-datepicker.min.js');?>"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="<?php echo base_url('assets/vendor/bootstrap/js/bootstrap.min.js');?>"></script>
 
@@ -197,5 +196,15 @@
             responsive: true
         });
     });
+
+    </script>
+     <script type="text/javascript">
+     $(function(){
+      $(".datepicker").datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true,
+          todayHighlight: true,
+      });
+     });
     </script>
 </body>

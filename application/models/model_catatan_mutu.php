@@ -38,6 +38,7 @@ class model_catatan_mutu extends CI_Model{
         $query->free_result();
         return $data;   
     }
+
 	
     function get_catatan(){
         $query=$this->db->query('
