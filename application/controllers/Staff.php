@@ -672,7 +672,7 @@ class Staff extends CI_Controller {
 
 	
 		if($confirmPass==$newpass){
-			$data=array('password'=>$newpass);
+			$data=array('password'=>sha1($newpass));
 			$where=array('nama'=>$this->session->userdata('nama'));
 			$this->model_login->edit_pass($where, $data, 'tb_admin');
 	        redirect(base_url('staff/formUbahPassword'));

@@ -749,7 +749,7 @@ class Admin extends CI_Controller{
 				'nama'=>$nama,
 				'id_unit'=>$id_unit,
 				'username'=>$username,
-				'password'=>$password,
+				'password'=>sha1($password),
 				'date_user'=>date('Y-m-d'),
 				'tipe'=>0
 			);

@@ -18,9 +18,10 @@ class Auth extends CI_Controller{
     $username=$this->input->post('username');
     $password=$this->input->post('password');
 
-    $data = array('username' =>  $username, 
-            'password' => sha1($password)
+     $data = array('username' =>  $username, 
+                  'password' => sha1($password)
             );
+
 
     $hasil = $this->model_login->cek_user($data);
     if ($hasil->num_rows() == 1){
