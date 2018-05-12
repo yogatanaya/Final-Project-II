@@ -1,12 +1,11 @@
         <div id="page-wrapper">
             <div class="col-lg-12">
                 <h1 class="page-header">Catatan Mutu</h1>
-                <div class="page-body">
-                     <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#modalCatatan"></a>
-                </div> 
-                <hr>
+                
                 <form class="form-inline" action="<?php echo base_url('staff/buatCatatanMutu');?>" method="post">
-                    <select class="form-control" name="field">
+                    
+                     <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#modalCatatan"></a>
+                     <select class="form-control" name="field">
                         <option selected="selected" disabled="disabled" value="">Filter By</option>
                         <option value="judul">Judul</option>
                         <option value="status_cm">Status</option>
@@ -14,10 +13,12 @@
                         <option value="lokasi_simpan">Lokasi</option>
                         <option value="metode">metode</option>
                     </select>
-                    <input class="form-control" type="text" name="search" value="" placeholder="Search...">
+                    <input class="form-control" type="text" name="search" value="" placeholder="Search..."
+                    style="width: 800px;">
                     <input class="btn btn-default" type="submit" name="filter" value="Go">
+               
                 </form>
-                <hr>
+               <hr>
             </div>
 
              <!-- Modal Tambah -->

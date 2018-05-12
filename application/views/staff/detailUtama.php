@@ -10,7 +10,8 @@
                                 <option value="jenis_dokumen">Jenis Dokumen</option>
                                 <option value="status_dokumen">Status Dokumen</option>
                             </select>
-                            <input class="form-control" type="text" name="search" value="" placeholder="Search...">
+                            <input class="form-control" type="text" name="search" value="" placeholder="Search..."
+                            style="width: 800px;">
                             <input class="btn btn-default" type="submit" name="filter" value="Go">
                         </form>
                  <hr>

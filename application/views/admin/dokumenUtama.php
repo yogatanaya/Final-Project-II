@@ -4,20 +4,18 @@
             </div>
             <div class="col-lg-12">
                 <h1 class="page-header">Dokumen Unit</h1>
-                <div class="page-body">
-                    <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#dokumenBaru"></a>
+             
+                <form class="form-inline" action="<?php echo base_url('admin/buatDokumenBaru');?>" method="post">
+                     <a href="#" class="btn btn-md btn-primary glyphicon glyphicon-plus" data-toggle="modal" data-target="#dokumenBaru"></a>
                     <a href="#" class="btn btn-md btn-success glyphicon glyphicon-list-alt" data-toggle="modal" data-target="#formExportUnit"></a>
                 
-                </div> 
-                <hr>
-                <form class="form-inline" action="<?php echo base_url('admin/buatDokumenBaru');?>" method="post">
                     <select class="form-control" name="field">
                         <option selected="selected" disabled="disabled" value="">Filter By</option>
                         <option value="unit">Unit</option>
                         <option value="jenis_dokumen">Jenis Dokumen</option>
                         <option value="status_dokumen">Status Dokumen</option>
                     </select>
-                    <input class="form-control" type="text" name="search" value="" placeholder="Search...">
+                    <input class="form-control" type="text" name="search" value="" placeholder="Search..." style="width: 800px;">
                     <input class="btn btn-default" type="submit" name="filter" value="Go">
                 </form>
                 <hr>

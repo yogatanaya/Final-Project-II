@@ -8,7 +8,7 @@
             <div class="panel-body">
                 <h2 class="page-header">Keterangan</h2>
                 <ol>
-                    <li>Tombol untuk membuat Dokumen Daru</li>
+                    <li>Tombol untuk membuat Dokumen Baru</li>
                     <li>Tombol untuk memilih kategori pencarian dokumen</li>
                     <li>Tombol untuk memasukan kata kunci pencarian</li>
                     <li>Tombol untuk melakukan pencarian</li>
@@ -25,7 +25,7 @@
             <div class="panel-body">
                 <ol>
                     <li>Tombol untuk memilih Dokumen Terkait</li>
-                    <li>Tombol untuk memilih Catatan Cutu</li>
+                    <li>Tombol untuk memilih Catatan Mutu</li>
                     <li>Tombol untuk menghubungkan kedua dokumen</li>
                     <li>Tombol untuk menghapus keterkaitan antar dokumen</li>
                   
