@@ -251,7 +251,7 @@ class Admin extends CI_Controller{
 		$data['catatan_mutu']=$this->model_catatan_mutu->get_judul();
 		$data['status_dokumen']=$this->model_dokumen_baru->get_status();
 		$data['tb_dokumen_baru']=$this->model_dokumen_baru->get_dokumen();
-		$data['internal']=$this->model_dokumen_baru->get_detail_admin();
+		$data['internal']=$this->model_dokumen_baru->get_detail();
 
 		//filter search...
 		$filter=$this->input->post('filter');
@@ -260,7 +260,7 @@ class Admin extends CI_Controller{
 		if (isset($filter) && !empty($search)) {
            $data['internal'] = $this->model_dokumen_baru->getDetailWhereLike($field, $search);
         } else {
-            $data['internal'] = $this->model_dokumen_baru->get_detail_admin();
+            $data['internal'] = $this->model_dokumen_baru->get_detail();
         }
 
 		$this->load->view('admin/header',$data);
@@ -494,8 +494,8 @@ class Admin extends CI_Controller{
 
 
 	public function submitCatatan(){
-		$judul=$this->input->post('judul');
 		//$id_catatan=$this->input->post('id_catatan');
+		$judul=$this->input->post('judul');
 		$id_status_cm=$this->input->post('id_status_cm');
 		$masa_berlaku=$this->input->post('masa_berlaku');
 		$lokasi_simpan=$this->input->post('lokasi_simpan');
@@ -504,53 +504,58 @@ class Admin extends CI_Controller{
 		$entry_date=$this->input->post('entry_date');
 		$id_admin=$_SESSION['id_admin'];
 
+
+		$config['upload_path']          = 'files/catatan';
+        $config['allowed_types']        = '*';
+        $config['max_size']             = 0;
+  		$config['overwrite'] = TRUE;
+
+	    $this->load->library('upload', $config);
+	    $this->upload->initialize($config);
+
+		//$this->form_validation->set_rules('id_catatan','id_catatan','required');
 		$this->form_validation->set_rules('judul','judul','required');
-		$this->form_validation->set_rules('id_catatan','id_catatan','required');
 		$this->form_validation->set_rules('id_status_cm','id_status_cm','required');
 		$this->form_validation->set_rules('masa_berlaku','masa_berlaku','required');
 		$this->form_validation->set_rules('lokasi_simpan','lokasi_simpan','required');
 		$this->form_validation->set_rules('id_metode','id_metode','required');
 
 		if($this->form_validation->run()==FALSE){
-			echo "<script>
-			alert('Form kurang lengkap');
+	    	echo "<script>alert('Form kurang lengkap');
 			document.location='".base_url()."admin/buatCatatanMutu';
 			</script>";
-		}
-		$config['upload_path']          = 'files/catatan';
-        $config['allowed_types']        = '*';
-        $config['max_size']             = 0;
-  
-	    $this->load->library('upload', $config);
-	    $this->upload->initialize($config);
-	    if (!$this->upload->do_upload('file')) {
+	    }else {
+	    	 if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
 	        //var_dump($error);
+	        
 	        echo "<script>alert('Upload Gagal!');
 				document.location='".base_url()."admin/buatCatatanMutu';
 				</script>";
-	        redirect(base_url('admin/buatCatatanMutu'));
-	    } else {
-	    	$catatan=$this->upload->data();
-	        $data = array(
-	          	'file' => $catatan['file_name'],
-	          	'id_status_cm'=>$id_status_cm,
-				'judul'=>$judul,
-				//'id_catatan'=>$id_catatan,
-				'masa_berlaku'=>$masa_berlaku,
-				'lokasi_simpan'=>$lokasi_simpan,
-				'entry_date'=>date('Y-m-d'),
-				'id_metode'=>$id_metode,
-				'id_admin'=>$id_admin
-	      		);
-	          $this->model_catatan_mutu->insert_catatan($data, 'catatan_mutu');
-	          echo "<script>alert('Catatan Tersimpan');
-				document.location='".base_url()."admin/buatCatatanMutu';
-				</script>";
-	          redirect(base_url('admin/buatCatatanMutu'));
-	          $this->model_catatan_mutu->insert_catatan($data, 'catatan_mutu');
+			
+			
+	        //redirect(base_url('admin/buatDokumenBaru'));
+			}else {
+		    	$catatan=$this->upload->data();
+		        $data = array(
+		          	'file' => $catatan['file_name'],
+		          	'judul'=>$judul,
+		          	'id_status_cm'=>$id_status_cm,
+		          	'masa_berlaku'=>$masa_berlaku,
+					'lokasi_simpan'=>$lokasi_simpan,
+					'id_metode'=>$id_metode,
+					'keterangan'=>$keterangan,
+					'entry_date'=>date('Y-m-d'),
+					'id_admin'=>$id_admin
+		      		);
+		      	
+		          $this->model_catatan_mutu->insert_catatan($data, 'catatan_mutu');
+		          echo "<script>alert('Catatan Mutu Tersimpan');
+					</script>";
+		          redirect(base_url('admin/buatCatatanMutu'));
+		          
+		    }
 	    }
-
 		
 	}
 
@@ -744,7 +749,19 @@ class Admin extends CI_Controller{
 		$username=$this->input->post('username');
 		$password=$this->input->post('password');
 		$tipe=$this->input->post('tipe');
-		if($id_unit==1 || $id_unit==5){
+
+
+		$this->form_validation->set_rules('nama','nama','required');
+        $this->form_validation->set_rules('id_unit','id_unit','required');
+        $this->form_validation->set_rules('username','username','required');
+        $this->form_validation->set_rules('password','password','required');
+
+        if($this->form_validation->run()==FALSE){
+	    	echo "<script>alert('Form kurang lengkap');
+			document.location='".base_url()."admin/buatDokumenBaru';
+			</script>";
+	    }else{
+	    	if($id_unit==1 || $id_unit==5){
 			$data=array(
 				'nama'=>$nama,
 				'id_unit'=>$id_unit,
@@ -766,7 +783,9 @@ class Admin extends CI_Controller{
 			);
 			$this->model_login->addUser($data, 'tb_admin');
 			redirect(base_url('admin/formRegistrasi'));
-		}
+			}
+	    }
+		
 	}
 
 	function addUnit(){

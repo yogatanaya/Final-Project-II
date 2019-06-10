@@ -303,6 +303,15 @@ class Staff extends CI_Controller {
 		$entry_date=$this->input->post('entry_date');
 		$id_admin=$_SESSION['id_admin'];
 
+		$config['upload_path']          = 'files/catatan';
+        $config['allowed_types']        = '*';
+        $config['max_size']             = 0;
+  		$config['overwrite'] = TRUE;
+
+	    $this->load->library('upload', $config);
+	    $this->upload->initialize($config);
+
+
 		//$this->form_validation->set_rules('id_catatan','id_catatan','required');
 		$this->form_validation->set_rules('judul','judul','required');
 		$this->form_validation->set_rules('id_status_cm','id_status_cm','required');
@@ -311,46 +320,45 @@ class Staff extends CI_Controller {
 		$this->form_validation->set_rules('id_metode','id_metode','required');
 
 		if($this->form_validation->run()==FALSE){
-			echo "<script>
-			alert('Form kurang lengkap);
+	    	echo "<script>alert('Form kurang lengkap');
 			document.location='".base_url()."staff/buatCatatanMutu';
 			</script>";
-		}
-		$config['upload_path']          = 'files/catatan';
-        $config['allowed_types']        = '*';
-        $config['max_size']             = 0;
-  
-	    $this->load->library('upload', $config);
-	    $this->upload->initialize($config);
-	    if (!$this->upload->do_upload('file')) {
+	    }else {
+	    	 if (!$this->upload->do_upload('file')) {
 	        $error = ['error' => $this->upload->display_errors()];
 	        //var_dump($error);
+	        
 	        echo "<script>alert('Upload Gagal!');
 				document.location='".base_url()."staff/buatCatatanMutu';
 				</script>";
-	        redirect(base_url('staff/buatCatatanMutu'));
-	    } else {
+			
+			
+	        //redirect(base_url('admin/buatDokumenBaru'));
+	    }else {
 	    	$catatan=$this->upload->data();
 	        $data = array(
 	          	'file' => $catatan['file_name'],
+	          	'judul'=>$judul,
 	          	'id_status_cm'=>$id_status_cm,
-				'judul'=>$judul,
-				'masa_berlaku'=>$masa_berlaku,
+	          	'masa_berlaku'=>$masa_berlaku,
 				'lokasi_simpan'=>$lokasi_simpan,
-				'entry_date'=>date('Y-m-d'),
 				'id_metode'=>$id_metode,
+				'keterangan'=>$keterangan,
+				'entry_date'=>date('Y-m-d'),
 				'id_admin'=>$id_admin
 	      		);
+	      	
 	          $this->model_catatan_mutu->insert_catatan($data, 'catatan_mutu');
-	          echo "<script>alert('Catatan Tersimpan');
-				document.location='".base_url()."staff/buatCatatanMutu';
+	          echo "<script>alert('Catatan Mutu Tersimpan');
 				</script>";
 	          redirect(base_url('staff/buatCatatanMutu'));
 	          
+	    	}
 	    }
-
 		
 	}
+
+
 	public function editCatatan($id){
 		$data['title']='Edit Catatan';
 		$where = array('id_catatan' => $id
@@ -596,8 +604,16 @@ class Staff extends CI_Controller {
 		$data=array(
 			'regulator'=>$regulator
 		);
-		$this->model_peraturan->insert_regulator($data, 'regulator');
-		redirect(base_url('staff/formTambahRegulator'));
+		$this->form_validation->set_rules('regulator','regulator','required');
+		if($this->form_validation->run()==FALSE){
+	    	echo "<script>alert('Silahkan Isi Regulator Baru');
+			document.location='".base_url()."staff/formTambahRegulator';
+			</script>";
+	    }else{
+	    	$this->model_peraturan->insert_regulator($data, 'regulator');
+			redirect(base_url('staff/formTambahRegulator'));
+	    }
+		
 	}
 	public function hapusRegulator($id){
 		$this->db->where('id_regulator',$id);
@@ -620,8 +636,16 @@ class Staff extends CI_Controller {
 		$data=array(
 			'jenis_dokumen'=>$jenis_dokumen
 		);
-		$this->model_dokumen_baru->insert_jenis($data, 'tb_jenis_dokumen');
-		redirect(base_url('staff/formTambahJenis'));
+		$this->form_validation->set_rules('jenis_dokumen', 'jenis_dokumen', 'required');
+		if($this->form_validation->run()==FALSE){
+	    	echo "<script>alert('Silahkan Isi Jenis Dokumen Baru');
+			document.location='".base_url()."staff/formTambahJenis';
+			</script>";
+	    }else{
+	   		$this->model_dokumen_baru->insert_jenis($data, 'tb_jenis_dokumen');
+			redirect(base_url('staff/formTambahJenis'));
+	    }
+		
 	}
 	public function hapusJenis($id){
 		$this->db->where('id_jenis_dokumen',$id);
@@ -644,8 +668,16 @@ class Staff extends CI_Controller {
 		$data=array(
 			'instansi'=>$instansi
 		);
-		$this->model_peraturan->insert_instansi($data, 'tb_instansi');
-		redirect(base_url('staff/formTambahInstansi'));
+		$this->form_validation->set_rules('instansi', 'instansi', 'required');
+		if($this->form_validation->run()==FALSE){
+	    	echo "<script>alert('Silahkan Isi Kode Instansi');
+			document.location='".base_url()."staff/formTambahInstansi';
+			</script>";
+	    }else{
+	    		$this->model_peraturan->insert_instansi($data, 'tb_instansi');
+				redirect(base_url('staff/formTambahInstansi'));
+	    }
+	
 	}
 	public function hapusInstansi($id){
 		$this->db->where('id_instansi',$id);
@@ -675,7 +707,11 @@ class Staff extends CI_Controller {
 			$data=array('password'=>sha1($newpass));
 			$where=array('nama'=>$this->session->userdata('nama'));
 			$this->model_login->edit_pass($where, $data, 'tb_admin');
-	        redirect(base_url('staff/formUbahPassword'));
+			echo '<script>
+	        alert("Password Baru Telah Tersimpan");
+	        document.location="'.base_url('staff/formUbahPassword').'";
+	        </script>';
+	        //redirect(base_url('staff/formUbahPassword'));
 	     }
 	     else{
 	        echo '<script>

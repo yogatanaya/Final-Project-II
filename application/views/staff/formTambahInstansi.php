@@ -9,11 +9,11 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="instansi">Instansi</label>
                             <div class="col-md-6">
-                                <input id="instansi" name="instansi" type="text" placeholder="Instansi" class="form-control">
+                                <input id="instansi" name="instansi" type="text" placeholder="Instansi" class="form-control" style="width: 300px">
                             </div>
                     </div>
     
-                                                          
+                     &nbsp;                                    
                      
                     <button class="btn btn-info glyphicon glyphicon-plus" type="submit"></button>
                          
@@ -39,7 +39,7 @@
                         <td><?php echo $i['instansi'];?></td>
                         <td>
                             <ul style="list-style-type: none;">
-                                    <li><a href="<?php echo base_url('staff/hapusInstansi/'.$i['id_instansi']);?>" class="glyphicon glyphicon-remove" onclick="return confirm('Anda akan menghapus regulator ini?');"></a>
+                                    <li><a href="<?php echo base_url('staff/hapusInstansi/'.$i['id_instansi']);?>" class="glyphicon glyphicon-remove" onclick="return confirm('Anda akan menghapus Instansi ini?');"></a>
                                  </li>
                             </ul>            
                                     

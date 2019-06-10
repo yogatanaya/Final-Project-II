@@ -9,7 +9,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="jenis_dokumen">Jenis Dokumen</label>
                             <div class="col-md-6">
-                                <input id="jenis_dokumen" name="jenis_dokumen" type="text" placeholder="Jenis Dokumen" class="form-control">
+                                <input id="jenis_dokumen" name="jenis_dokumen" type="text" placeholder="Jenis Dokumen" class="form-control" style="width: 300px">
                             </div>
                     </div>
     
@@ -39,7 +39,7 @@
                         <td><?php echo $j['jenis_dokumen'];?></td>
                         <td>
                             <ul style="list-style-type: none;">
-                                    <li><a href="<?php echo base_url('staff/hapusJenis/'.$j['id_jenis_dokumen']);?>" class="glyphicon glyphicon-remove" onclick="return confirm('Anda akan menghapus regulator ini?');"></a>
+                                    <li><a href="<?php echo base_url('staff/hapusJenis/'.$j['id_jenis_dokumen']);?>" class="glyphicon glyphicon-remove" onclick="return confirm('Anda akan menghapus jenis dokumen ini?');"></a>
                                  </li>
                             </ul>            
                                     

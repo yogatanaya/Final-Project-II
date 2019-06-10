@@ -9,7 +9,7 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="kode">Regulator</label>
                             <div class="col-md-6">
-                                <input id="regulator" name="regulator" type="text" placeholder="Regulator" class="form-control">
+                                <input id="regulator" name="regulator" type="text" placeholder="Regulator" class="form-control" style="width: 300px">
                             </div>
                     </div>
     
